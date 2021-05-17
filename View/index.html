@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <title>This is thee title of the webpage!</title>
+    <script src="nn.js"></script>
+</head>
+<body onload="draw();">
+<meta charset="utf-8"/>
+<p>Visualisierung</p>
+<form id="koordinateForm">
+    <label for="xMax">x-Achsengröße</label><br>
+    <input type="text" id="xMax" name="xMax" value="10" oninput="draw();"><br>
+    <label for="yMax">y-Achsengröße</label><br>
+    <input type="text" id="yMax" name="yMax" value="10" oninput="draw();"><br>
+</form>
+<br>
+<label for="discrete">Discrete</label>
+<input id="discrete" type="radio" name="visual" value="DISCRETE" checked="checked" oninput="draw();">
+<label for="float">Float</label>
+<input id="float" type="radio" name="visual" value="FLOAT" oninput="draw();">
+<div id="networkparameter" onload="createParameterTable();"></div>
+<br>
+<button onclick="draw();">Draw</button>
+<br>
+<canvas id="vis" width="200" height="200"></canvas>
+<div id="tabledivposition"></div>
+<div id="tablediv">
+</div>
+<div id="tabledivlinks"></div>
+</body>
+</html>
+
+<script>
+    let network = new Network([2, 3, 1], Activations.RELU, Activations.LINEAR, Regularizations.L1);
+
+    network.links[0].weight = 2;
+    network.links[1].weight = 1;
+    network.layers[1][0].threshhold = -3;
+
+    let xMax = document.getElementById("xMax").value;
+    let yMax = document.getElementById("yMax").value;
+
+    let positions = [];
+    for (let i = 0; i < 10; i++) {
+        let x = Math.round((Math.random() - 0.5) * xMax);
+
+        let y = Math.round((Math.random() - 0.5) * yMax);
+        positions.push(new Position(x, y, network, i < 5 ? Expectations.positive:Expectations.negative));
+
+    }
+
+    let width = document.getElementById("vis").width;
+    let height = document.getElementById("vis").height;
+
+    function drawVisualizationAndPositions() {
+        let canvas = document.getElementById("vis");
+        let context = canvas.getContext("2d");
+
+        let style = getStyle();
+
+        for (let x = 0; x < width; ++x) {
+            for (let y = 0; y < height; ++y) {
+                let koordinates = transformCanvasToKoordinate(x, y, xMax, yMax, width, height);
+                let result = network.setInputs([koordinates.x, koordinates.y]).forwardUpdate().getFirstOutput();
+                context.fillStyle = style(result);
+                context.fillRect(x, y, 1, 1);
+            }
+        }
+
+        // Punkte Hinzufügen
+
+
+        drawPoints(context, positions);
+
+        // Liste von Punkten hinzufügen
+        let posTable = document.getElementById("tabledivposition");
+        posTable.innerHTML = "";
+        let table = document.createElement("table");
+        let tableBody = document.createElement("tbody");
+
+        positions.forEach(position => {
+            let row = document.createElement("tr");
+            let cell = document.createElement("td");
+            let cellText = document.createTextNode(position.x + " " + position.y);
+            cell.appendChild(cellText);
+            row.appendChild(cell);
+
+            let cell2 = document.createElement("td");
+            let cell2Text = document.createTextNode(position.checkExpectation() ? "Treffer" : "Niete");
+            cell2.bgColor = position.checkExpectation() ? "green" : "red";
+            cell2.appendChild(cell2Text);
+            row.appendChild(cell2);
+
+            let cell3 = document.createElement("td");
+            let cell3Text = document.createTextNode(position.expected);
+            cell3.appendChild(cell3Text);
+            row.appendChild(cell3);
+
+            let cell4 = document.createElement("td");
+            let cell4Text = document.createTextNode(position.getValue());
+            cell4.appendChild(cell4Text);
+            row.appendChild(cell4);
+
+            tableBody.appendChild(row);
+        });
+
+        table.appendChild(tableBody);
+        table.setAttribute("border", "2");
+        posTable.appendChild(table);
+
+
+        //Koordinatenachsen hinzufügen:
+        context.strokeStyle = getRGBString(0, 0, 0);
+        context.beginPath();
+        context.moveTo(width / 2, 0);
+        context.lineTo(width / 2, height);
+        context.moveTo(0, height / 2);
+        context.lineTo(width, height / 2);
+        context.stroke();
+    }
+
+    function draw() {
+
+        drawVisualizationAndPositions();
+
+        let nodeTable = document.getElementById("tablediv");
+        nodeTable.innerHTML = "";
+        network.visualizeNodes(nodeTable);
+
+        let linktable = document.getElementById("tabledivlinks");
+        linktable.innerHTML = "";
+        network.visualizeAllLinks(linktable);
+    }
+
+    let drawPoints = (context, postions, radius = 5) => {
+        postions.forEach((pos) => {
+            let {x0, y0} = transformKoordinateToCanvas(pos.x, pos.y, xMax, yMax, width, height);
+
+            context.strokeStyle = pos.checkExpectation() ? getRGBString(34,139,34) : getRGBString(0, 0, 0);
+
+            context.beginPath();
+            context.arc(x0, y0, radius, 0, 2 * Math.PI);
+            context.stroke();
+
+            context.beginPath();
+            context.arc(x0, y0, 1, 0, 2 * Math.PI);
+            context.stroke();
+        });
+    };
+
+    let getStyle = () => {
+        let radios = document.getElementsByName("visual");
+        let value = Object.values(radios).find(radio => radio.checked).value;
+        return FillStyles[value];
+    };
+
+    let FillStyles = {
+        DISCRETE: (x, r1 = 200, g1 = 0, b1 = 0, r2 = 0, g2 = 200, b2 = 0) => x <= 0 ? getRGBString(r1, g1, b1) : getRGBString(r2, g2, b2),
+        FLOAT: (x) => x <= 0 ? getRGBString(100 + Math.round(-x) * 10, 0, 0) : getRGBString(0, 100 + Math.round(x) * 10, 0),
+    };
+
+    let getRGBString = (r, g, b) => "rgb(" + r + "," + g + "," + b + ")";
+
+    let transformCanvasToKoordinate = (x0, y0, maxXKoord, maxYKoord, width, height) => ({
+        x: (2 * x0 / width - 1) * maxXKoord,
+        y: -(2 * y0 / height - 1) * maxYKoord,
+    });
+
+    let transformKoordinateToCanvas = (x, y, maxXKoord, maxYKoord, width, height) => ({
+        x0: (x / maxXKoord + 1) * width / 2,
+        y0: (-y / maxYKoord + 1) * height / 2,
+    });
+</script>
