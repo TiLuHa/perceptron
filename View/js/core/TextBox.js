@@ -1,5 +1,4 @@
 function TextBox(config){
-
 	var self = this;
 	self.id = config.id;
 
@@ -7,6 +6,7 @@ function TextBox(config){
 	self.dom = document.createElement("div");
 	self.dom.className = "object";
 	self.dom.classList.add("textbox");
+	self.dom.id = self.id;
 
 	// Customize
 	_configText(config, self.dom);

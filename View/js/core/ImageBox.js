@@ -7,6 +7,7 @@ function ImageBox(config){
 	self.dom = new Image();
 	self.dom.className = "object";
 	self.dom.src = config.src;
+	self.dom.id = self.id;
 
 	// Customize
 	_configText(config, self.dom);

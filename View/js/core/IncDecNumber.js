@@ -23,6 +23,7 @@ function IncDecNumber(config){
 	dom.style.left = config.x+"px";
 	dom.style.top = config.y+"px";
 	self.dom = dom;
+	self.dom.id = self.id;
 
 	// Number
 	var num = document.createElement("div");

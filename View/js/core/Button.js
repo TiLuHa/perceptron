@@ -19,6 +19,7 @@ function Button(config){
 	button.classList.add("button");
 	if(config.size) button.setAttribute("size", config.size);
 	self.dom = button;
+	self.dom.id = self.id;
 
 	// TOOLTIP?
 	if(config.tooltip){

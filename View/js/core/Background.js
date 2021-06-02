@@ -17,6 +17,7 @@ function Background(config){
 	self.dom.style.width = width+"px";
 	self.dom.style.height = height+"px";
 	self.dom.style.background = config.color;
+	self.dom.id = self.id
 
 	// Add & Remove
 	self.add = function(){ _add(self); };

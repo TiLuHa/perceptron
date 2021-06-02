@@ -17,6 +17,7 @@ function Slider(config){
 	dom.style.top = config.y+"px";
 	dom.style.width = config.width+"px";
 	self.dom = dom;
+	self.dom.id = self.id;
 
 	// Background
 	var bg = document.createElement("div");
