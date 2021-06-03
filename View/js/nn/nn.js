@@ -184,10 +184,10 @@ let Activations =
         STEP: (x,alpha = 0) => x <= alpha ? 0 : 1
     };
 
-let network = new Network([2, 1], Activations.LINEAR, Activations.LINEAR);
-network.input = [2, 2];
-network.links[0].weight = 1;
-network.links[1].weight = 1;
-network.output[0].bias = 3;
-network.forwardUpdate();
-console.log(network.layers);
+// let network = new Network([2, 1], Activations.LINEAR, Activations.LINEAR);
+// network.input = [2, 2];
+// network.links[0].weight = 1;
+// network.links[1].weight = 1;
+// network.output[0].bias = 3;
+// network.forwardUpdate();
+// console.log(network.layers);
