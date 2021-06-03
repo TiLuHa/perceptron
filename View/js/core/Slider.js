@@ -16,8 +16,8 @@ function Slider(config){
 	dom.style.left = config.x+"px";
 	dom.style.top = config.y+"px";
 	dom.style.width = config.width+"px";
+	dom.id = self.id;
 	self.dom = dom;
-	self.dom.id = self.id;
 
 	// Background
 	var bg = document.createElement("div");
@@ -75,7 +75,7 @@ function Slider(config){
 		var value = _paramToValue(param);
 
 		// Publish these changes! (only if ACTUALLY changed)
-		if(self.value != value){
+		if(self.value !== value){
 			if(config.message) publish(config.message, [value]);
 			if(config.onchange) config.onchange(value);
 		}
@@ -98,7 +98,20 @@ function Slider(config){
 	var _onWindowMouseUp = function(){
 		_isDragging = false;
 	};
+	var _onDomMouseWheel = function(event){
+		let direction = event.deltaY < 0 ? -1 : 1;
+		let newValue = self.value + direction;
+
+		if (newValue < config.min || newValue > config.max)
+			return;
+
+		if(config.onselect) config.onselect();
+		if(config.message) publish(config.message, [newValue]);
+		if(config.onchange) config.onchange(newValue);
+	}
+
 	dom.addEventListener("mousedown",_onDomMouseDown,false);
+	dom.addEventListener("wheel", _onDomMouseWheel, false);
 	knob.addEventListener("mousedown",_onKnobMouseDown,false);
 	window.addEventListener("mousemove",_onWindowMouseMove,false);
 	window.addEventListener("mouseup",_onWindowMouseUp,false);
