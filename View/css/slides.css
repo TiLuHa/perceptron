@@ -191,6 +191,7 @@ s{
 
 	text-align: center;
 }
+
 .button #background{
 	position: absolute;
 	background: url(../assets/ui/button.png);
@@ -225,6 +226,23 @@ s{
 	z-index: 100;
 	transform: scale(1.02, 1.02);
 }
+
+.highlight{
+	animation: 1s highlight-animation linear infinite;
+}
+
+@keyframes highlight-animation{
+	0%{
+		transform: scale(1.00);
+	}
+	50%{
+		transform: scale(1.10);
+	}
+	100%{
+		transform: scale(1.00);
+	}
+}
+
 .button[hover=yes] #background{
 	background-position: 0px -125px !important;
 }
