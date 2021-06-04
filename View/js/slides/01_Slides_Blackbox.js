@@ -40,11 +40,10 @@ SLIDES.push({
 	}
 
 },{
-
 	onstart: function (self) {
 
 		// Perceptron
-		self.add({id:"perceptron", type:"Perceptron", x:130, y:133});
+		//self.add({id:"perceptron", type:"Perceptron", x:130, y:133});
 
 		// Buttons
 		self.add({
