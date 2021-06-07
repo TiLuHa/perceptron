@@ -50,12 +50,30 @@ SLIDES.push({
 			width:450,
 			min:1, max:20, step:1,
 			message: "update/node/1"});
+		self.add({id:"xinput", type:"TextBox", x:290, y:0})
+		self.objects.xinput.setText("x:");
+		_.misc = {};
+		listen(_.misc, "update/node/1", function (value) {
+			self.objects.xinput.setText("x:"+value);
+		});
 
 		self.add({id:"slider_input2", type:"Slider",
 			x:300, y:50,
 			width:450,
 			min:1, max:20, step:1,
 			message: "update/node/2"});
+		self.add({id:"yinput", type:"TextBox", x:290, y:50})
+		self.objects.yinput.setText("y:");
+		listen(_.misc, "update/node/2", function (value) {
+			self.objects.yinput.setText("y:"+value);
+		});
+		self.add({id:"nnoutput", type:"TextBox", x:600, y:150})
+		self.objects.nnoutput.setText("output:");
+		listen(_.misc, "newOutput", function (network) {
+			self.objects.nnoutput.setText("output:"+network.getFirstOutput());
+		});
+
+
 
 		// Buttons
 		self.add({

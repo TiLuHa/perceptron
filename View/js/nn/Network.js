@@ -178,12 +178,12 @@ let Activations =
         STEP: (x,alpha = 0) => x <= alpha ? 0 : 1
     };
 
-let network = new Network([2, 1], Activations.LINEAR, Activations.LINEAR);
-network.input = [2, 4];
-network.nodes.forEach(node => node.bias = node.id);
-network.links[0].weight = -2;
-network.links[1].weight = 3;
-network.output[0].bias = 1;
-network.forwardUpdate();
-console.log(network);
-console.log(network.getFirstOutput());
+// let network = new Network([2, 1], Activations.LINEAR, Activations.LINEAR);
+// network.input = [2, 4];
+// network.nodes.forEach(node => node.bias = node.id);
+// network.links[0].weight = -2;
+// network.links[1].weight = 3;
+// network.output[0].bias = 1;
+// network.forwardUpdate();
+// console.log(network);
+// console.log(network.getFirstOutput());
