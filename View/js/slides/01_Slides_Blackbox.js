@@ -43,7 +43,19 @@ SLIDES.push({
 	onstart: function (self) {
 
 		// Perceptron
-		self.add({id:"perceptron", type:"Perceptron", x:130, y:133});
+		self.add({id:"perceptron", type:"Perceptron", x:300, y:0});
+
+		self.add({id:"slider_input1", type:"Slider",
+			x:300, y:0,
+			width:450,
+			min:1, max:20, step:1,
+			message: "update/node/1"});
+
+		self.add({id:"slider_input2", type:"Slider",
+			x:300, y:50,
+			width:450,
+			min:1, max:20, step:1,
+			message: "update/node/2"});
 
 		// Buttons
 		self.add({

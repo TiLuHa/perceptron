@@ -1,6 +1,6 @@
 class Node {
     id;
-    #result = 0; //Value of sum of weights*input + bias
+    result = 0; //Value of sum of weights*input + bias
     output = 0; //Value of activationfunction(result)
     inputLinks = [];
     outputLinks = [];
@@ -14,10 +14,7 @@ class Node {
     }
 
     updateOutput() {
-        if (this._needsUpdate) {
-            // let totalInput = 0;
-            // this.inputLinks.forEach(link => totalInput += link.value);
-            // this.result = totalInput + this.bias;
+        if (this.#needsUpdate) {
             this.result = this.inputLinks.reduce((sum, link) => sum + link.value, this.bias);
             this.output = this.activationFun(this.result);
         }
@@ -26,7 +23,6 @@ class Node {
     setNeedsUpdate() {
         this.#needsUpdate = true;
     }
-
 
     set output(value) {
         this.output = value;
@@ -39,9 +35,6 @@ class Node {
         this.setNeedsUpdate();
     }
 
-    get result() {
-        return this.#result;
-    }
 }
 
 class Link {
@@ -118,17 +111,18 @@ class Network {
     }
 
     forwardUpdate() {
-        this.nodes.forEach(node => node.updateOutput());
+        this.layers.forEach(layer => layer.forEach(node => node.updateOutput()));
         return this;
     }
 
     setInputAndUpdate(input) {
         this.input = input;
         this.forwardUpdate();
+        return this;
     }
 
     get nodes() {
-        return [].concat(...this.layers); //buggy
+        return [].concat(...this.layers);
     }
 
     getById(id) {
@@ -184,10 +178,12 @@ let Activations =
         STEP: (x,alpha = 0) => x <= alpha ? 0 : 1
     };
 
-// let network = new Network([2, 1], Activations.LINEAR, Activations.LINEAR);
-// network.input = [2, 2];
-// network.links[0].weight = 1;
-// network.links[1].weight = 1;
-// network.output[0].bias = 3;
-// network.forwardUpdate();
-// console.log(network.layers);
+let network = new Network([2, 1], Activations.LINEAR, Activations.LINEAR);
+network.input = [2, 4];
+network.nodes.forEach(node => node.bias = node.id);
+network.links[0].weight = -2;
+network.links[1].weight = 3;
+network.output[0].bias = 1;
+network.forwardUpdate();
+console.log(network);
+console.log(network.getFirstOutput());
