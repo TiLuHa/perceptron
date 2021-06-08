@@ -63,7 +63,7 @@ class Link {
 class Network {
     layers = [];
     links = [];
-    constructor(networkShape, activation, outputActivation) {
+    constructor(networkShape, activation, outputActivation, inputActivation = Activations.LINEAR, inputBias = 0) {
         let numLayers = networkShape.length;
 
         for (let layerIdx = 0; layerIdx < numLayers; ++layerIdx) {
@@ -78,8 +78,8 @@ class Network {
                 if (isOutputLayer) {
                     node.activationFun = outputActivation;
                 } else if (isInputLayer) {
-                    node.activationFun = Activations.LINEAR;
-                    node.bias = 0;
+                    node.activationFun = inputActivation;
+                    node.bias = inputBias;
                 } else {
                     node.activationFun = activation;
                 }
