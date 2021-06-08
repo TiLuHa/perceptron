@@ -38,5 +38,36 @@ SLIDES.push({
 		self.remove("btmWords");
 		self.remove("btnNext");
 	}
+},{
+	onstart(self) {
+		//Words Top
+		self.add({
+			id:"topWords", type:"TextBox", text_id:"01_birnenlegen",
+			x:130, y:10, width:700, height:100, align:"center"
+		});
+
+		// Buttons
+		self.add({
+			id:"birne1", type:"Button", x:275, y:463,
+			text_id:"01_birne1", size:"short",
+			onclick:function(){
+				publish("update/0",[5]);
+				publish("update/1",[7]);
+			}
+		});
+
+		// Buttons
+		self.add({
+			id:"btnNext", type:"Button", x:275, y:463, text_id:"01_button_next", uppercase:true,
+			onclick:function(){
+				publish("slideshow/next");
+			}
+		});
+	},
+	onend: function (self) {
+		self.remove("topWords");
+		self.remove("birne1");
+		self.remove("btnNext");
+	}
 });
 

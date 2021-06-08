@@ -14,27 +14,27 @@ SLIDES.push({
             x:300, y:0,
             width:450,
             min:1, max:20, step:1,
-            message: "update/node/0"});
+            message: "update/0"});
         self.add({id:"input1", type:"TextBox", x:290, y:0})
         self.objects.input1.setText("x:");
         _.misc = {};
-        listen(_.misc, "update/node/0", function (value) {
+        listen(_.misc, "update/0", function (value) {
             self.objects.input1.setText("x:"+value);
         });
-        publish("update/node/0", [6]);
+        publish("update/0", [6]);
 
         //Slider Input2
         self.add({id:"slider_input2", type:"Slider",
             x:300, y:50,
             width:450,
             min:1, max:20, step:1,
-            message: "update/node/1"});
+            message: "update/1"});
         self.add({id:"input2", type:"TextBox", x:290, y:50})
         self.objects.input2.setText("y:");
-        listen(_.misc, "update/node/1", function (value) {
+        listen(_.misc, "update/1", function (value) {
             self.objects.input2.setText("y:"+value);
         });
-        publish("update/node/1", [5]);
+        publish("update/1", [5]);
 
         //Anzeige Output
         self.add({id:"nnoutput", type:"TextBox", x:600, y:150})
@@ -48,57 +48,57 @@ SLIDES.push({
             x:150, y:75,
             width:100,
             min:-10, max:10, step:1,
-            message: "update/link/0-2"});
+            message: "update/0-2"});
         //Anzeige weight1
         self.add({id:"weight1", type:"TextBox", x:150, y:50})
         self.objects.weight1.setText("weight1:");
         listen(_.misc, "newOutput", function (network) {
             self.objects.weight1.setText("weight1:"+network.links[0].weight);
         });
-        publish("update/link/0-2", [network.links[0].weight]);
+        publish("update/0-2", [network.links[0].weight]);
         //Slider Weight2
 
         self.add({id:"slider_weight2", type:"Slider",
             x:150, y:325,
             width:100,
             min:-10, max:10, step:1,
-            message: "update/link/1-2"});
+            message: "update/1-2"});
         //Anzeige weight2
         self.add({id:"weight2", type:"TextBox", x:150, y:300})
         self.objects.weight2.setText("weight2:");
         listen(_.misc, "newOutput", function (network) {
             self.objects.weight2.setText("weight2:"+network.links[1].weight);
         });
-        publish("update/link/1-2", [network.links[1].weight]);
+        publish("update/1-2", [network.links[1].weight]);
         //Slider bias
 
         self.add({id:"slider_bias", type:"Slider",
             x:400, y:100,
             width:100,
             min:-10, max:10, step:1,
-            message: "update/node/2"});
+            message: "update/2"});
         //Anzeige bias
         self.add({id:"bias", type:"TextBox", x:400, y:75})
         self.objects.bias.setText("bias:");
         listen(_.misc, "newOutput", function (network) {
             self.objects.bias.setText("bias:"+network.nodes[2].bias);
         });
-        publish("update/node/2", [network.nodes[2].bias]);
+        publish("update/2", [network.nodes[2].bias]);
 
         // Spezialwert1
         self.add({
             id: "spezial1", type: "Button", x: 400, y: 370, text_id: "spezial1",
             onclick: function () {
-                publish("update/node/0", [0]);
-                publish("update/node/1", [0]);
+                publish("update/0", [0]);
+                publish("update/1", [0]);
             }
         });
         // Spezialwert2
         self.add({
             id:"spezial2", type:"Button", x:600, y:370, text_id:"spezial2",
             onclick:function(){
-                publish("update/node/0",[5]);
-                publish("update/node/1",[7]);
+                publish("update/0",[5]);
+                publish("update/1",[7]);
             }
         });
 
@@ -126,7 +126,6 @@ SLIDES.push({
         self.remove("weight2");
         self.remove("spezial1");
         self.remove("bias");
-
     }
 
 
