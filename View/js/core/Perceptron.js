@@ -18,10 +18,10 @@ function Perceptron(config){
     var network = new Network([2, 1], Activations.RELU, Activations.RELU);
     console.log(network);
 
-    network.nodes.concat(network.links).forEach(x => listen(network, "update/"+x.id, function (value) {
+    network.nodes.concat(network.links).forEach(x => listen(network, "update/"+x.id, function (value, expected) {
         network.getById(x.id).param = value;
         network.forwardUpdate();
-        publish("newOutput", [network]);
+        publish("newOutput", [network, expected]);
     }));
 
     self.network = network;
