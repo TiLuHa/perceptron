@@ -30,6 +30,8 @@ function Perceptron(config){
         publish("newOutput", [network]);
     }));
 
+    self.network = network;
+
     // Add & Remove
     self.add = function(){ _add(self); };
     self.remove = function(){ _remove(self); };

@@ -34,6 +34,14 @@ class Node {
         this.setNeedsUpdate();
     }
 
+    get param() {
+        return this.bias;
+    }
+
+    set param(value) {
+        this.bias = value;
+    }
+
 }
 
 class Link {
@@ -57,6 +65,14 @@ class Link {
     set weight(weight) {
         this.weight = weight;
         this.destination.setNeedsUpdate();
+    }
+
+    get param() {
+        return this.weight;
+    }
+
+    set param(value) {
+        this.weight = value;
     }
 }
 
