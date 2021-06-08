@@ -112,6 +112,7 @@ SLIDES.push({
     },
 
     onend: function(self){
+        unlisten(_.misc);
         self.remove("btnNext");
         self.remove("perceptron");
         self.remove("slider_input1");

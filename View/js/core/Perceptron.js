@@ -34,5 +34,8 @@ function Perceptron(config){
 
     // Add & Remove
     self.add = function(){ _add(self); };
-    self.remove = function(){ _remove(self); };
+    self.remove = function(){
+        unlisten(network);
+        _remove(self);
+    };
 }
