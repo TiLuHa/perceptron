@@ -20,6 +20,10 @@ function Perceptron(config){
         publish("newOutput", [network, expected]);
     }));
 
+    network.nodes.concat(network.links).forEach(x => listen(network, "change/"+x.id, function (value, expected) {
+        network.getById(x.id).param = value;
+    }));
+
     self.network = network;
 
     // Add & Remove

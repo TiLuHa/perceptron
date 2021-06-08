@@ -60,11 +60,25 @@ SLIDES.push({
 			self.add({
 				id: "birne" + i, type: "Button", x: x, y: y + i * abs,
 				onclick: function () {
-					publish("update/0", [birne.x, birne.expected]);
+					publish("change/0", [birne.x, birne.expected]);
 					publish("update/1", [birne.y, birne.expected]);
 				}
 			});
 			self.objects["birne" + i].setText2("x:" + birne.x + " y:" + birne.y);
+			self.add({
+				id: "birneExp"+i, type: "ImageBox",
+				x: x-65, y: y+i*abs,
+				width: 50, height: 50,
+				src:"assets/Jochen/frowny.PNG",
+			})
+			_hide(self.objects["birneExp"+i])
+			listen(_.misc, "newOutput", (network) => {
+				if ((network.getFirstOutput() != birne.expected)
+					&& (network.input[0].output === birne.x)
+					&& (network.input[1].output === birne.y)){
+					_show(self.objects["birneExp"+i]);
+				}
+			});
 		});
 
 		// Perceptron
@@ -92,7 +106,6 @@ SLIDES.push({
 		});
 		_hide(self.objects.outputSellNo);
 		listen(_.misc, "newOutput", (network, expected) => {
-			console.log(network.getFirstOutput())
 			if (network.getFirstOutput() === 1) {
 				_hide(self.objects.outputSellNo);
 				_show(self.objects.outputSell, 0);
