@@ -5,12 +5,11 @@ class Node {
     inputLinks = [];
     outputLinks = [];
     bias = Math.round((Math.random() - 0.5) * 10);
-    activationFun;
+    activationFun = Activations.STEP;
     #needsUpdate = true;
 
-    constructor(id, activationFun = Activations.STEP) {
+    constructor(id) {
         this.id = id;
-        this.activationFun = activationFun;
     }
 
     updateOutput() {
@@ -69,12 +68,21 @@ class Network {
 
         for (let layerIdx = 0; layerIdx < numLayers; ++layerIdx) {
             let isOutputLayer = layerIdx === numLayers - 1;
+            let isInputLayer = layerIdx === 0;
             let currentLayer = [];
             this.layers.push(currentLayer);
             let numNodes = networkShape[layerIdx];
 
             for (let i = 0; i < numNodes; ++i) {
-                let node = new Node(this.generateNodeId(), isOutputLayer ? outputActivation : activation);
+                let node = new Node(this.generateNodeId());
+                if (isOutputLayer) {
+                    node.activationFun = outputActivation;
+                } else if (isInputLayer) {
+                    node.activationFun = Activations.LINEAR;
+                    node.bias = 0;
+                } else {
+                    node.activationFun = activation;
+                }
                 currentLayer.push(node);
 
                 if (layerIdx >= 1) {

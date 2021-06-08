@@ -22,18 +22,13 @@ function Perceptron(config){
         link.weight = value;
         network.forwardUpdate();
         publish("newOutput", [network]);
-        console.log(network.getFirstOutput());
     }));
 
     network.nodes.forEach(node => listen(network, "update/node/" + node.id, function (value) {
         node.bias = value;
         network.forwardUpdate();
         publish("newOutput", [network]);
-        console.log(network.getFirstOutput());
     }));
-
-
-
 
     // Add & Remove
     self.add = function(){ _add(self); };
