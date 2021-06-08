@@ -73,6 +73,9 @@ SLIDES.push({
 			})
 			_hide(self.objects["birneExp"+i])
 			listen(_.misc, "newOutput", (network) => {
+				//Prüfe ob der Output NICHT übereinstimmt und dann
+				//ob der Input zu dem Frowny gehört.
+				// noinspection EqualityComparisonWithCoercionJS
 				if ((network.getFirstOutput() != birne.expected)
 					&& (network.input[0].output === birne.x)
 					&& (network.input[1].output === birne.y)){
@@ -128,6 +131,7 @@ SLIDES.push({
 		self.remove("topWords");
 		_.birnen.forEach((b, i) => {
 			self.remove("birne" + i);
+			self.remove("birneExp" + i);
 		});
 		self.remove("btnNext");
 		self.remove("outputSell");
