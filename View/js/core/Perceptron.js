@@ -8,15 +8,11 @@ function Perceptron(config){
     self.dom.className = "object";
     var dom = self.dom;
 
-    // Add Image Background
-    var bg = new ImageBox({
-        src: "assets/Jochen/Perceptron.PNG",
-        x:0, y:0, width:640, height:400
-    });
-    dom.appendChild(bg.dom);
-
-    var network = new Network([2, 1], Activations.RELU, Activations.RELU);
+    var network = new Network(config.size, config.activationFun, config.activationFunOutput);
     console.log(network);
+    if(config.params) network.changeParams(config.params);
+    console.log(network);
+
 
     network.nodes.concat(network.links).forEach(x => listen(network, "update/"+x.id, function (value, expected) {
         network.getById(x.id).param = value;

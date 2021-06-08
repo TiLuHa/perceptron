@@ -1,10 +1,10 @@
 class Node {
     id;
+    bias = Math.round((Math.random() - 0.5) * 10);
     result = 0; //Value of sum of weights*input + bias
     output = 0; //Value of activationfunction(result)
     inputLinks = [];
     outputLinks = [];
-    bias = Math.round((Math.random() - 0.5) * 10);
     activationFun = Activations.STEP;
     #needsUpdate = true;
 
@@ -79,7 +79,7 @@ class Link {
 class Network {
     layers = [];
     links = [];
-    constructor(networkShape, activation, outputActivation, inputActivation = Activations.LINEAR, inputBias = 0) {
+    constructor(networkShape, activation, outputActivation, inputActivation = Activations.LINEAR) {
         let numLayers = networkShape.length;
 
         for (let layerIdx = 0; layerIdx < numLayers; ++layerIdx) {
@@ -95,7 +95,7 @@ class Network {
                     node.activationFun = outputActivation;
                 } else if (isInputLayer) {
                     node.activationFun = inputActivation;
-                    node.bias = inputBias;
+                    node.bias = 0;
                 } else {
                     node.activationFun = activation;
                 }
@@ -112,6 +112,10 @@ class Network {
                 }
             }
         }
+    }
+
+    changeParams(params) {
+        Object.entries(params).forEach(([id, value]) => this.getById(id).param = value);
     }
 
     #idCounter = 0;
@@ -150,11 +154,10 @@ class Network {
     }
 
     getById(id) {
-        return Number.isInteger(id) ?
-              this.nodes.find(node => node.id === id)
-            : this.links.find(link => link.id === id);
+        return this.nodes.concat(this.links).find(x => x.id.toString() === id.toString());
     }
 
+    // Currently unused
     addIncomingLinks(layerIndex, currentNode) {
         if (layerIndex <= 0 || layerIndex >= this.layers.length)
             return;
@@ -166,6 +169,7 @@ class Network {
         });
     }
 
+    // Currently unused
     addOutgoingLinks(layerIndex, currentNode) {
         if (layerIndex < 0 || layerIndex >= (this.layers.length - 1))
             return;

@@ -4,7 +4,19 @@ SLIDES.push({
     onstart: function (self) {
 
         // Perceptron
-        self.add({id:"perceptron", type:"Perceptron", x:300, y:0});
+        self.add({
+            id: "perceptron", type: "Perceptron", x: 300, y: 0,
+            size: [2, 1],
+            activationFun: Activations.RELU,
+            activationFunOutput: Activations.RELU,
+        });
+
+        //Image
+        self.add({
+            id:"img", type:"ImageBox",
+            x:0, y:0, width:640, height:400,
+            src: "assets/Jochen/Perceptron.PNG",
+        })
 
         let network = self.objects.perceptron.network;
         console.log(network);
