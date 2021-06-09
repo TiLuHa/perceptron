@@ -123,19 +123,27 @@ class Network {
         return this.#idCounter++;
     }
 
-    set input(input) {
-        if (this.input.length !== input.length)
+    set input(newInput) {
+        if (this.inputLayer.length !== newInput.length)
             throw new Error("input must match the number of nodes in the input layer");
 
-        input.forEach((value, i) => this.input[i].output = value);
+        newInput.forEach((value, i) => this.inputLayer[i].output = value);
     }
 
     get input() {
+        return this.inputLayer.map(node => node.output);
+    }
+
+    get inputLayer() {
         return this.layers[0];
     }
 
-    get output() {
+    get outputLayer() {
         return this.layers[this.layers.length - 1];
+    }
+
+    get output() {
+        return this.outputLayer.map(node => node.output);
     }
 
     forwardUpdate() {
@@ -157,45 +165,39 @@ class Network {
         return this.nodes.concat(this.links).find(x => x.id.toString() === id.toString());
     }
 
-    // Currently unused
-    addIncomingLinks(layerIndex, currentNode) {
-        if (layerIndex <= 0 || layerIndex >= this.layers.length)
-            return;
-
-        this.layers[layerIndex - 1].forEach(node => {
-            let link = new Link(node, currentNode);
-            node.outputLinks.push(link);
-            currentNode.inputLinks.push(link);
-        });
-    }
-
-    // Currently unused
-    addOutgoingLinks(layerIndex, currentNode) {
-        if (layerIndex < 0 || layerIndex >= (this.layers.length - 1))
-            return;
-
-        this.layers[layerIndex + 1].forEach(node => {
-            let link = new Link(node, currentNode);
-            node.inputLinks.push(link);
-            currentNode.outputLinks.push(link);
-        });
-    }
-
-    // Currently unused
-    addNode(layerIndex, threshhold = 0, activationFun) {
-        let actFun = activationFun || layerIndex === (this.layers.length - 1) ? this.outputActivation : this.activation;
-        let node = new Node(this.generateNodeId(), actFun);
-        let layer = this.layers[layerIndex];
-        layer.push(node);
-        this.addIncomingLinks(layerIndex, node);
-        this.addOutgoingLinks(layerIndex, node);
-    }
-
     getFirstOutput() {
-        return this.output[0].output;
+        return this.output[0];
     }
 
 }
+
+/**
+ * Matrixmultiplication
+ * @param a left Matrix
+ * @param b right Matrix
+ * @returns {any[]}
+ */
+function multiply(a, b) {
+    var aNumRows = a.length, aNumCols = a[0].length,
+        bNumRows = b.length, bNumCols = b[0].length,
+        m = new Array(aNumRows);  // initialize array of rows
+    for (var r = 0; r < aNumRows; ++r) {
+        m[r] = new Array(bNumCols); // initialize the current row
+        for (var c = 0; c < bNumCols; ++c) {
+            m[r][c] = 0;             // initialize the current cell
+            for (var i = 0; i < aNumCols; ++i) {
+                m[r][c] += a[r][i] * b[i][c];
+            }
+        }
+    }
+    return m;
+}
+
+// var a = [[8, 3], [2, 4], [3, 6]],
+//     b = [[1, 2, 3], [4, 6, 8]];
+// console.log(a);
+// console.log(b);
+// console.log(multiply(a, b));
 
 let Activations =
     {

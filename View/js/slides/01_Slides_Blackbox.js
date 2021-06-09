@@ -77,8 +77,8 @@ SLIDES.push({
 				//ob der Input zu dem Frowny gehört.
 				// noinspection EqualityComparisonWithCoercionJS
 				if ((network.getFirstOutput() != birne.expected)
-					&& (network.input[0].output === birne.x)
-					&& (network.input[1].output === birne.y)){
+					&& (network.input[0] === birne.x)
+					&& (network.input[1] === birne.y)){
 					_show(self.objects["birneExp"+i]);
 				}
 			});
