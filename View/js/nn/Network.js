@@ -25,13 +25,17 @@ class Node {
 
     set output(value) {
         this.output = value;
-        this.outputLinks.forEach(link => link.destination.setNeedsUpdate());
+        this.outputNodes.forEach(node => node.setNeedsUpdate());
         this.#needsUpdate = false;
     }
 
     set bias(bias) {
         this.bias = bias;
         this.setNeedsUpdate();
+    }
+
+    get outputNodes() {
+        return this.outputLinks.map(link => link.destination);
     }
 
     get param() {
@@ -90,7 +94,7 @@ class Network {
             let numNodes = networkShape[layerIdx];
 
             for (let i = 0; i < numNodes; ++i) {
-                let node = new Node(this.generateNodeId());
+                let node = new Node(this._generateNodeId());
                 if (isOutputLayer) {
                     node.activationFun = outputActivation;
                 } else if (isInputLayer) {
@@ -114,15 +118,23 @@ class Network {
         }
     }
 
+    /**
+     * Setzt gezielt die weights und biases des NN.
+     * @param params z.B. {"0-2":4, "2":5, 4:-2}
+     */
     changeParams(params) {
         Object.entries(params).forEach(([id, value]) => this.getById(id).param = value);
     }
 
     #idCounter = 0;
-    generateNodeId() {
+    _generateNodeId() {
         return this.#idCounter++;
     }
 
+    /**
+     * Setzt die Werte des Inputlayers des NN.
+     * @param newInput
+     */
     set input(newInput) {
         if (this.inputLayer.length !== newInput.length)
             throw new Error("input must match the number of nodes in the input layer");
@@ -130,22 +142,70 @@ class Network {
         newInput.forEach((value, i) => this.inputLayer[i].output = value);
     }
 
+    /**
+     * Gibt den Input des NN als Array von Zahlen zurück.
+     * @returns []
+     */
     get input() {
         return this.inputLayer.map(node => node.output);
     }
 
+    /**
+     * Gibt den InputLAYER des NN zurück.
+     * @returns []
+     */
     get inputLayer() {
         return this.layers[0];
     }
 
+    /**
+     * Gibt den OutputLAYER des NN zurück.
+     * @returns []
+     */
     get outputLayer() {
         return this.layers[this.layers.length - 1];
     }
 
+    /**
+     * Gibt den Output des NN als Array von Zahlen zurück.
+     * @returns []
+     */
     get output() {
         return this.outputLayer.map(node => node.output);
     }
 
+    /**
+     * Gibt die Gewichte eines Layer in Matrixform zurück.
+     * @param i 0<i<this.layers.length
+     * @returns [[]]
+     */
+    getLayerWeights(i) {
+        if(i>=this.layers.length) return [[]];
+        return this.layers[i].map(inputnode => inputnode.outputLinks.map(link => link.weight));
+    }
+
+    /**
+     * Liefert für einen gegebenen Input den Output des NN zurück, ohne dieses zu verändern.
+     * @param input
+     * @returns []
+     */
+    getOutputFast(input) {
+        let iterate = function (inp, layerid, network) {
+            let weights = network.getLayerWeights(layerid);
+            let biases = network.layers[layerid+1].map(node => node.bias);
+            let actFuns = network.layers[layerid + 1].map(node => node.activationFun);
+
+            let m = [].concat(...multiplyMatrix([inp], weights));  // m = Input * Weights
+            let result = addVector(m, biases);                       // result = m + biases
+            return result.map((x, i) => actFuns[i](x)); // Act(result) punktweise
+        };
+        return this.layers.slice(0, -1).reduce((lastResult, layer, i) => iterate(lastResult, i, this), input);
+    }
+
+    /**
+     * Die Outputs aller Nodes werde neu berechnet.
+     * @returns Network
+     */
     forwardUpdate() {
         this.layers.forEach(layer => layer.forEach(node => node.updateOutput()));
         return this;
@@ -157,10 +217,19 @@ class Network {
         return this;
     }
 
+    /**
+     * Liefert alle Nodes des NN
+     * @returns []
+     */
     get nodes() {
         return [].concat(...this.layers);
     }
 
+    /**
+     * Liefert den Link oder Node mit der passenden Id.
+     * @param id
+     * @returns {*}
+     */
     getById(id) {
         return this.nodes.concat(this.links).find(x => x.id.toString() === id.toString());
     }
@@ -172,12 +241,12 @@ class Network {
 }
 
 /**
- * Matrixmultiplication
+ * Matrixmultiplikation
  * @param a left Matrix
  * @param b right Matrix
- * @returns {any[]}
+ * @returns [[]]
  */
-function multiply(a, b) {
+function multiplyMatrix(a, b) {
     var aNumRows = a.length, aNumCols = a[0].length,
         bNumRows = b.length, bNumCols = b[0].length,
         m = new Array(aNumRows);  // initialize array of rows
@@ -193,11 +262,22 @@ function multiply(a, b) {
     return m;
 }
 
+/**
+ * Vektoraddition
+ * @param a linkes Array
+ * @param b rechtes Array
+ * @returns []
+ */
+function addVector(a, b) {
+    return a.map((a_i, i) => a_i + b[i]);
+}
+
 // var a = [[8, 3], [2, 4], [3, 6]],
-//     b = [[1, 2, 3], [4, 6, 8]];
+//      b = [[1, 2, 3], [4, 6, 8]];
 // console.log(a);
 // console.log(b);
 // console.log(multiply(a, b));
+// console.log(add(a,a))
 
 let Activations =
     {
@@ -217,3 +297,4 @@ let Activations =
 // network.forwardUpdate();
 // console.log(network);
 // console.log(network.getFirstOutput());
+// console.log(network.getOutputFast([7, 8]));

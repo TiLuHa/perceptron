@@ -5,7 +5,7 @@ SLIDES.push({
 
         // Perceptron
         self.add({
-            id: "perceptron", type: "Perceptron", x: 300, y: 0,
+            id: "perceptron", type: "Perceptron",
             size: [2, 1],
             activationFun: Activations.RELU,
             activationFunOutput: Activations.RELU,

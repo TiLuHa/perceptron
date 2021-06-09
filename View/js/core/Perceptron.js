@@ -9,10 +9,10 @@ function Perceptron(config){
     var dom = self.dom;
 
     var network = new Network(config.size, config.activationFun, config.activationFunOutput);
-    console.log(network);
     if(config.params) network.changeParams(config.params);
-    console.log(network);
-
+    console.log(network.getLayerWeights(0));
+    console.log(network.getLayerWeights(1));
+    console.log(network.getOutputFast([5, 5]));
 
     network.nodes.concat(network.links).forEach(x => listen(network, "update/"+x.id, function (value, expected) {
         network.getById(x.id).param = value;
