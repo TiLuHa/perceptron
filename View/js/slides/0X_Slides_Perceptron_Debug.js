@@ -1,4 +1,3 @@
-// THE TRUST GAME - COOPERATE, YA NO?
 SLIDES.push({
     id: "perceptron_debug",
     onstart: function (self) {
@@ -114,6 +113,14 @@ SLIDES.push({
             }
         });
 
+        self.add({
+            id:"heatmap", type: "Heatmap",
+            x:700, y:120,
+            xfirst: 0, xcount:10, xstepsize:1,
+            yfirst: 0, ycount:10, ystepsize:1,
+            xsize: 20, ysize:20,
+        });
+
         // Buttons
         self.add({
             id:"btnNext", type:"Button", x:275, y:463, text_id:"01_button_next", uppercase:true,
@@ -138,6 +145,7 @@ SLIDES.push({
         self.remove("weight2");
         self.remove("spezial1");
         self.remove("bias");
+        self.remove("heatmap");
     }
 
 

@@ -543,3 +543,17 @@ s{
 	color:#ee5151;
 }
 
+.heatmap_pixel {
+	width: 20px;
+	height: 20px;
+	border: 1px solid #4089DD;
+}
+
+.heatmap_pixel[output=true]{
+	background-color: palegoldenrod;
+}
+
+.heatmap_pixel[output=false] {
+	background-color: #88A8CE;
+}
+

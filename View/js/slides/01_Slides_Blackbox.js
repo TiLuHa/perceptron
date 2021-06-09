@@ -1,4 +1,3 @@
-// THE TRUST GAME - COOPERATE, YA NO?
 SLIDES.push({
 
 	id: "blackbox",
