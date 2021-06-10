@@ -51,7 +51,8 @@ SLIDES.push({
         self.add({id:"nnoutput", type:"TextBox", x:600, y:150})
         self.objects.nnoutput.setText("output:");
         listen(_.misc, "newOutput", function (network) {
-            self.objects.nnoutput.setText("output:"+network.getFirstOutput());
+            self.objects.nnoutput.setText(
+                "output:"+network.getFirstOutput() + " Rechnung:result = "+ network.nodes[2].resultCalcString + "\noutput = " + network.nodes[2].outputCalcString);
         });
 
         // Slider Weight1

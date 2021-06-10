@@ -23,6 +23,18 @@ class Node {
         this.#needsUpdate = true;
     }
 
+    get resultCalcString() {
+        return this.inputLinks.reduce((sum, link) => sum + " + " + link.calcString, "" + this.bias) + " = " + this.result;
+    }
+
+    get outputCalcString() {
+        return "f(" + this.result + ") = " + this.output;
+    }
+
+    get outputCalcStringBig() {
+        return "f(" + this.resultCalcString + ") = " + this.output;
+    }
+
     set output(value) {
         this.output = value;
         this.outputNodes.forEach(node => node.setNeedsUpdate());
@@ -77,6 +89,10 @@ class Link {
 
     set param(value) {
         this.weight = value;
+    }
+
+    get calcString() {
+        return bracketsIfNeg(this.source.output) + "*" + bracketsIfNeg(this.weight);
     }
 }
 
@@ -272,6 +288,10 @@ function addVector(a, b) {
     return a.map((a_i, i) => a_i + b[i]);
 }
 
+function bracketsIfNeg(x) {
+    return x < 0 ? "(" + x + ")" : "" + x;
+}
+
 // var a = [[8, 3], [2, 4], [3, 6]],
 //      b = [[1, 2, 3], [4, 6, 8]];
 // console.log(a);
@@ -288,13 +308,14 @@ let Activations =
         STEP: (x,alpha = 0) => x <= alpha ? 0 : 1
     };
 
-// let network = new Network([2, 1], Activations.LINEAR, Activations.LINEAR);
-// network.input = [2, 4];
-// network.nodes.forEach(node => node.bias = node.id);
-// network.links[0].weight = -2;
-// network.links[1].weight = 3;
-// network.output[0].bias = 1;
-// network.forwardUpdate();
+let network = new Network([2, 1], Activations.LINEAR, Activations.LINEAR);
+network.input = [2, 4];
+network.nodes.forEach(node => node.bias = node.id);
+network.links[0].weight = -2;
+network.links[1].weight = 3;
+network.output[0].bias = 1;
+network.forwardUpdate();
 // console.log(network);
 // console.log(network.getFirstOutput());
 // console.log(network.getOutputFast([7, 8]));
+console.log(network.nodes[2].outputCalcStringBig);
