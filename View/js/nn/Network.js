@@ -155,7 +155,8 @@ class Network {
         if (this.inputLayer.length !== newInput.length)
             throw new Error("input must match the number of nodes in the input layer");
 
-        newInput.forEach((value, i) => this.inputLayer[i].output = value);
+        //Der Input ist im Bias der Inputnotes gespeichert.
+        newInput.forEach((value, i) => this.inputLayer[i].bias = value);
     }
 
     /**
@@ -163,7 +164,7 @@ class Network {
      * @returns []
      */
     get input() {
-        return this.inputLayer.map(node => node.output);
+        return this.inputLayer.map(node => node.bias);
     }
 
     /**
@@ -254,6 +255,10 @@ class Network {
         return this.output[0];
     }
 
+    getFirstOutputNode() {
+        return this.outputLayer[0];
+    }
+
 }
 
 /**
@@ -308,14 +313,14 @@ let Activations =
         STEP: (x,alpha = 0) => x <= alpha ? 0 : 1
     };
 
-let network = new Network([2, 1], Activations.LINEAR, Activations.LINEAR);
-network.input = [2, 4];
-network.nodes.forEach(node => node.bias = node.id);
-network.links[0].weight = -2;
-network.links[1].weight = 3;
-network.output[0].bias = 1;
-network.forwardUpdate();
+// let network = new Network([2, 1], Activations.LINEAR, Activations.LINEAR);
+// network.input = [2, 4];
+// network.nodes.forEach(node => node.bias = node.id);
+// network.links[0].weight = -2;
+// network.links[1].weight = 3;
+// network.output[0].bias = 1;
+// network.forwardUpdate();
 // console.log(network);
 // console.log(network.getFirstOutput());
 // console.log(network.getOutputFast([7, 8]));
-console.log(network.nodes[2].outputCalcStringBig);
+// console.log(network.nodes[2].outputCalcStringBig);

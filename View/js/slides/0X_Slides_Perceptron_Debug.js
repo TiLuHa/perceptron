@@ -18,7 +18,6 @@ SLIDES.push({
         })
 
         let network = self.objects.perceptron.network;
-        console.log(network);
 
         //Slider Input1
         self.add({id:"slider_input1", type:"Slider",
@@ -122,13 +121,16 @@ SLIDES.push({
         });
 
         self.add({
-            id:"flipFlopImg", type:"ImageBox",
-            x:0, y:0, width:50, height:50,
+            id: "flipFlopImg", type: "ImageBox",
+            x: 0, y: 0, width: 50, height: 50,
             src: "assets/Jochen/dollar.PNG",
+
             altsrc: "assets/Jochen/dollarNo.PNG",
-            xinput: 5, yinput:7,
-            hoverZoom: true,
-        })
+            xinput: 5, yinput: 7,
+            hoverZoom: true, tooltip: true,
+            network: network,
+
+        });
 
         // Buttons
         self.add({

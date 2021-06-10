@@ -33,12 +33,16 @@ SLIDES.push({
 	},
 	onend: function(self){
 		self.remove("img");
-		self.remove("topWords");
+		//self.remove("topWords");
 		self.remove("btmWords");
 		self.remove("btnNext");
 	}
 },{
 	onstart: function (self) {
+		self.objects.topWords.dom.style.top = 500;
+		self.objects.topWords.dom.style.left = 500;
+		self.objects.topWords.dom.style.transform = "scale(0.5)";
+
 		//Words Top
 		self.add({
 			id: "topWords", type: "TextBox", text_id: "01_birnenlegen",
