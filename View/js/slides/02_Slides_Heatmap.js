@@ -26,8 +26,6 @@ SLIDES.push({
 			xsize: 20, ysize:20,
 		});
 
-
-
 		// Buttons
 		self.add({
 			id: "btnNext", type: "Button", x: 275, y: 463, text_id: "01_button_next", uppercase: true,
@@ -37,6 +35,8 @@ SLIDES.push({
 		});
 	},
 	onend: function (self) {
+		self.remove("topWords");
+		self.remove("heatmap");
 		self.remove("btnNext");
 		self.remove("perceptron");
 		unlisten(_.misc);

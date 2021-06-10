@@ -94,7 +94,6 @@ SLIDES.push({
         listen(_.misc, "newOutput", function (network) {
             self.objects.bias.setText("bias:"+network.nodes[2].bias);
         });
-        publish("update/2", [network.nodes[2].bias]);
 
         // Spezialwert1
         self.add({
@@ -121,6 +120,15 @@ SLIDES.push({
             xsize: 20, ysize:20,
         });
 
+        self.add({
+            id:"flipFlopImg", type:"ImageBox",
+            x:0, y:0, width:50, height:50,
+            src: "assets/Jochen/dollar.PNG",
+            altsrc: "assets/Jochen/dollarNo.PNG",
+            xinput: 5, yinput:7,
+            hoverZoom: true,
+        })
+
         // Buttons
         self.add({
             id:"btnNext", type:"Button", x:275, y:463, text_id:"01_button_next", uppercase:true,
@@ -132,18 +140,23 @@ SLIDES.push({
 
     onend: function(self){
         unlisten(_.misc);
+
         self.remove("btnNext");
+        self.remove("flipFlopImg");
+        self.remove("img");
         self.remove("perceptron");
         self.remove("slider_input1");
         self.remove("slider_input2");
         self.remove("slider_weight1");
         self.remove("slider_weight2");
+        self.remove("slider_bias");
         self.remove("input1");
         self.remove("input2");
         self.remove("nnoutput");
         self.remove("weight1");
         self.remove("weight2");
         self.remove("spezial1");
+        self.remove("spezial2");
         self.remove("bias");
         self.remove("heatmap");
     }

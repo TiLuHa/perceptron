@@ -14,7 +14,7 @@ function Heatmap(config) {
             let pixel = document.createElement("div");
             let x = config.xfirst + config.xstepsize * i,
                 y = config.yfirst + config.ystepsize * j;
-            pixel.id = "pixel-" + x + "-" + y;
+            pixel.id = "pixel/" + x + "/" + y;
             pixel.style.left = (config.xsize * i + config.x) + "px";
             pixel.style.bottom = (config.ysize * j + config.y) + "px";
             pixel.className = "object";

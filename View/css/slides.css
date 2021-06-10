@@ -557,3 +557,7 @@ s{
 	background-color: #88A8CE;
 }
 
+[zoom=true]:hover{
+	transform: scale(1.1,1.1);
+}
+
