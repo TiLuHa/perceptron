@@ -129,7 +129,6 @@ SLIDES.push({
             xinput: 5, yinput: 7,
             hoverZoom: true, tooltip: true,
             network: network,
-
         });
 
         // Buttons
