@@ -121,7 +121,7 @@ SLIDES.push({
         });
 
         self.add({
-            id: "flipFlopImg", type: "ImageBox",
+            id: "flipFlopImg", type: "ImageBoxFlipFlop",
             x: 0, y: 0, width: 50, height: 50,
             src: "assets/Jochen/dollar.PNG",
 
