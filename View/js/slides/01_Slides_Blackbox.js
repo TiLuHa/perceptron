@@ -4,41 +4,61 @@ SLIDES.push({
 
 	onstart: function(self){
 
+		_.xpush = 380;
+		let o = self.objects;
+
 		// Image
 		self.add({
 			id:"img", type:"ImageBox",
-			src: "assets/Jochen/JochenMitBox.PNG",
-			x:200, y:60, width:560, height:170,
+			src: "assets/Jochen/Jochen_kamera.jpg",
+			x:_.xpush, y:60, width:380/2, height:545/2,
+		});
+
+		self.add({
+			id:"jochenhello", type:"TextBox",
+			x:210+_.xpush, y:85, width:50, height:50,
+			align:"center", color:"#aaa", size:17,
+			text_id:"jochen_hello"
 		});
 
 		// Words on top & bottom
+
 		self.add({
 			id:"topWords", type:"TextBox", text_id:"01_title",
 			x:130, y:10, width:700, height:100, align:"center"
 		});
 		self.add({
 			id:"btmWords", type:"TextBox", text_id:"01_text",
-			x:130, y:397, width:700, height:100, align:"center"
+			x:130, y:347, width:700, height:100, align:"center"
 		})
-
 		// Buttons
+
 		self.add({
-			id:"btnNext", type:"Button", x:275, y:463, text_id:"01_button_next", uppercase:true,
+			id:"btnNext", type:"Button", x:383, y:463, text_id:"01_button_next", uppercase:true,
 			onclick:function(){
 				publish("slideshow/next");
 			}
 		});
 
+		_hide(o.topWords); _fadeIn(o.topWords, 100);
+		_hide(o.img); _fadeIn(o.img, 200);
+		_hide(o.jochenhello); _fadeIn(o.jochenhello, 200);
+		_hide(o.btmWords); _fadeIn(o.btmWords, 400);
+		_hide(o.btnNext); _fadeIn(o.btnNext, 700);
+
 
 	},
 	onend: function(self){
-		self.remove("img");
+		// self.remove("img");
 		//self.remove("topWords");
+		self.remove("jochenhello");
 		self.remove("btmWords");
 		self.remove("btnNext");
 	}
 },{
 	onstart: function (self) {
+		let o = self.objects;
+		o.img.dom.style.left = 0;
 		self.objects.topWords.dom.style.top = 500;
 		self.objects.topWords.dom.style.left = 500;
 		self.objects.topWords.dom.style.transform = "scale(0.5)";
