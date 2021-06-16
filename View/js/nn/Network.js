@@ -209,14 +209,15 @@ class Network {
     getOutputFast(input) {
         let iterate = function (inp, layerid, network) {
             let weights = network.getLayerWeights(layerid);
-            let biases = network.layers[layerid+1].map(node => node.bias);
-            let actFuns = network.layers[layerid + 1].map(node => node.activationFun);
+            let biases = network.layers[layerid].map(node => node.bias);
+            let actFuns = network.layers[layerid].map(node => node.activationFun);
 
             let m = [].concat(...multiplyMatrix([inp], weights));  // m = Input * Weights
             let result = addVector(m, biases);                       // result = m + biases
             return result.map((x, i) => actFuns[i](x)); // Act(result) punktweise
         };
-        return this.layers.slice(0, -1).reduce((lastResult, layer, i) => iterate(lastResult, i, this), input);
+        //TODO: Network-Layer als einzigen Parameter.
+        return this.layers.slice(0, -1).reduce((lastResult, layer, i) => iterate(lastResult, i+1, this), input);
     }
 
     /**

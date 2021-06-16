@@ -32,7 +32,7 @@ function ImageBoxFlipFlop(config){
 		self.network = config.network;
 		self.flipFunction = function () {
 			let nnoutput = self.network.getOutputFast([config.xinput,config.yinput])[0];
-			return img.src = nnoutput > 0;
+			return nnoutput > 0;
 		};
 	}
 
