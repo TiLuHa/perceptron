@@ -59,7 +59,9 @@ SLIDES.push({
 },{
 	onstart: function (self) {
 		let o = self.objects;
+
 		o.img.dom.style.left = 0;
+
 		let leftwords = "topWords";
 		self.add({
 			id: leftwords, type:"TextBox", text_id:"01_title",
@@ -69,16 +71,98 @@ SLIDES.push({
 		// Image
 
 		o[_.jochenImage].dom.src = "assets/Jochen/Jochen_laecheln.jpg";
-		// let img = "img";
-		// self.add({
-		// 	id: img, type:"ImageBox",
-		// 	src: "assets/Jochen/Jochen_fragend.jpg",
-		// 	x:0, y:60, width:380/2, height:545/2,
+
+
+
+		let widthstd = 35,
+			hightstd = 50;
+
+		_.birnen = [
+			{good:true, widthplus:3, hightplus:0},
+			{good:false, widthplus:10, hightplus:0},
+			{good:true, widthplus:0, hightplus:3},
+			{good:false, widthplus:0, hightplus:-20}];
+
+		let birne = "birne";
+		let x_birne_entrance = 400, y_birne_entrance = 200;
+		_.birnen.forEach((b, i) => {
+			self.add({
+				id: birne + i, type: "ImageBox",
+				src: "assets/Jochen/birne_gut.png",
+				x: x_birne_entrance+i*20, y: y_birne_entrance,
+				width: widthstd + b.widthplus,
+				hight: hightstd + b.hightplus,
+			});
+
+			//_hide(o[birne+i]);
+		});
+
+		let boxgood = "boxgood", xboxgood = 200, yboxgood = 400,
+			boxbad = "boxbad", xboxbad = 450, yboxbad = 400,
+			widthbox = 200, heightbox = 75;
+		self.add({
+			id: boxgood, type: "ImageBox",
+			src: "assets/Jochen/box.png",
+			x: xboxgood, y: yboxgood,
+			width: widthbox,
+			hight: heightbox,
+		});
+		self.add({
+			id: boxbad, type: "ImageBox",
+			src: "assets/Jochen/box2.png",
+			x: xboxbad, y: yboxbad,
+			width: widthbox,
+			hight: heightbox,
+		});
+
+		let pinsel = "pinsel";
+		self.add({
+			id: pinsel, type: "ImageBox",
+			src: "assets/Jochen/pinsel.png",
+			x: x_birne_entrance+100, y: y_birne_entrance+100,
+			width: 75,
+			hight: 60,
+		});
+
+		let i = 0;
+		let timer = setInterval(function () {
+			if(i===_.birnen.length) clearInterval(timer);
+			_fadeIn(o[birne+i], 0);
+			//o[birne + i].dom.style.left = x_birne_entrance-30;
+			let b = _.birnen[i];
+			setTimeout(function () {
+				o[_.jochenImage].dom.src = "assets/Jochen/Jochen_fragend.jpg";
+				setTimeout(function () {
+					o[_.jochenImage].dom.src = b.good ? "assets/Jochen/Jochen_zufrieden.jpg":"assets/Jochen/Jochen_wuetend.jpg";
+					o[birne + i].dom.style.left = (b.good ? xboxgood : xboxbad) + i*30 + 20;
+					o[birne + i].dom.style.top = b.good ? yboxgood : yboxbad;
+					setTimeout(function () {
+						if(!b.good) o[birne + i].dom.src = "assets/Jochen/birne_schlecht.png";
+						i++;
+					},200);
+
+				},1000);
+			},500);
+			o[_.jochenImage].dom.src = "assets/Jochen/Jochen_laecheln.jpg";
+
+		}, 3000);
+
+		// setTimeout(() => clearInterval(timer), 3000*_.birnen.length);
+
+		// _.birnen.forEach((b, i) => {
+		// 	o[_.jochenImage].dom.src = "assets/Jochen/Jochen_laecheln.jpg";
+		// 	_fadeIn(o[birne+i], 250);
+		// 	o[birne + i].dom.style.left = x_birne_entrance-20;
+		//
+		// 	setTimeout(function () {
+		// 		o[_.jochenImage].dom.src = "assets/Jochen/Jochen_fragend.jpg";
+		// 	},1000);
+		//
 		// });
-		// _hide(o[img]); _show(o[img], 400);
+
 	},
 
-onend: function (self) {
+	onend: function (self) {
 
 
 	}
