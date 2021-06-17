@@ -460,6 +460,9 @@ s{
 .pavlov{ color:#86C448; }
 .random{ color:#FF5E5E; }
 
+.blue{ color: #4089DD}
+.yellow{ color: #efc701}
+
 .icon{
 	width:25px; height:25px;
 	background: url(../assets/ui/sandbox_hats.png);
