@@ -8,8 +8,9 @@ SLIDES.push({
 		let o = self.objects;
 
 		// Image
+		_.jochenImage = "img";
 		self.add({
-			id:"img", type:"ImageBox",
+			id: _.jochenImage, type:"ImageBox",
 			src: "assets/Jochen/Jochen_kamera.jpg",
 			x:_.xpush, y:60, width:380/2, height:545/2,
 		});
@@ -50,11 +51,38 @@ SLIDES.push({
 	},
 	onend: function(self){
 		// self.remove("img");
-		//self.remove("topWords");
+		self.remove("topWords");
 		self.remove("jochenhello");
 		self.remove("btmWords");
 		self.remove("btnNext");
 	}
+},{
+	onstart: function (self) {
+		let o = self.objects;
+		o.img.dom.style.left = 0;
+		let leftwords = "topWords";
+		self.add({
+			id: leftwords, type:"TextBox", text_id:"01_title",
+			x:130, y:10, width:700, height:100, align:"center"
+		});
+		_hide(o[leftwords]); _fadeIn(o[leftwords], 200);
+		// Image
+
+		o[_.jochenImage].dom.src = "assets/Jochen/Jochen_laecheln.jpg";
+		// let img = "img";
+		// self.add({
+		// 	id: img, type:"ImageBox",
+		// 	src: "assets/Jochen/Jochen_fragend.jpg",
+		// 	x:0, y:60, width:380/2, height:545/2,
+		// });
+		// _hide(o[img]); _show(o[img], 400);
+	},
+
+onend: function (self) {
+
+
+	}
+
 },{
 	onstart: function (self) {
 		let o = self.objects;

@@ -70,8 +70,10 @@ var _s = function(seconds){
 var _hide = function(object){
 	object.dom.style.opacity = 0;
 };
-var _show = function(object){
-	object.dom.style.opacity = 1;
+var _show = function(object, time = 0){
+	setTimeout(function () {
+		object.dom.style.opacity = 1;
+	}, time);
 };
 var _fadeIn = function(object, time){
 	setTimeout(function(){
