@@ -93,24 +93,78 @@ SLIDES.push({
 
 
 		// Buttons
+		_.birnetestengut = "birnetestengut";
+		self.add({
+			id: _.birnetestengut, type: "Button", x: 225, y: 463,
+			text_id: "02_buttom_birnetestengut", uppercase: false,
+			active: true,
+			onclick: function () {
+				o[_.birnetestengut].deactivate();
+				o[_.birnetestenbad].activate();
+				publish("nextBirne");
+			}
+		});
+		_.birnetestenbad = "birnetestenbad";
+		self.add({
+			id: _.birnetestenbad, type: "Button", x: 425, y: 463,
+			text_id: "02_buttom_birnetestenbad", uppercase: false,
+			active:false,
+			onclick: function () {
+				o[_.birnetestenbad].deactivate();
+				o[_.birnetestengut].activate();
+				publish("nextBirne");
+			}
+		});
+		_hide(o[_.birnetestengut]);
+		_fadeIn(o[_.birnetestengut], 500);
+		_hide(o[_.birnetestenbad]);
+		_fadeIn(o[_.birnetestenbad], 700);
+
+		_.birnen = [
+			{good:true, widthplus:3, hightplus:0, face: "assets/Jochen/Jochen_lacheln.jpg", words:"02_happy1"},
+			{good:false, widthplus:10, hightplus:0, face: "assets/Jochen/Jochen_zufrieden.jpg", words: "02_happy2"},
+			{good:true, widthplus:0, hightplus:3, face: "assets/Jochen/Jochen_stars.jpg", words: "02_happy3"},
+			{good:false, widthplus:0, hightplus:-20, face: "assets/Jochen/Jochen_wuetend.jpg", words: "02_unhappy"}
+		];
+
+		_.next = "nextSlide";
+		self.add({
+			id: _.next, type: "Button", x: 775, y: 463,
+			text_id: "nextSlide", uppercase: true,
+			onclick: function () {
+				publish("slideshow/next");
+			}
+		});
+		//_hide(o[_.next]);
+	},
+	onend: function (self) {
+		self.remove(_.btmWords);
+		self.remove(_.birnetestengut);
+		self.remove(_.birnetestenbad);
+		self.remove(_.perceptron);
+		self.remove(_.boxtext);
+		self.remove(_.box);
+		self.remove(_.next);
+
+		unlisten(_);
+		_.clear();
+	}
+},{
+	onstart:function (self) {
+		let o = self.objects;
+
+		// Buttons
 		_.birnetesten = "birnetesten";
 		self.add({
 			id: _.birnetesten, type: "Button", x: 375, y: 463,
-			text_id: "02_buttom_birnetesten", uppercase: true,
+			text_id: "nextSlide", uppercase: true,
 			onclick: function () {
 				publish("slideshow/next");
 			}
 		});
 	},
 	onend: function (self) {
-		self.remove(_.btmWords);
 		self.remove(_.birnetesten);
-		self.remove(_.perceptron);
-		self.remove(_.boxtext);
-		self.remove(_.box);
-
-		unlisten(_);
-		_.clear();
 	}
-});
+},);
 
