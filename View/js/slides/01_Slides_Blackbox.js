@@ -1,6 +1,6 @@
 SLIDES.push({
 
-	id: "blackbox",
+	id: "sortieren",
 
 	onstart: function(self){
 
@@ -105,7 +105,7 @@ SLIDES.push({
 				hight: hightstd + b.hightplus,
 			});
 
-			//_hide(o[_.birne+i]);
+			_hide(o[_.birne+i]);
 		});
 
 		// Sortierboxen einfügen
@@ -143,7 +143,7 @@ SLIDES.push({
 		_.next = "next";
 		self.add({
 			id:_.next, type:"Button",
-			x:680, y:346, //long size
+			x:680, y:496, //long size
 			// x:383, y:463, //normal size
 			text_id:"01_button_next2", uppercase:false,
 			// size: "long",
@@ -158,7 +158,7 @@ SLIDES.push({
 		_.timer = setInterval(function () {
 			if(i===_.birnen.length) clearInterval(_.timer);
 			_fadeIn(o[_.birne+i], 0);
-			//o[_.birne + i].dom.style.left = x_birne_entrance-30;
+			o[_.birne + i].dom.style.left = x_birne_entrance-30;
 			let b = _.birnen[i];
 			setTimeout(function () {
 				o[_.jochen].dom.src = "assets/Jochen/Jochen_fragend.jpg";
@@ -173,14 +173,23 @@ SLIDES.push({
 
 				},1000);
 			},500);
-			o[_.jochenImage].dom.src = "assets/Jochen/Jochen_laecheln.jpg";
+			o[_.jochen].dom.src = "assets/Jochen/Jochen_laecheln.jpg";
 
 		}, 3000);
+
+		//Text nach sortieren
+		_.sortiert = "sortiertText"
+		self.add({
+			id:_.sortiert, type:"TextBox", text_id:"01_richtig_gelegt",
+			x:70, y:647, width:700, height:100, align:"center"
+		})
+		_hide(o[_.sortiert]); _fadeIn(o[_.sortiert], 13000);
 
 	},
 	onend: function (self) {
 		clearInterval(_.timer);
 		self.remove(_.leftwords);
+		self.remove(_.sortiert);
 		self.remove(_.next);
 		self.remove(_.boxgood);
 		self.remove(_.boxbad);
@@ -193,12 +202,40 @@ SLIDES.push({
 
 },{
 	onstart: function (self) {
+		let o = self.objects;
 
+		// Jochen normal machen.
+		o[_.jochen].dom.src = "assets/Jochen/Jochen_laecheln.jpg";
+
+		// Erklärungstext
+		_.leftwords = "leftWords";
+		self.add({
+			id: _.leftwords, type:"TextBox", text_id:"01_problem",
+			x:230, y:50, width:650, height:400,
+			//align:"center"
+		});
+		_hide(o[_.leftwords]); _fadeIn(o[_.leftwords], 200);
+
+		// Weiter-Button
+		_.next = "next";
+		self.add({
+			id:_.next, type:"Button",
+			x:680, y:496,
+			text_id:"01_button_next3", uppercase:false,
+			onclick:function(){
+				publish("slideshow/next");
+			}
+		});
+		_hide(o[_.next]); _fadeIn(o[_.next], 400);
 	},
 	onend: function (self) {
-
+		self.remove(_.jochen);
+		self.remove(_.leftwords);
+		self.remove(_.next);
 	}
-},{
+},
+	/*
+	{
 	// Birnen manuell sortieren
 	onstart: function (self) {
 		let o = self.objects;
@@ -311,5 +348,6 @@ SLIDES.push({
 		unlisten(_.misc);
 		_.clear();
 	}
-});
-
+}
+*/
+);
