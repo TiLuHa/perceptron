@@ -51,7 +51,7 @@ SLIDES.push({
         self.objects.nnoutput.setText("output:");
         listen(_.misc, "newOutput", function (network) {
             self.objects.nnoutput.setText(
-                "output:"+network.getFirstOutput() + " Rechnung:result = "+ network.nodes[2].resultCalcString + "\noutput = " + network.nodes[2].outputCalcString);
+                "output:"+network.getFirstOutput() + " Rechnung:result = "+ network.getNodes()[2].getResultCalcString() + "\noutput = " + network.getNodes()[2].getOutputCalcString());
         });
 
         // Slider Weight1
@@ -92,7 +92,7 @@ SLIDES.push({
         self.add({id:"bias", type:"TextBox", x:400, y:75})
         self.objects.bias.setText("bias:");
         listen(_.misc, "newOutput", function (network) {
-            self.objects.bias.setText("bias:"+network.nodes[2].bias);
+            self.objects.bias.setText("bias:"+network.getNodes()[2].bias);
         });
 
         // Spezialwert1

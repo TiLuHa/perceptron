@@ -46,10 +46,10 @@ function ImageBoxFlipFlop(config){
 			let updateTooltip = function () {
 				//In NN wird der Wert des Pixels eingesetzt, ausgerechnet und
 				//der alte Wert wieder eingesetzt.
-				let oldinput = self.network.input
+				let oldinput = self.network.getInput();
 				self.network.setInputAndUpdate([config.xinput, config.yinput]);
 				self.dom.setAttribute("data-balloon",
-					self.network.getFirstOutputNode().outputCalcStringBig);
+                self.network.getFirstOutputNode().getOutputCalcStringBig());
 				self.network.setInputAndUpdate(oldinput);
 			};
 			listen(self, "newOutput", updateTooltip);

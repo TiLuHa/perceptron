@@ -11,14 +11,14 @@ function Perceptron(config){
     var network = new Network(config.size, config.activationFun, config.activationFunOutput);
     if(config.params) network.changeParams(config.params);
 
-    network.nodes.concat(network.links).forEach(x => listen(network, "update/"+x.id, function (value, expected) {
-        network.getById(x.id).param = value;
+    network.getNodes().concat(network.links).forEach(x => listen(network, "update/"+x.id, function (value, expected) {
+        network.getById(x.id).setParam(value);
         network.forwardUpdate();
         publish("newOutput", [network, expected]);
     }));
 
-    network.nodes.concat(network.links).forEach(x => listen(network, "change/"+x.id, function (value, expected) {
-        network.getById(x.id).param = value;
+    network.getNodes().concat(network.links).forEach(x => listen(network, "change/"+x.id, function (value, expected) {
+        network.getById(x.id).setParam(value);
     }));
 
     self.network = network;
