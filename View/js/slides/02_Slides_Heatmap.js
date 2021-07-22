@@ -37,7 +37,7 @@ SLIDES.push({
 		})
 		_.maschinefront = "maschinefront";
 		self.add({
-			id:_.maschine, type: "ImageBox",
+			id:_.maschinefront, type: "ImageBox",
 			src:"assets/Jochen/maschine_front.png",
 			x: 442, y: 138, width: 358 * 0.52, height: 250 * 0.52,
 		})
@@ -223,6 +223,7 @@ SLIDES.push({
 		self.remove(_.birnetesten);
 		self.remove(_.maschine);
 		self.remove(_.maschinefront);
+		self.remove(_.jochen);
 		_.clear();
 	}
 },);
