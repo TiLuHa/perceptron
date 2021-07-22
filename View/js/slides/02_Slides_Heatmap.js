@@ -28,6 +28,20 @@ SLIDES.push({
 			text_id: "02_jochen_verwundert"
 		});
 
+		//Maschine
+		_.maschine = "maschine";
+		self.add({
+			id:_.maschine, type: "ImageBox",
+			src:"assets/Jochen/maschine_leer.jpg",
+			x: 315, y: 65, width: 874 * 0.52, height: 441 * 0.52,
+		})
+		_.maschinefront = "maschinefront";
+		self.add({
+			id:_.maschine, type: "ImageBox",
+			src:"assets/Jochen/maschine_front.png",
+			x: 442, y: 138, width: 358 * 0.52, height: 250 * 0.52,
+		})
+
 		// Box
 		_.box = "box";
 		self.add({
@@ -100,8 +114,8 @@ SLIDES.push({
 			active: true,
 			onclick: function () {
 				o[_.birnetestengut].deactivate();
-				o[_.birnetestenbad].activate();
-				publish("nextBirne");
+				//o[_.birnetestenbad].activate();
+				publish("nextBirne",[o[_.birnetestenbad]]);
 			}
 		});
 		_.birnetestenbad = "birnetestenbad";
@@ -111,8 +125,8 @@ SLIDES.push({
 			active:false,
 			onclick: function () {
 				o[_.birnetestenbad].deactivate();
-				o[_.birnetestengut].activate();
-				publish("nextBirne");
+				//o[_.birnetestengut].activate();
+				publish("nextBirne",[o[_.birnetestengut]]);
 			}
 		});
 		_hide(o[_.birnetestengut]);
@@ -120,12 +134,55 @@ SLIDES.push({
 		_hide(o[_.birnetestenbad]);
 		_fadeIn(o[_.birnetestenbad], 700);
 
+		//MaschineOutput
+		_.maschineoutput = "maschineoutput";
+		self.add({
+			id: _.maschineoutput, type: "ImageBox",
+			src: "assets/Jochen/dollar.png",
+			x: 692, y: 76, width: 110 * 0.45, height: 139 * 0.45,
+		});
+		_hide(o[_.maschineoutput]);
+
+		//Birne
+		_.birne = "birne";
+		self.add({
+			id: _.birne, type: "ImageBox",
+			src: "assets/Jochen/birne_gut.png",
+			x: 357, y: 100, width: 350 * 0.1, height: 560 * 0.1,
+		});
+		_hide(o[_.birne]);
+
 		_.birnen = [
-			{good:true, widthplus:3, hightplus:0, face: "assets/Jochen/Jochen_lacheln.jpg", words:"02_happy1"},
-			{good:false, widthplus:10, hightplus:0, face: "assets/Jochen/Jochen_zufrieden.jpg", words: "02_happy2"},
-			{good:true, widthplus:0, hightplus:3, face: "assets/Jochen/Jochen_stars.jpg", words: "02_happy3"},
-			{good:false, widthplus:0, hightplus:-20, face: "assets/Jochen/Jochen_wuetend.jpg", words: "02_unhappy"}
+			{good:true, widthplus:3, hightplus:0, face: "assets/Jochen/Jochen_lacheln.jpg",
+				wordsJochen: "02_happy1", showgood:true},
+			{good:false, widthplus:10, hightplus:0, face: "assets/Jochen/Jochen_zufrieden.jpg",
+				wordsJochen: "02_happy2", showgood: false},
+			{good:true, widthplus:0, hightplus:3, face: "assets/Jochen/Jochen_stars.jpg",
+				wordsJochen: "02_happy3", showgood: true},
+			{good:false, widthplus:0, hightplus:-20, face: "assets/Jochen/Jochen_wuetend.jpg",
+				wordsJochen: "02_unhappy", showgood: true}
 		];
+
+		let nextBirne = function (nextButtom) {
+			[b, ...r] = _.birnen;
+			_.birnen = r;
+			_fadeOut(o[_.birne], 100);
+			o[_.birne].dom.src = b.good ? "assets/Jochen/birne_gut.png" : "assets/Jochen/birne_schlecht.png";
+			_fadeIn(o[_.birne], 100);
+			setTimeout(() => {
+				_show(o[_.maschineoutput]);
+				o[_.maschineoutput].dom.src = b.showgood ? "assets/Jochen/dollar.png" : "assets/Jochen/dollar_no.png";
+				o[_.jochen].dom.src = b.face;
+				o[_.jochenText].setTextID(b.wordsJochen);
+				if (r.size === 0) { //Letze Birne
+					o[_.next].activate();
+				} else {
+					nextButtom.activate();
+				}
+			}, 200);
+		};
+
+		listen(_, "nextBirne", nextBirne);
 
 		_.next = "nextSlide";
 		self.add({
@@ -147,7 +204,6 @@ SLIDES.push({
 		self.remove(_.next);
 
 		unlisten(_);
-		_.clear();
 	}
 },{
 	onstart:function (self) {
@@ -165,6 +221,9 @@ SLIDES.push({
 	},
 	onend: function (self) {
 		self.remove(_.birnetesten);
+		self.remove(_.maschine);
+		self.remove(_.maschinefront);
+		_.clear();
 	}
 },);
 

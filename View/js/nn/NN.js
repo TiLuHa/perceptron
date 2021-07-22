@@ -184,7 +184,6 @@ function Network(networkShape, activation, outputActivation, inputActivation = A
     }
 
     this.changeParams = function(params){
-        console.log(params);
         Object.entries(params).forEach(([id, value]) => this.getById(id).setParam(value));
     }
 
@@ -239,7 +238,6 @@ function Network(networkShape, activation, outputActivation, inputActivation = A
     }
 
     this.setInputAndUpdate = function(input){
-        console.log(input);
         this.setInput(input);
         this.forwardUpdate();
     }
