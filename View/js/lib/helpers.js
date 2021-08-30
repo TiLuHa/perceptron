@@ -70,8 +70,10 @@ var _s = function(seconds){
 var _hide = function(object){
 	object.dom.style.opacity = 0;
 };
-var _show = function(object){
-	object.dom.style.opacity = 1;
+var _show = function(object, time = 0){
+	setTimeout(function () {
+		object.dom.style.opacity = 1;
+	}, time);
 };
 var _fadeIn = function(object, time){
 	setTimeout(function(){
@@ -82,6 +84,16 @@ var _fadeIn = function(object, time){
 		},500);
 	},time);
 };
+var _fadeOut = function(object, time){
+	setTimeout(function(){
+		object.dom.classList.add("fader");
+		object.dom.style.opacity = 0;
+		setTimeout(function(){
+			object.dom.classList.remove("fader");
+		},500);
+	},time);
+};
+
 
 /*******
 

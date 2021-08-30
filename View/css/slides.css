@@ -460,6 +460,11 @@ s{
 .pavlov{ color:#86C448; }
 .random{ color:#FF5E5E; }
 
+.blue{ color: #4089DD}
+.yellow{ color: #efc701}
+.red{ color: crimson}
+.green{ color: #86C448}
+
 .icon{
 	width:25px; height:25px;
 	background: url(../assets/ui/sandbox_hats.png);
@@ -541,5 +546,23 @@ s{
 }
 .credits a:hover{
 	color:#ee5151;
+}
+
+.heatmap_pixel {
+	width: 20px;
+	height: 20px;
+	border: 1px solid #4089DD;
+}
+
+.heatmap_pixel[output=true]{
+	background-color: palegoldenrod;
+}
+
+.heatmap_pixel[output=false] {
+	background-color: #88A8CE;
+}
+
+[zoom=true]:hover{
+	transform: scale(1.1,1.1);
 }
 
