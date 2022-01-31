@@ -11,7 +11,8 @@ function Perceptron(config){
     var network = new Network(config.size, config.activationFun, config.activationFunOutput);
     if(config.params) network.changeParams(config.params);
 
-    network.getNodes().concat(network.links).forEach(x => listen(network, "update/"+x.id, function (value, expected) {
+    network.getNodes().concat(network.links).forEach(x => listen(network, "update/"+x.id,
+        function (value, expected) {
         network.getById(x.id).setParam(value);
         network.forwardUpdate();
         publish("newOutput", [network, expected]);

@@ -83,7 +83,8 @@ SLIDES.push({
 		self.remove(_.btmWords);
 		self.remove(_.buttonOpenBox);
 	}
-},{
+},
+	{
 	onstart: function (self) {
 		let o = self.objects;
 		o[_.jochen].dom.src = "assets/Jochen/Jochen_fragend.jpg";
@@ -174,12 +175,13 @@ SLIDES.push({
 				o[_.maschineoutput].dom.src = b.showgood ? "assets/Jochen/dollar.png" : "assets/Jochen/dollar_no.png";
 				o[_.jochen].dom.src = b.face;
 				o[_.jochenText].setTextID(b.wordsJochen);
-				if (r.size === 0) { //Letze Birne
-					o[_.next].activate();
-				} else {
-					nextButtom.activate();
-				}
 			}, 200);
+			if (r.size === 0) { //Letze Birne
+				o[_.next].activate();
+				nextButtom.deactivate();
+			} else {
+				nextButtom.activate();
+			}
 		};
 
 		listen(_, "nextBirne", nextBirne);
@@ -205,7 +207,8 @@ SLIDES.push({
 
 		unlisten(_);
 	}
-},{
+},
+	{
 	onstart:function (self) {
 		let o = self.objects;
 
