@@ -5,11 +5,11 @@ let transpose = m => m[0].map((x, i) => m.map(x => x[i]));
 let VectorProdToMatrix = (left, right) => matrixProd(vectorToMatrix(left), transpose(vectorToMatrix(right)));
 let scaleMatrix = (a, m) => m.map(row => row.map(m_ij => a * m_ij))
 let applyOnMatrix = (func, m) => m.map(row => row.map(v => func(v)))
-let hadamardProductVec = (vec1, vec2) => vec1.map((v1_i,i)=> v1_i * vec2[i])
-let hadamardProductMatricies = (m1, m2) => m1.map((row,i)=> row.map((_, j) => m1[i][j] * m2[i][j]))
+let hadamardProductVec = (vec1, vec2) => vec1.map((v1_i, i) => v1_i * vec2[i])
+let hadamardProductMatricies = (m1, m2) => m1.map((row, i) => row.map((_, j) => m1[i][j] * m2[i][j]))
 
 let einheitsMatrix = (size) => Array.apply(null, new Array(size)).map((_, i, xs) => xs.map((_, k) => i === k ? 1 : 0));
-let diagonalisiere = vec => vec.map((v_i, i, v) => v.map((_,k) => i === k ? v_i[0] : 0))
+let diagonalisiere = vec => vec.map((v_i, i, v) => v.map((_, k) => i === k ? v_i[0] : 0))
 
 const TANH = {
     output: x => Math.tanh(x),
@@ -63,16 +63,16 @@ let net_2 = matrixProd(A2, out_1)
 console.log("net_2:")
 console.table(net_2)
 
-let out_2 = applyOnMatrix(SIGMOID.output,net_2)
+let out_2 = applyOnMatrix(SIGMOID.output, net_2)
 console.log("out_2:")
 console.table(out_2)
 
 const getError = (output, target, errorFkt) => vectorToMatrix(output.map((o_i, i) => errorFkt.output(o_i, target[i])));
 console.log("error:")
-console.table(getError(out_2,target,errorL2))
+console.table(getError(out_2, target, errorL2))
 
 //Backward
-let derivativeLast = applyOnMatrix(SIGMOID.der,out_2)
+let derivativeLast = applyOnMatrix(SIGMOID.der, out_2)
 console.log("derivativeLast:")
 console.table(derivativeLast)
 
@@ -126,29 +126,69 @@ const createNN = (layers, actFunc) => {
     }
     return result;
 };
+const forwardPropagate = (nn, input) => {
 
-console.table(createNN([2, 2, 2]));
-
-const forwardPropagate = ({weights: weights, z: z, a: a, actFunc: actFunc}, input) => {
-    z = [];
+    nn.z = [];
     if (input) {
-        a = [];
-        a[0] = [...input];
-        a[0].push(1);
+        nn.a = [];
+        nn.a[0] = vectorToMatrix([...input]);
+        nn.a[0].push([1]);
     } else {
-        let save = [...a[0]]
-        a = [];
-        a[0] = save;
+        let save = [...nn.a[0]]
+        nn.a = [];
+        nn.a[0] = save;
     }
 
-    for (let i = 0; i < weights.length; i++) {
-        z[i] = matrixProd(a[0],weights[0]);
-        a[i + 1] = applyOnMatrix(actFunc[i], z[i]);
-        a[i + 1].push(1);
+    for (let i = 0; i < nn.weights.length; i++) {
+        nn.z[i] = matrixProd(nn.weights[i], nn.a[i]);
+        nn.a[i + 1] = applyOnMatrix(nn.actFunc[i].output, nn.z[i]);
+        nn.a[i + 1].push([1]);
     }
-
-
 };
+const backProp = (nn, input, target, lossFunc, learingRate) => {
+    const getNabla = (a_L, target, lossFunc) =>
+        vectorToMatrix(a_L.map((o_i, i) => lossFunc.der(o_i, target[i])));
+
+    let getDelta = (weights_l_plus_1, delta_l_plus_1, z_l, actFunc) => {
+        z_l.push([1]);
+        return hadamardProductMatricies(
+            matrixProd(transpose(weights_l_plus_1), delta_l_plus_1),
+            applyOnMatrix(actFunc.der, z_l));
+    }
+
+    const Update = (weightMatrix, leargingRate, delta_l, a_l_minus_1) =>
+        matrixSubtract(weightMatrix, scaleMatrix(leargingRate, matrixProd(delta_l, transpose(a_l_minus_1))))
+
+    forwardPropagate(nn, input);
+    let deltas = [];
+    let nabla = getNabla(nn.a.slice(-1).pop().slice(0,-1), target, lossFunc)
+    deltas.unshift(hadamardProductMatricies(nabla, applyOnMatrix(SIGMOID.der, nn.z.slice(-1).pop())))
+    let newWeights = []
+    for (let i = nn.weights.length -1; i >= 0; i--) {
+        newWeights.unshift(Update(nn.weights[i], learingRate, deltas[0], nn.a[i]));
+        deltas.unshift(getDelta(nn.weights[i], deltas[0], nn.z[i], nn.actFunc[i]));
+    }
+    nn.weights = newWeights;
+};
+
+let NN2 = {
+    weights: [
+        [
+            [.15, .2, .35],
+            [.25, .3, .35]
+        ],
+        [
+            [.4, .45, .6],
+            [.5, .55, .6]
+        ]
+    ],
+    actFunc: [SIGMOID, SIGMOID]
+}
+let NN = createNN([2, 2, 2], [SIGMOID, SIGMOID]);
+forwardPropagate(NN2, [.05, .1])
+console.table(NN2.weights);
+backProp(NN2, [.05,.1],[.01, .99],errorL2, .5)
+console.table(NN2.weights);
 
 
 // let der_net_h = applyOnMatrix(SIGMOID.der, net_1)
