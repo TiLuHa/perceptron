@@ -166,9 +166,10 @@ const backProp = (nn, input, target, lossFunc, learingRate) => {
     let newWeights = []
     for (let i = nn.weights.length -1; i >= 0; i--) {
         newWeights.unshift(Update(nn.weights[i], learingRate, deltas[0], nn.a[i]));
-        deltas.unshift(getDelta(nn.weights[i], deltas[0], nn.z[i], nn.actFunc[i]));
+        if(i !== 0 ) deltas.unshift(getDelta(nn.weights[i], deltas[0], nn.z[i-1], nn.actFunc[i]));
     }
     nn.weights = newWeights;
+    nn.deltas = deltas;
 };
 
 let NN2 = {
@@ -186,9 +187,11 @@ let NN2 = {
 }
 let NN = createNN([2, 2, 2], [SIGMOID, SIGMOID]);
 forwardPropagate(NN2, [.05, .1])
-console.table(NN2.weights);
+console.log(NN2.weights);
 backProp(NN2, [.05,.1],[.01, .99],errorL2, .5)
-console.table(NN2.weights);
+console.table(NN2.weights[1])
+console.log(NN2.weights);
+console.log(NN2.deltas)
 
 
 // let der_net_h = applyOnMatrix(SIGMOID.der, net_1)
