@@ -30,6 +30,10 @@ let errorL2 = {
     output: (output, target) => .5 * Math.pow(output - target, 2),
     der: (output, target) => output - target,
 };
+let errorL1 = {
+    output: (output, target) => math.abs(output - target),
+    der: () => 1
+}
 
 const createNN = (layers, actFunc) => {
     let result = {weights: [], z: [], a: [], actFunc: []};
@@ -101,12 +105,12 @@ let NN2 = {
             [.5, .55, .6]
         ]
     ],
-    actFunc: [SIGMOID, SIGMOID]
+    actFunc: [RELU, RELU]
 }
 
-// forwardPropagate(NN2, [.05, .1])
-// console.log(NN2.weights);
-// backProp(NN2, [.05,.1],[.01, .99],errorL2, .5)
-// console.table(NN2.weights[1])
-// console.log(NN2.weights);
-// console.log(NN2.deltas)
+forwardPropagate(NN2, [.05, .1])
+console.log(NN2.weights);
+backProp(NN2, [.05,.1],[.01, .99],errorL1, .5)
+console.table(NN2.weights[1])
+console.log(NN2.weights);
+console.log(NN2.deltas)
