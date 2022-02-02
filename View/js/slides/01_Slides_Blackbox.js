@@ -1,4 +1,5 @@
-SLIDES.push({
+SLIDES.push(
+	{
 
 	id: "sortieren",
 
@@ -99,7 +100,7 @@ SLIDES.push({
 		_.birnen.forEach((b, i) => {
 			self.add({
 				id: _.birne + i, type: "ImageBox",
-				src: "assets/Jochen/birne_gut.png",
+				src: "assets/birnen/b1.jpg",
 				x: x_birne_entrance+i*20, y: y_birne_entrance,
 				width: widthstd + b.widthplus,
 				hight: hightstd + b.hightplus,
