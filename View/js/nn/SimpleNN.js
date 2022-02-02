@@ -103,9 +103,53 @@ console.table(delta0)
 //update
 let learningRate = 0.5
 
-let A1_new = matrixSubtract(A1, matrixProd(out_1, scaleMatrix(0.5, delta1)));
+function Update(weightMatrix, leargingRate, delta, out) {
+    return matrixSubtract(weightMatrix, scaleMatrix(leargingRate, matrixProd(delta, transpose(out))));
+}
+
+let A1_new = Update(A1, learningRate, delta1, input);
 console.log("A1_new")
 console.table(A1_new)
+
+out_2.push([1])
+let A2_new = Update(A2, learningRate, delta2, out_1)
+console.log("A2_new");
+console.table(A2_new)
+
+const createNN = (layers, actFunc) => {
+    let result = {weights: [], z: [], a: [], actFunc: []};
+    const createMatrix = (rows, columns, filling = 1) => Array(rows).fill(Array(columns).fill(filling));
+
+    for (let i = 0; i < layers.length - 1; i++) {
+        result.actFunc[i] = actFunc[i];
+        result.weights[i] = createMatrix(layers[i + 1], layers[i] + 1);
+    }
+    return result;
+};
+
+console.table(createNN([2, 2, 2]));
+
+const forwardPropagate = ({weights: weights, z: z, a: a, actFunc: actFunc}, input) => {
+    z = [];
+    if (input) {
+        a = [];
+        a[0] = [...input];
+        a[0].push(1);
+    } else {
+        let save = [...a[0]]
+        a = [];
+        a[0] = save;
+    }
+
+    for (let i = 0; i < weights.length; i++) {
+        z[i] = matrixProd(a[0],weights[0]);
+        a[i + 1] = applyOnMatrix(actFunc[i], z[i]);
+        a[i + 1].push(1);
+    }
+
+
+};
+
 
 // let der_net_h = applyOnMatrix(SIGMOID.der, net_1)
 // console.table(der_net_h)
