@@ -99,7 +99,7 @@ function Slider(config){
 		_isDragging = false;
 	};
 	var _onDomMouseWheel = function(event){
-		let direction = event.deltaY < 0 ? -1 : 1;
+		let direction = event.deltaY > 0 ? -1 : 1;
 		let newValue = self.value + direction;
 
 		if (newValue < config.min || newValue > config.max)
