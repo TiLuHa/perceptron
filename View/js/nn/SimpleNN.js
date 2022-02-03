@@ -1,10 +1,11 @@
 let matrixProd = (A, B) => A.map((row, i) => B[0].map((_, j) => row.reduce((acc, _, n) => acc + A[i][n] * B[n][j], 0)));
-let matrixSubtract = (A, B) => A.map((row, i) => row.map((a_ij, j) => a_ij - B[i][j]));
+let combineMatriciesPointwise = (A, B, operation) => A.map((row, i) => row.map((_, j) => operation(A[i][j], B[i][j])));
+let hadamardProductMatricies = (A, B) => combineMatriciesPointwise(A,B,((a,b) => a * b))
+let matrixSubtract = (A, B) => combineMatriciesPointwise(A,B,((a,b) => a - b))
 let vectorToMatrix = vec => vec.map(v_i => [v_i]);
 let transpose = m => m[0].map((x, i) => m.map(x => x[i]));
-let scaleMatrix = (a, m) => m.map(row => row.map(m_ij => a * m_ij))
 let applyOnMatrix = (func, m) => m.map(row => row.map(v => func(v)))
-let hadamardProductMatricies = (m1, m2) => m1.map((row, i) => row.map((_, j) => m1[i][j] * m2[i][j]))
+let scaleMatrix = (a, m) => applyOnMatrix((x => a * x), m)
 
 const TANH = {
     output: x => Math.tanh(x),
@@ -26,11 +27,11 @@ const LINEAR = {
     der: x => 1
 };
 
-let errorL2 = {
+const errorL2 = {
     output: (output, target) => .5 * Math.pow(output - target, 2),
     der: (output, target) => output - target,
 };
-let errorL1 = {
+const errorL1 = {
     output: (output, target) => math.abs(output - target),
     der: () => 1
 }
@@ -47,7 +48,6 @@ const createNN = (layers, actFunc) => {
 };
 
 const forwardPropagate = (nn, input) => {
-
     nn.z = [];
     if (input) {
         nn.a = [];
@@ -85,7 +85,7 @@ const backProp = (nn, input, target, lossFunc, learingRate) => {
     let nabla = getNabla(nn.a.slice(-1).pop().slice(0,-1), target, lossFunc)
     deltas.unshift(hadamardProductMatricies(nabla, applyOnMatrix(SIGMOID.der, nn.z.slice(-1).pop())))
     let newWeights = []
-    for (let i = nn.weights.length -1; i >= 0; i--) {
+    for (let i = nn.weights.length - 1; i >= 0; i--) {
         newWeights.unshift(Update(nn.weights[i], learingRate, deltas[0], nn.a[i]));
         if(i !== 0) deltas.unshift(getDelta(nn.weights[i], deltas[0], nn.z[i - 1], nn.actFunc[i]));
     }
