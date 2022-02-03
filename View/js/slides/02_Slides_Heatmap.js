@@ -72,8 +72,8 @@ SLIDES.push({
 			onclick: function () {
 				o[_.box].dom.style.top = -200;
 				o[_.boxtext].dom.style.top = 192 - 260;
-				_fadeOut(o[_.box], 500);
-				_fadeOut(o[_.boxtext], 500);
+				_fadeOut(o[_.box], 500, 0);
+				_fadeOut(o[_.boxtext], 500, 0);
 				publish("slideshow/next");
 			}
 		});
@@ -167,7 +167,7 @@ SLIDES.push({
 		let nextBirne = function (nextButtom) {
 			[b, ...r] = _.birnen;
 			_.birnen = r;
-			_fadeOut(o[_.birne], 100);
+			_fadeOut(o[_.birne], 100, 0);
 			o[_.birne].dom.src = b.good ? "assets/Jochen/birne_gut.png" : "assets/Jochen/birne_schlecht.png";
 			_fadeIn(o[_.birne], 100);
 			setTimeout(() => {

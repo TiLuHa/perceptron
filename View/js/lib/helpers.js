@@ -84,10 +84,10 @@ var _fadeIn = function(object, time){
 		},500);
 	},time);
 };
-var _fadeOut = function(object, time){
+var _fadeOut = function (object, time, opacity = 0) {
 	setTimeout(function(){
 		object.dom.classList.add("fader");
-		object.dom.style.opacity = 0;
+		object.dom.style.opacity = opacity;
 		setTimeout(function(){
 			object.dom.classList.remove("fader");
 		},500);

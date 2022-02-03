@@ -86,6 +86,7 @@ SLIDES.push(
                 onclick: () => publish("slideshow/next")
             });
 
+            _hide(o[_.btmWords]);
             _fadeIn(o[_.btmWords], 100);
             _hide(o[_.next]);
             _fadeIn(o[_.next], 300);
@@ -413,16 +414,127 @@ SLIDES.push(
             _fadeIn(o[_.b27], 800);
             _hide(o[_.b28]);
             _fadeIn(o[_.b28], 900);
+
             _hide(o[_.btmWords]);
             _fadeIn(o[_.btmWords], 100);
             _hide(o[_.next]);
             _fadeIn(o[_.next], 100);
 
-            o[_.b28].dom.style.opacity = 0.2;
         },
         onend: function (self) {
             self.remove(_.btmWords);
             self.remove(_.next);
+
+        }
+    },
+    {
+        //Slide 5
+        onstart: function (self) {
+            let o = self.objects;
+
+            _.item_x = 750;
+            _.item_y = 100;
+            _.item_scale = 0.3
+            _.item_width = 570 * _.item_scale
+            _.item_height = 554 * _.item_scale
+            _.item = "item";
+            self.add({
+                id: _.item, type: "ImageBox",
+                src: "assets/birnen/Birnenmarmelade.jpg",
+                x: _.item_x, y: _.item_y,
+                width: _.item_width, height: _.item_height,
+            });
+
+            _.btmWords = "btmWords";
+            self.add({
+                id: _.btmWords, type: "TextBox", text_id: "01_text5",
+                x: 10, y: 450,
+                width: 700, height: 100, align: "center"
+            })
+
+            _.next = "next";
+            self.add({
+                id: _.next, type: "Button",
+                x: 730, y: 463, //normal size
+                //size: "long", x:304, y:466,
+                text_id: "01_button_next", uppercase: false,
+                onclick: () => publish("slideshow/next")
+            });
+
+
+            _.all_birnen = [
+                o[_.b01],o[_.b02],o[_.b03],o[_.b04],o[_.b05],o[_.b06],o[_.b07],o[_.b08],
+                o[_.b11],o[_.b12],o[_.b13],o[_.b14],o[_.b15],o[_.b16],o[_.b17],o[_.b18],
+                o[_.b21],o[_.b22],o[_.b23],o[_.b24],o[_.b25],o[_.b26],o[_.b27],o[_.b28],
+            ];
+
+            _.not_item1 = [
+                o[_.b01],o[_.b02],o[_.b03],o[_.b04],o[_.b05],o[_.b06],/*o[_.b07],o[_.b08],*/
+                o[_.b11],o[_.b12],o[_.b13],o[_.b14],o[_.b15],/*o[_.b16],o[_.b17],o[_.b18],*/
+                o[_.b21],o[_.b22],o[_.b23],o[_.b24],/*o[_.b25],o[_.b26],o[_.b27],o[_.b28],*/
+            ];
+            _.not_item1.forEach(b => _fadeOut(b, 200, 0.2))
+
+            _hide(o[_.item]);
+            _fadeIn(o[_.item], 200);
+
+            _hide(o[_.btmWords]);
+            _fadeIn(o[_.btmWords], 100);
+            _hide(o[_.next]);
+            _fadeIn(o[_.next], 100);
+
+        },
+        onend: function (self) {
+            self.remove(_.item);
+            self.remove(_.btmWords);
+            self.remove(_.next);
+        }
+    },
+    {
+        //Slide 6
+        onstart: function (self) {
+            let o = self.objects;
+
+            _.item = "item";
+            self.add({
+                id: _.item, type: "ImageBox",
+                src: "assets/birnen/Birnenkuchen.jpg",
+                x: _.item_x, y: _.item_y,
+                width: _.item_width, height: _.item_height,
+            });
+
+            _.btmWords = "btmWords";
+            self.add({
+                id: _.btmWords, type: "TextBox", text_id: "01_text6",
+                x: 10, y: 450,
+                width: 700, height: 100, align: "center"
+            })
+
+            _.next = "next";
+            self.add({
+                id: _.next, type: "Button",
+                x: 730, y: 463, //normal size
+                //size: "long", x:304, y:466,
+                text_id: "01_button_next", uppercase: false,
+                onclick: () => publish("slideshow/next")
+            });
+
+            _.all_birnen.forEach(b => _fadeOut(b, 200, 0.2))
+
+            _hide(o[_.item]);
+            _fadeIn(o[_.item], 200);
+
+            _hide(o[_.btmWords]);
+            _fadeIn(o[_.btmWords], 100);
+            _hide(o[_.next]);
+            _fadeIn(o[_.next], 100);
+
+        },
+        onend: function (self) {
+            self.remove(_.item);
+            self.remove(_.btmWords);
+            self.remove(_.next);
+
             self.remove(_.b01);
             self.remove(_.b02);
             self.remove(_.b03);
