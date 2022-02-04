@@ -133,10 +133,10 @@ SLIDES.push(
             _.scale2 = 0.8
             _.birnen_shrinkfactor = .15
             _.birnen_width = 303 * _.birnen_shrinkfactor,
-            _.birnen_height = 514 * _.birnen_shrinkfactor,
-            _.appart = 20,
-            _.start_x = 220,
-            _.start_y = 50
+                _.birnen_height = 514 * _.birnen_shrinkfactor,
+                _.appart = 20,
+                _.start_x = 220,
+                _.start_y = 50
             _.get_x = (pos) => _.start_x + pos * (_.birnen_width + _.appart)
             _.get_y = (pos) => _.start_y + pos * (_.birnen_height + _.appart)
 
@@ -463,15 +463,15 @@ SLIDES.push(
 
 
             _.all_birnen = [
-                o[_.b01],o[_.b02],o[_.b03],o[_.b04],o[_.b05],o[_.b06],o[_.b07],o[_.b08],
-                o[_.b11],o[_.b12],o[_.b13],o[_.b14],o[_.b15],o[_.b16],o[_.b17],o[_.b18],
-                o[_.b21],o[_.b22],o[_.b23],o[_.b24],o[_.b25],o[_.b26],o[_.b27],o[_.b28],
+                o[_.b01], o[_.b02], o[_.b03], o[_.b04], o[_.b05], o[_.b06], o[_.b07], o[_.b08],
+                o[_.b11], o[_.b12], o[_.b13], o[_.b14], o[_.b15], o[_.b16], o[_.b17], o[_.b18],
+                o[_.b21], o[_.b22], o[_.b23], o[_.b24], o[_.b25], o[_.b26], o[_.b27], o[_.b28],
             ];
 
             _.not_item1 = [
-                o[_.b01],o[_.b02],o[_.b03],o[_.b04],o[_.b05],o[_.b06],/*o[_.b07],o[_.b08],*/
-                o[_.b11],o[_.b12],o[_.b13],o[_.b14],o[_.b15],/*o[_.b16],o[_.b17],o[_.b18],*/
-                o[_.b21],o[_.b22],o[_.b23],o[_.b24],/*o[_.b25],o[_.b26],o[_.b27],o[_.b28],*/
+                o[_.b01], o[_.b02], o[_.b03], o[_.b04], o[_.b05], o[_.b06],/*o[_.b07],o[_.b08],*/
+                o[_.b11], o[_.b12], o[_.b13], o[_.b14], o[_.b15],/*o[_.b16],o[_.b17],o[_.b18],*/
+                o[_.b21], o[_.b22], o[_.b23], o[_.b24],/*o[_.b25],o[_.b26],o[_.b27],o[_.b28],*/
             ];
             _.not_item1.forEach(b => _fadeOut(b, 200, 0.2))
 
@@ -520,9 +520,68 @@ SLIDES.push(
             });
 
             _.all_birnen.forEach(b => _fadeOut(b, 200, 0.2))
+            _.yes_item2 = [
+                o[_.b01], o[_.b02], o[_.b03], o[_.b04], o[_.b05], o[_.b06], o[_.b07], o[_.b08],
+                //o[_.b11],o[_.b12],o[_.b13],o[_.b14],o[_.b15],o[_.b16],o[_.b17],o[_.b18],
+                o[_.b21], o[_.b22], o[_.b23], o[_.b24], o[_.b25], o[_.b26], o[_.b27], o[_.b28],
+            ];
+            _.yes_item2.forEach(b => _fadeIn(b, 400))
 
             _hide(o[_.item]);
-            _fadeIn(o[_.item], 200);
+            _fadeIn(o[_.item], 400);
+
+            _hide(o[_.btmWords]);
+            _fadeIn(o[_.btmWords], 100);
+            _hide(o[_.next]);
+            _fadeIn(o[_.next], 100);
+
+        },
+        onend: function (self) {
+            self.remove(_.item);
+            self.remove(_.btmWords);
+            self.remove(_.next);
+        }
+    },
+    {
+        //Slide 7
+        onstart: function (self) {
+            let o = self.objects;
+
+
+            _.item = "item";
+            self.add({
+                id: _.item, type: "ImageBox",
+                src: "assets/birnen/Birnensaft.jpg",
+                x: _.item_x, y: _.item_y,
+                width: _.item_width, height: _.item_height,
+            });
+
+            _.btmWords = "btmWords";
+            self.add({
+                id: _.btmWords, type: "TextBox", text_id: "01_text7",
+                x: 10, y: 450,
+                width: 700, height: 100, align: "center"
+            })
+
+            _.next = "next";
+            self.add({
+                id: _.next, type: "Button",
+                x: 730, y: 463, //normal size
+                //size: "long", x:304, y:466,
+                text_id: "01_button_next", uppercase: false,
+                onclick: () => publish("slideshow/next")
+            });
+
+            _.all_birnen.forEach(b => _fadeOut(b, 200, 0.2))
+            _.yes_item2 = [
+                o[_.b01], o[_.b02], //o[_.b03], o[_.b04], o[_.b05], o[_.b06], o[_.b07], o[_.b08],
+                o[_.b11],o[_.b12],o[_.b13],o[_.b14],o[_.b15],o[_.b16],//o[_.b17],o[_.b18],
+                o[_.b21], o[_.b22], o[_.b23], o[_.b24], //o[_.b25], o[_.b26], o[_.b27], o[_.b28],
+            ];
+            _.yes_item2.forEach(b => _fadeIn(b, 400))
+
+            _hide(o[_.item]);
+            _fadeIn(o[_.item], 400);
 
             _hide(o[_.btmWords]);
             _fadeIn(o[_.btmWords], 100);
