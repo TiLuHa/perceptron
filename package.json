@@ -15,7 +15,9 @@
   "license": "ISC",
   "homepage": "https://TiLuHa.github.io/perceptron",
   "dependencies": {
-    "gh-pages": "^3.2.3",
     "mathjs": "^10.1.0"
+  },
+  "devDependencies": {
+    "gh-pages": "^3.2.3"
   }
 }
