@@ -1,3 +1,25 @@
+const parts = {
+	connection:{
+		src: "assets/birnen/verbindung.png",
+		xOffsetText: 20,
+		yOffsetText: 13
+	},
+	weigth:{
+		src: "assets/birnen/mitte.png",
+		xOffsetText: 20,
+		yOffsetText: 13
+	},
+	left:{
+		src: "assets/birnen/links.png",
+		xOffsetText: 20,
+		yOffsetText: 13
+	},
+	right:{
+		src: "assets/birnen/rechts.png",
+		xOffsetText: 20,
+		yOffsetText: 13
+	}
+}
 
 function NWP(config){
 
@@ -10,8 +32,11 @@ function NWP(config){
 	let part = config.size === undefined ? new Image() : new Image(config.size.width, config.size.height);
 	part.className = "object";
 	part.classList.add("nwp");
-	part.src = config.src;
+	part.src = config.part !== undefined ? config.part.src : config.src;
 	self.dom.appendChild(part);
+	self.x = config.x;
+	self.y = config.y;
+	self.part = config.part;
 
 	//Weiter Objekte die mit diesem aktiviert werden sollen.
 	self.friends = [self.id].concat(config.friends !== undefined ? config.friends : [])

@@ -9,7 +9,15 @@ function TextBox(config){
 	self.dom.id = self.id;
 
 	// Customize
+	if(config.connectedWith!==undefined){
+		let c = config.connectedWith
+		config.x = c.x + c.part.xOffsetText;
+		config.y = c.y + c.part.yOffsetText;
+		self.dom.classList.add("unclickable")
+	}
+
 	_configText(config, self.dom);
+
 
 	// Set Text!
 	self.setText = function(words){
