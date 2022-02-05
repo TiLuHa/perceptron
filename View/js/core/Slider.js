@@ -63,13 +63,15 @@ function Slider(config) {
     };
     if (config.message) listen(self, config.message, self.setValue);
 
-    listen(self, "activeNWP", (friends) => {
-        if (friends.includes(self.id)) {
-            self.dom.removeAttribute("hide");
-        } else {
-            self.dom.setAttribute("hide", "true")
-        }
-    })
+    if (config.alwaysOn === undefined) {
+        listen(self, "activeNWP", (friends) => {
+            if (friends.includes(self.id)) {
+                self.dom.removeAttribute("hide");
+            } else {
+                self.dom.setAttribute("hide", "true")
+            }
+        });
+    }
 
     // Mouse events
     var _isDragging = false;

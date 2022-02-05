@@ -12,6 +12,8 @@ function NWP(config){
 	part.classList.add("nwp");
 	part.src = config.src;
 	self.dom.appendChild(part);
+
+	//Weiter Objekte die mit diesem aktiviert werden sollen.
 	self.friends = [self.id].concat(config.friends !== undefined ? config.friends : [])
 
 	if (config.hoverZoom) self.dom.setAttribute("zoom",true);
@@ -57,7 +59,8 @@ function NWP(config){
 	if(!config.active) self.deactivate();
 
 	// Listeners!
-	listen(self, "activeNWP", self.activate)
+	if(config.alwaysOn===undefined) listen(self, "activeNWP", self.activate)
+
 	if(self.id){
 		//listen(self, "/deactivate", self.deactivate);
 		//listen(self, self.id+"/activate", self.activate);
