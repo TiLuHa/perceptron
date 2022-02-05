@@ -3,8 +3,8 @@ let Activations =
         TANH: x => Math.tanh(x),
         RELU: x => Math.max(0, x),
         SIGMOID: x => 1 / (1 + Math.exp(-x)),
-        LINEAR: (x, alpha = 1) => x * alpha ,
-        STEP: (x,alpha = 0) => x <= alpha ? 0 : 1
+        LINEAR: (x, alpha = 1) => x * alpha,
+        STEP: (x, alpha = 0) => x <= alpha ? 0 : 1
     };
 
 /**
@@ -43,7 +43,7 @@ function bracketsIfNeg(x) {
     return x < 0 ? "(" + x + ")" : "" + x;
 }
 
-function Node(id){
+function Node(id) {
     this.id = id;
     this.bias = Math.round((Math.random() - 0.5) * 10);
     this.result = 0;
@@ -53,91 +53,91 @@ function Node(id){
     this.activationFun = Activations.STEP;
     this.needsUpdate = true;
 
-    this.updateOutput = function(){
-        if (this.needsUpdate){
+    this.updateOutput = function () {
+        if (this.needsUpdate) {
             this.result = this.inputLinks.reduce((sum, link) => sum + link.getValue(), this.bias);
             this.output = this.activationFun(this.result);
         }
     }
 
-    this.setNeedsUpdate = function(){
+    this.setNeedsUpdate = function () {
         this.needsUpdate = true;
     }
 
-    this.getResultCalcString = function(){
+    this.getResultCalcString = function () {
         return this.inputLinks.reduce((sum, link) => sum + " + " + link.getCalcString(), "" + this.bias) + " = " + this.result;
     }
 
-    this.getOutputCalcString = function(){
+    this.getOutputCalcString = function () {
         return "f(" + this.result + ") = " + this.output;
     }
 
-    this.getOutputCalcStringBig = function(){
+    this.getOutputCalcStringBig = function () {
         return "f(" + this.getResultCalcString() + ") = " + this.output;
     }
 
-    this.getOutputNodes = function(){
+    this.getOutputNodes = function () {
         return this.outputLinks.map(link => link.destination);
     }
 
-    this.setOutput = function(value){
+    this.setOutput = function (value) {
         this.output = value;
         this.getOutputNodes().forEach(node => node.setNeedsUpdate());
         this.needsUpdate = false;
     }
 
-    this.setBias = function(value){
+    this.setBias = function (value) {
         this.bias = value;
         this.needsUpdate = true;
     }
 
-    this.getParam = function(){
+    this.getParam = function () {
         return this.param;
     }
 
-    this.setParam = function(value){
+    this.setParam = function (value) {
         this.bias = value;
     }
 }
 
-function Link(source, destination){
+function Link(source, destination) {
     this.source = source;
     this.destination = destination;
     this.weight = Math.round((Math.random() - 0.5) * 10);
     this.id = this.source.id + "-" + this.destination.id;
 
-    this.getValue = function(){
+    this.getValue = function () {
         return this.source.output * this.weight;
     }
 
-    this.setWeight = function(value){
+    this.setWeight = function (value) {
         this.weight = value;
         this.destination.setNeedsUpdate();
     }
 
-    this.getParam = function(){
+    this.getParam = function () {
         return this.param;
     }
 
-    this.setParam = function(value){
+    this.setParam = function (value) {
         this.weight = value;
     }
 
-    this.getCalcString = function(){
+    this.getCalcString = function () {
         return bracketsIfNeg(this.source.output) + "*" + bracketsIfNeg(this.weight);
     }
 }
 
-function Network(networkShape, activation, outputActivation, inputActivation = Activations.LINEAR){
+function Network(networkShape, activation, outputActivation, inputActivation = Activations.LINEAR) {
     this.layers = [];
     this.links = [];
     this.idCounter = 0;
 
-    this.generateNodeId = function(){
+    this.generateNodeId = function () {
         return this.idCounter++;
     }
 
-    this.construct = function(networkShape, activation, outputActivation, inputActivation){
+    this.construct = function (networkShape, activation, outputActivation, inputActivation) {
         let numLayers = networkShape.length;
 
         for (let layerIdx = 0; layerIdx < numLayers; ++layerIdx) {
@@ -175,23 +175,23 @@ function Network(networkShape, activation, outputActivation, inputActivation = A
     this.construct(networkShape, activation, outputActivation, inputActivation)
     //End of construction
 
-    this.getNodes = function(){
+    this.getNodes = function () {
         return [].concat(...this.layers);
     }
 
-    this.getById = function(id){
+    this.getById = function (id) {
         return this.getNodes().concat(this.links).find(x => x.id.toString() === id.toString());
     }
 
-    this.changeParams = function(params){
+    this.changeParams = function (params) {
         Object.entries(params).forEach(([id, value]) => this.getById(id).setParam(value));
     }
 
-    this.getInputLayer = function(){
+    this.getInputLayer = function () {
         return this.layers[0];
     }
 
-    this.setInput = function(newInput){
+    this.setInput = function (newInput) {
         let inputLayer = this.getInputLayer();
 
         if (inputLayer.length !== newInput.length)
@@ -200,26 +200,26 @@ function Network(networkShape, activation, outputActivation, inputActivation = A
         newInput.forEach((value, i) => inputLayer[i].bias = value);
     }
 
-    this.getInput = function(){
+    this.getInput = function () {
         return this.getInputLayer().map(node => node.bias);
     }
 
-    this.getOutputLayer = function(){
+    this.getOutputLayer = function () {
         return this.layers[this.layers.length - 1];
     }
 
-    this.getOutput = function(){
+    this.getOutput = function () {
         return this.getOutputLayer().map(node => node.output);
     }
 
-    this.getWeightsOfLayer = function(index){
+    this.getWeightsOfLayer = function (index) {
         if (index >= this.layers.length)
             return [[]];
 
-        return this.layers[index].map(inputNode => inputNode.outputLinks.map(link => link. weight));
+        return this.layers[index].map(inputNode => inputNode.outputLinks.map(link => link.weight));
     }
 
-    this.getOutputFast = function(input){
+    this.getOutputFast = function (input) {
         let iterate = function (inp, layerid, network) {
             let weights = network.getWeightsOfLayer(layerid);
             let biases = network.layers[layerid + 1].map(node => node.bias);
@@ -233,33 +233,72 @@ function Network(networkShape, activation, outputActivation, inputActivation = A
         return this.layers.slice(0, -1).reduce((lastResult, layer, i) => iterate(lastResult, i, this), input);
     }
 
-    this.forwardUpdate = function(){
+    this.forwardUpdate = function () {
         this.layers.forEach(layer => layer.forEach(node => node.updateOutput()));
     }
 
-    this.setInputAndUpdate = function(input){
+    this.setInputAndUpdate = function (input) {
         this.setInput(input);
         this.forwardUpdate();
     }
 
-    this.getFirstOutput = function(){
+    this.getFirstOutput = function () {
         return this.getOutput()[0];
     }
 
-    this.getFirstOutputNode = function(){
+    this.getFirstOutputNode = function () {
         return this.getOutputLayer()[0];
     }
+
+    this.asSimpleNN = function () {
+        //weights = new Array(this.layers - 1)
+        let w = this.layers.slice(1).map(layer => layer.map(node =>
+            node.inputLinks.map(link => link.weight).concat(node.bias)));
+        return {weights: w};
+
+    };
 }
 
-// let network = new Network([2, 1], Activations.LINEAR, Activations.LINEAR);
+//let network = new Network([2, 1], Activations.LINEAR, Activations.LINEAR);
+let network = new Network([2, 2, 2], Activations.RELU, Activations.RELU);
+
+let NN2 = {
+    weights: [
+        [
+            [.15, .2, .35],
+            [.25, .3, .35]
+        ],
+        [
+            [.4, .45, .6],
+            [.5, .55, .6]
+        ]
+    ],
+    actFunc: [Activations.RELU, Activations.RELU]
+}
 // network.setInput([2, 4]);
 // network.getNodes().forEach(node => node.bias = node.id);
-// network.changeParams({"0":0, "1":0, "2":1, "0-2":1, "1-2":-1});
+network.changeParams({
+    "0-2": .15,
+    "0-3": .25,
+    "0": 0,
+    "1-2": .2,
+    "1-3": .3,
+    "1": 0,
+    "2": .35,
+    "2-4": .4,
+    "2-5":.5,
+    "3": .35,
+    "3-4": .45,
+    "3-5":.55,
+    "4": .6,
+    "5":.6,
+});
+console.log(network.asSimpleNN())
 // network.links[0].weight = -2;
 // network.links[1].weight = 3;
 // network.getOutput()[0].bias = 1;
 // network.forwardUpdate();
-// console.log(network);
+//console.log(network);
 // console.log(network.getFirstOutput());
 // console.log(network.getOutputFast([7, 8]));
 // console.log(network.getNodes()[2].getOutputCalcStringBig());
