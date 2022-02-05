@@ -711,8 +711,12 @@ SLIDES.push(
                 width: _.item_width, height: _.item_height,
             });
 
-            _.newItems = [o[_.birne], o[_.arrow0], o[_.item0], o[_.arrow0], o[_.item2], o[_.arrow2], o[_.item2]]
+            _.newItems = [o[_.birne], o[_.arrow0], o[_.item0], o[_.arrow1], o[_.item1], o[_.arrow2], o[_.item2]]
             _.newItems.forEach(obj => _hide(obj))
+            _.newItems.reduce((time, obj) => {
+                _fadeIn(obj, time)
+                return time + 300;
+            }, 0)
 
         },
         onend: function (self) {
