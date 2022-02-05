@@ -46,21 +46,6 @@ SLIDES.push(
                 text_id: "01_button_next", uppercase: false,
                 onclick: () => publish("slideshow/next")
             });
-            self.add({
-                id: "NWP", type: "NWP",
-                x: 800, y: 463, rotation: 90, size: {height: 17, width: 235},
-                src: "assets/birnen/verbindung.png",
-            })
-            self.add({
-                id: "NWP", type: "NWP",
-                x: 900, y: 463, rotation: 90, size: {height: 30, width: 200},
-                src: "assets/birnen/verbindung.png",
-            })
-            self.add({
-                id: "NWP", type: "NWP",
-                x: 800, y: 463,
-                src: "assets/birnen/links.png",
-            })
 
             _hide(o[_.topWords]);
             _fadeIn(o[_.topWords], 100);

@@ -1,5 +1,32 @@
-SLIDES.push({
-	id: "blackbox",
+SLIDES.push(
+	{
+		id: "blackbox",
+
+		onstart: function (self) {
+
+			self.add({
+				id: "nwp1", type: "NWP",
+				x: 800, y: 463, rotation: 90, size: {height: 17, width: 235},
+				src: "assets/birnen/verbindung.png",
+			})
+			self.add({
+				id: "nwp2", type: "NWP",
+				x: 900, y: 463, rotation: 90, size: {height: 30, width: 200},
+				src: "assets/birnen/verbindung.png",
+				friends: ["nwp1"],
+			})
+			self.add({
+				id: "nwp3", type: "NWP",
+				x: 800, y: 463,
+				src: "assets/birnen/links.png",
+			})
+		},
+
+		onend: function (self) {
+
+		}
+	},
+	{
 
 	onstart: function (self) {
 		let o = self.objects;
