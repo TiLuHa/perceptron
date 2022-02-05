@@ -620,6 +620,15 @@ SLIDES.push(
             self.remove(_.b18);
         }
     },
+    {
+        //Slide 8
+        onstart: function (self) {
+
+        },
+        onend: function (self) {
+
+        }
+    },
 /*    {
         onstart: function (self) {
             let o = self.objects;
