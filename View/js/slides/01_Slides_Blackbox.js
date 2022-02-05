@@ -623,6 +623,13 @@ SLIDES.push(
     {
         //Slide 8
         onstart: function (self) {
+            _.arrow = "arrow"
+            self.add({
+                id: _.arrow, type: "ImageBox",
+                src: "assets/Jochen/arrow.PNG",
+                x: _.get_x(7), y: _.get_y(1),
+                width: _.birnen_width * _.scale1, height: _.birnen_height * _.scale1,
+            });
 
         },
         onend: function (self) {
