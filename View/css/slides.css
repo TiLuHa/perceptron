@@ -387,6 +387,9 @@ s{
 	cursor: -moz-grabbing;
 	cursor: grabbing;
 }
+.slider[hide=true]{
+	display: none;
+}
 
 .sandbox_pop{
 	position: absolute;

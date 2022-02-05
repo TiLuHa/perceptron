@@ -1,154 +1,162 @@
 /**************************************
-{
+ {
 	x:0, y:0, width:433,
 	min:1, max:25, step:1,
 	message: "rules/turns"
 }
-**************************************/
-function Slider(config){
+ **************************************/
+function Slider(config) {
 
-	var self = this;
-	self.id = config.id;
+    var self = this;
+    self.id = config.id;
 
-	// Create DOM
-	var dom = document.createElement("div");
-	dom.className = "slider";
-	dom.style.left = config.x+"px";
-	dom.style.top = config.y+"px";
-	dom.style.width = config.width+"px";
-	dom.id = self.id;
-	self.dom = dom;
+    // Create DOM
+    var dom = document.createElement("div");
+    dom.className = "slider";
+    dom.style.left = config.x + "px";
+    dom.style.top = config.y + "px";
+    dom.style.width = config.width + "px";
+    dom.id = self.id;
+    self.dom = dom;
 
-	// Background
-	var bg = document.createElement("div");
-	bg.className = "slider_bg";
-	dom.appendChild(bg);
+    // Background
+    var bg = document.createElement("div");
+    bg.className = "slider_bg";
+    dom.appendChild(bg);
 
-	// Knob
-	var knob = document.createElement("div");
-	knob.className = "slider_knob";
-	dom.appendChild(knob);
+    // Knob
+    var knob = document.createElement("div");
+    knob.className = "slider_knob";
+    dom.appendChild(knob);
 
-	// Set value
-	self.value = 0;
-	var _paramToValue = function(param){
-		var value = config.min + (config.max-config.min)*param;
-		value = Math.round(value/config.step)*config.step;
-		return value;
-	};
-	var _valueToParam = function(value){
-		var param = (value-config.min)/(config.max-config.min); // to (0-1)
-		return param;
-	};
-	self.setParam = function(param){
+    // Set value
+    self.value = 0;
+    var _paramToValue = function (param) {
+        var value = config.min + (config.max - config.min) * param;
+        value = Math.round(value / config.step) * config.step;
+        return value;
+    };
+    var _valueToParam = function (value) {
+        var param = (value - config.min) / (config.max - config.min); // to (0-1)
+        return param;
+    };
+    self.setParam = function (param) {
 
-		// Bounds
-		var value = config.min + (config.max-config.min)*param;
-		value = Math.round(value/config.step)*config.step;
-		self.value = value;
+        // Bounds
+        var value = config.min + (config.max - config.min) * param;
+        value = Math.round(value / config.step) * config.step;
+        self.value = value;
 
-		// DOM
-		knob.style.left = self.value*config.width-15;
+        // DOM
+        knob.style.left = self.value * config.width - 15;
 
-	};
-	self.setValue = function(value){
+    };
+    self.setValue = function (value) {
 
-		// Set
-		self.value = value;
+        // Set
+        self.value = value;
 
-		// DOM with param
-		var param = _valueToParam(self.value);
-		knob.style.left = param*(config.width-30);
+        // DOM with param
+        var param = _valueToParam(self.value);
+        knob.style.left = param * (config.width - 30);
 
-	};
-	if(config.message) listen(self, config.message, self.setValue);
+    };
+    if (config.message) listen(self, config.message, self.setValue);
 
-	// Mouse events
-	var _isDragging = false;
-	var _offsetX = 0;
-	var _mouseToParam = function(event){
+    listen(self, "activeNWP", (friends) => {
+        if (friends.includes(self.id)) {
+            self.dom.removeAttribute("hide");
+        } else {
+            self.dom.setAttribute("hide", "true")
+        }
+    })
 
-		// Mouse to Param to Value
-		var param = (event.clientX - _offsetX - dom.getBoundingClientRect().left - 8)/(config.width-30);
-		if(param<0) param=0;
-		if(param>1) param=1;
-		var value = _paramToValue(param);
+    // Mouse events
+    var _isDragging = false;
+    var _offsetX = 0;
+    var _mouseToParam = function (event) {
 
-		// Publish these changes! (only if ACTUALLY changed)
-		if(self.value !== value){
-			if(config.message) publish(config.message, [value]);
-			if(config.onchange) config.onchange(value);
-		}
+        // Mouse to Param to Value
+        var param = (event.clientX - _offsetX - dom.getBoundingClientRect().left - 8) / (config.width - 30);
+        if (param < 0) param = 0;
+        if (param > 1) param = 1;
+        var value = _paramToValue(param);
 
-	};
-	var _onDomMouseDown = function(event){
-		if(config.onselect) config.onselect();
-		_mouseToParam(event);
-		_isDragging = true;
-		_offsetX = 0;
-	};
-	var _onKnobMouseDown = function(event){
-		_isDragging = true;
-		if(config.onselect) config.onselect();
-		_offsetX = event.clientX - knob.getBoundingClientRect().left;
-	};
-	var _onWindowMouseMove = function(event){
-		if(_isDragging) _mouseToParam(event);
-	};
-	var _onWindowMouseUp = function(){
-		_isDragging = false;
-	};
-	var _onDomMouseWheel = function(event){
-		let direction = event.deltaY > 0 ? -1 : 1;
-		let newValue = self.value + direction;
+        // Publish these changes! (only if ACTUALLY changed)
+        if (self.value !== value) {
+            if (config.message) publish(config.message, [value]);
+            if (config.onchange) config.onchange(value);
+        }
 
-		if (newValue < config.min || newValue > config.max)
-			return;
+    };
+    var _onDomMouseDown = function (event) {
+        if (config.onselect) config.onselect();
+        _mouseToParam(event);
+        _isDragging = true;
+        _offsetX = 0;
+    };
+    var _onKnobMouseDown = function (event) {
+        _isDragging = true;
+        if (config.onselect) config.onselect();
+        _offsetX = event.clientX - knob.getBoundingClientRect().left;
+    };
+    var _onWindowMouseMove = function (event) {
+        if (_isDragging) _mouseToParam(event);
+    };
+    var _onWindowMouseUp = function () {
+        _isDragging = false;
+    };
+    var _onDomMouseWheel = function (event) {
+        let direction = event.deltaY > 0 ? -1 : 1;
+        let newValue = self.value + direction;
 
-		if(config.onselect) config.onselect();
-		if(config.message) publish(config.message, [newValue]);
-		if(config.onchange) config.onchange(newValue);
-	}
+        if (newValue < config.min || newValue > config.max)
+            return;
 
-	dom.addEventListener("mousedown",_onDomMouseDown,false);
-	dom.addEventListener("wheel", _onDomMouseWheel, false);
-	knob.addEventListener("mousedown",_onKnobMouseDown,false);
-	window.addEventListener("mousemove",_onWindowMouseMove,false);
-	window.addEventListener("mouseup",_onWindowMouseUp,false);
+        if (config.onselect) config.onselect();
+        if (config.message) publish(config.message, [newValue]);
+        if (config.onchange) config.onchange(newValue);
+    }
 
-	// FOR TOUCH
-	var _fakeEventWrapper = function(event){
-		var fake = {};
-		fake.clientX = event.changedTouches[0].clientX;
-		fake.clientY = event.changedTouches[0].clientY;
-		return fake;
-	};
-	dom.addEventListener("touchstart",function(event){
-		event = _fakeEventWrapper(event);
-		_onDomMouseDown(event);
-	},false);
-	knob.addEventListener("touchstart",function(event){
-		event = _fakeEventWrapper(event);
-		_onKnobMouseDown(event);
-	},false);
-	window.addEventListener("touchmove",function(event){
-		event = _fakeEventWrapper(event);
-		_onWindowMouseMove(event);
-	},false);
-	window.addEventListener("touchend",_onWindowMouseUp,false);
+    dom.addEventListener("mousedown", _onDomMouseDown, false);
+    dom.addEventListener("wheel", _onDomMouseWheel, false);
+    knob.addEventListener("mousedown", _onKnobMouseDown, false);
+    window.addEventListener("mousemove", _onWindowMouseMove, false);
+    window.addEventListener("mouseup", _onWindowMouseUp, false);
+
+    // FOR TOUCH
+    var _fakeEventWrapper = function (event) {
+        var fake = {};
+        fake.clientX = event.changedTouches[0].clientX;
+        fake.clientY = event.changedTouches[0].clientY;
+        return fake;
+    };
+    dom.addEventListener("touchstart", function (event) {
+        event = _fakeEventWrapper(event);
+        _onDomMouseDown(event);
+    }, false);
+    knob.addEventListener("touchstart", function (event) {
+        event = _fakeEventWrapper(event);
+        _onKnobMouseDown(event);
+    }, false);
+    window.addEventListener("touchmove", function (event) {
+        event = _fakeEventWrapper(event);
+        _onWindowMouseMove(event);
+    }, false);
+    window.addEventListener("touchend", _onWindowMouseUp, false);
 
 
-	////////////////////////////////////////
+    ////////////////////////////////////////
 
-	// Add...
-	self.add = function(){
-		_add(self);
-	};
+    // Add...
+    self.add = function () {
+        _add(self);
+    };
 
-	// Remove...
-	self.remove = function(){
-		unlisten(self);
-		_remove(self);
-	};
+    // Remove...
+    self.remove = function () {
+        unlisten(self);
+        _remove(self);
+    };
 
 }

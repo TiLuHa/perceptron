@@ -13,13 +13,29 @@ SLIDES.push(
 				id: "nwp2", type: "NWP",
 				x: 900, y: 463, rotation: 90, size: {height: 30, width: 200},
 				src: "assets/birnen/verbindung.png",
-				friends: ["nwp1"],
-			})
+				friends: ["nwp1", "slider_input1"],
+			});
 			self.add({
 				id: "nwp3", type: "NWP",
 				x: 800, y: 463,
 				src: "assets/birnen/links.png",
-			})
+			});
+			self.add({
+				id: "nwp3", type: "NWP",
+				x: 800, y: 463,
+				src: "assets/birnen/rechts.png",
+			});
+			self.add({
+				id: "nwp3", type: "NWP",
+				x: 800, y: 463,
+				src: "assets/birnen/mitte.png",
+			});
+
+			self.add({id:"slider_input1", type:"Slider",
+				x:300, y:0,
+				width:450,
+				min:1, max:20, step:1,
+				message: "update/0"});
 		},
 
 		onend: function (self) {

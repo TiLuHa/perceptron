@@ -12,7 +12,7 @@ function NWP(config){
 	part.classList.add("nwp");
 	part.src = config.src;
 	self.dom.appendChild(part);
-	self.friends = [self.id].concat(config.friends)
+	self.friends = [self.id].concat(config.friends !== undefined ? config.friends : [])
 
 	if (config.hoverZoom) self.dom.setAttribute("zoom",true);
 
@@ -36,7 +36,6 @@ function NWP(config){
 
 	// On click...
 	part.onclick = function(){
-        //alert("clicked");
 		publish("activeNWP",[self.friends])
 		//if(config.onclick) config.onclick();
 	};
