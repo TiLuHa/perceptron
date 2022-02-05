@@ -638,17 +638,77 @@ SLIDES.push(
     {
         //Slide 8
         onstart: function (self) {
-            _.arrow = "arrow"
+
+            _.next = "next";
+            self.add({
+                id: _.next, type: "Button",
+                x: 730, y: 463, //normal size
+                //size: "long", x:304, y:466,
+                text_id: "01_button_next", uppercase: false,
+                onclick: () => publish("slideshow/next")
+            });
+
+            _.arrow0 = "arrow0"
             self.add({
                 id: _.arrow, type: "ImageBox",
                 src: "assets/Jochen/arrow.PNG",
-                x: _.get_x(7), y: _.get_y(1),
-                width: _.birnen_width * _.scale1, height: _.birnen_height * _.scale1,
+                x: 500, y: 100,
+                width: 40,
+                rotation: 315
+            });
+            _.item0 = "item0";
+            self.add({
+                id: _.item1, type: "ImageBox",
+                src: "assets/birnen/Birnenmarmelade.jpg",
+                x: 523,//_.item_x,
+                y: -13,//_.item_y,
+                width: _.item_width, height: _.item_height,
+            });
+
+            _.arrow1 = "arrow1"
+            self.add({
+                id: _.arrow1, type: "ImageBox",
+                src: "assets/Jochen/arrow.PNG",
+                x: 526, y: 176,
+                width: 40,
+                rotation: 0
+            });
+
+            _.item1 = "item1";
+            self.add({
+                id: _.item1, type: "ImageBox",
+                src: "assets/birnen/Birnenkuchen.jpg",
+                x: 587,//_.item_x,
+                y: 100,//_.item_y,
+                width: _.item_width, height: _.item_height,
+            });
+
+            _.arrow2 = "arrow2"
+            self.add({
+                id: _.arrow2, type: "ImageBox",
+                src: "assets/Jochen/arrow.PNG",
+                x: 500, y: 248,
+                width: 40,
+                rotation: 45
+            });
+            _.item2 = "item2";
+            self.add({
+                id: _.item2, type: "ImageBox",
+                src: "assets/birnen/Birnensaft.jpg",
+                x: 542,//_.item_x,
+                y: 213,//_.item_y,
+                width: _.item_width, height: _.item_height,
             });
 
         },
         onend: function (self) {
-
+            self.remove(_.arrow1);
+            self.remove(_.item1);
+            self.remove(_.arrow2);
+            self.remove(_.item2);
+            self.remove(_.arrow0);
+            self.remove(_.item0);
+            self.remove(_.next);
         }
     },
 /*    {
