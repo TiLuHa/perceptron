@@ -562,7 +562,6 @@ SLIDES.push(
         onstart: function (self) {
             let o = self.objects;
 
-
             _.item = "item";
             self.add({
                 id: _.item, type: "ImageBox",
@@ -638,6 +637,7 @@ SLIDES.push(
     {
         //Slide 8
         onstart: function (self) {
+            let o = self.objects;
 
             _.next = "next";
             self.add({
@@ -648,20 +648,31 @@ SLIDES.push(
                 onclick: () => publish("slideshow/next")
             });
 
-            _.arrow0 = "arrow0"
+            _.moveX = -100;
+            _.moveY = 0;
+            _.birne = "birne"
             self.add({
-                id: _.arrow, type: "ImageBox",
+                id: _.birne, type: "ImageBox",
+                src: "assets/birnen/b1.jpg",
+                x: 454+_.moveX, y: 154+_.moveY,
+                width: 40,
+                rotation: 0
+            });
+
+            _.arrow0 = "arrow0";
+            self.add({
+                id: _.arrow0, type: "ImageBox",
                 src: "assets/Jochen/arrow.PNG",
-                x: 500, y: 100,
+                x: 500+_.moveX, y: 100+_.moveY,
                 width: 40,
                 rotation: 315
             });
             _.item0 = "item0";
             self.add({
-                id: _.item1, type: "ImageBox",
-                src: "assets/birnen/Birnenmarmelade.jpg",
-                x: 523,//_.item_x,
-                y: -13,//_.item_y,
+                id: _.item0, type: "ImageBox",
+                src: "assets/birnen/Birnenmarmelade.png",
+                x: 523+_.moveX,//_.item_x,
+                y: -13+_.moveY,//_.item_y,
                 width: _.item_width, height: _.item_height,
             });
 
@@ -669,7 +680,7 @@ SLIDES.push(
             self.add({
                 id: _.arrow1, type: "ImageBox",
                 src: "assets/Jochen/arrow.PNG",
-                x: 526, y: 176,
+                x: 526+_.moveX, y: 176+_.moveY,
                 width: 40,
                 rotation: 0
             });
@@ -677,9 +688,9 @@ SLIDES.push(
             _.item1 = "item1";
             self.add({
                 id: _.item1, type: "ImageBox",
-                src: "assets/birnen/Birnenkuchen.jpg",
-                x: 587,//_.item_x,
-                y: 100,//_.item_y,
+                src: "assets/birnen/Birnenkuchen.png",
+                x: 587+_.moveX,//_.item_x,
+                y: 100+_.moveY,//_.item_y,
                 width: _.item_width, height: _.item_height,
             });
 
@@ -687,27 +698,55 @@ SLIDES.push(
             self.add({
                 id: _.arrow2, type: "ImageBox",
                 src: "assets/Jochen/arrow.PNG",
-                x: 500, y: 248,
+                x: 500+_.moveX, y: 248+_.moveY,
                 width: 40,
                 rotation: 45
             });
             _.item2 = "item2";
             self.add({
                 id: _.item2, type: "ImageBox",
-                src: "assets/birnen/Birnensaft.jpg",
-                x: 542,//_.item_x,
-                y: 213,//_.item_y,
+                src: "assets/birnen/Birnensaft.png",
+                x: 542+_.moveX,//_.item_x,
+                y: 213+_.moveY,//_.item_y,
                 width: _.item_width, height: _.item_height,
             });
 
+            _.newItems = [o[_.birne], o[_.arrow0], o[_.item0], o[_.arrow0], o[_.item2], o[_.arrow2], o[_.item2]]
+            _.newItems.forEach(obj => _hide(obj))
+
         },
         onend: function (self) {
+            self.remove(_.next);
+        }
+    },
+    {
+        //Slide 9
+        onstart: function (self) {
+            let o = self.objects;
+            _.moveX = 60
+
+            _.next = "next";
+            self.add({
+                id: _.next, type: "Button",
+                x: 730, y: 463,
+                text_id: "01_button_next", uppercase: false,
+                onclick: () => publish("slideshow/next")
+            });
+
+            _.moveRight = [o[_.item0], o[_.item1], o[_.item2], o[_.arrow0], o[_.arrow1], o[_.arrow2]];
+            _.moveRight.forEach(obj => _moveX(obj, _.moveX))
+            _moveX(o[_.birne], (-1)*_.moveX)
+        },
+        onend: function (self) {
+            self.remove(_.birne);
+
+            self.remove(_.arrow0);
+            self.remove(_.item0);
             self.remove(_.arrow1);
             self.remove(_.item1);
             self.remove(_.arrow2);
             self.remove(_.item2);
-            self.remove(_.arrow0);
-            self.remove(_.item0);
+
             self.remove(_.next);
         }
     },

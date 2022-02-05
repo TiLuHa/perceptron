@@ -58,6 +58,14 @@ var _configText = function(config, dom){
 	if(config.lineHeight) dom.style.lineHeight = config.lineHeight+"em";
 }
 
+var _moveX =  function (obj, xRange){
+	obj.dom.style.left = parseInt(obj.dom.style.left.slice(0,-2)) + xRange;
+}
+
+var _moveY =  function (obj, yRange){
+	obj.dom.style.top = parseInt(obj.dom.style.top.slice(0,-2)) + yRange;
+}
+
 // Tween
 var Tween_get = function(target){
 	return Tween.get(target, {useTicks:true});
