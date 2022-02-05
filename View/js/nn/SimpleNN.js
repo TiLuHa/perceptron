@@ -66,7 +66,7 @@ const forwardPropagate = (nn, input) => {
     }
 };
 
-const backProp = (nn, input, target, lossFunc, learingRate) => {
+const backProp = (nn, input, target, lossFunc, learningRate) => {
     const getNabla = (a_L, target, lossFunc) =>
         vectorToMatrix(a_L.map((o_i, i) => lossFunc.der(o_i, target[i])));
 
@@ -77,8 +77,8 @@ const backProp = (nn, input, target, lossFunc, learingRate) => {
             applyOnMatrix(actFunc.der, z_l));
     }
 
-    const Update = (weightMatrix, leargingRate, delta_l, a_l_minus_1) =>
-        matrixSubtract(weightMatrix, scaleMatrix(leargingRate, matrixProd(delta_l, transpose(a_l_minus_1))))
+    const Update = (weightMatrix, learningRate, delta_l, a_l_minus_1) =>
+        matrixSubtract(weightMatrix, scaleMatrix(learningRate, matrixProd(delta_l, transpose(a_l_minus_1))))
 
     forwardPropagate(nn, input);
     let deltas = [];
@@ -86,7 +86,7 @@ const backProp = (nn, input, target, lossFunc, learingRate) => {
     deltas.unshift(hadamardProductMatricies(nabla, applyOnMatrix(SIGMOID.der, nn.z.slice(-1).pop())))
     let newWeights = []
     for (let i = nn.weights.length - 1; i >= 0; i--) {
-        newWeights.unshift(Update(nn.weights[i], learingRate, deltas[0], nn.a[i]));
+        newWeights.unshift(Update(nn.weights[i], learningRate, deltas[0], nn.a[i]));
         if(i !== 0) deltas.unshift(getDelta(nn.weights[i], deltas[0], nn.z[i - 1], nn.actFunc[i]));
     }
     nn.weights = newWeights;
