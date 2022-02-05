@@ -170,6 +170,17 @@ s{
 	position: absolute;
 }
 
+/********* NetWorkPart ********/
+.nwp #hitbox{
+	position: absolute;
+	width:195px; height:55px;
+	cursor: pointer;
+}
+.nwp[hover=yes]{
+	z-index: 100;
+	transform: scale(1.02, 1.02);
+}
+
 /********* Button ********/
 
 .no-select{
