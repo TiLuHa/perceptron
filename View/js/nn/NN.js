@@ -1,11 +1,38 @@
 let Activations =
     {
-        TANH: x => Math.tanh(x),
-        RELU: x => Math.max(0, x),
-        SIGMOID: x => 1 / (1 + Math.exp(-x)),
-        LINEAR: (x, alpha = 1) => x * alpha,
-        STEP: (x, alpha = 0) => x <= alpha ? 0 : 1
+        TANH: {
+            output: x => Math.tanh(x),
+            der: x => 1 - Math.pow(TANH.output(x), 2)
+        },
+        RELU: {
+            output: x => Math.max(0, x),
+            der: x => x <= 0 ? 0 : 1
+        },
+        SIGMOID: {
+            output: x => 1 / (1 + Math.exp(-x)),
+            der: x => {
+                let output = SIGMOID.output(x);
+                return output * (1 - output);
+            }
+        },
+        LINEAR: {
+            output: x => x,
+            der: x => 1
+        },
+        STEP: {
+            output: (x, alpha = 0) => x <= alpha ? 0 : 1,
+            der: x => 0
+        }
     };
+
+const errorL2 = {
+    output: (output, target) => .5 * Math.pow(output - target, 2),
+    der: (output, target) => output - target,
+};
+const errorL1 = {
+    output: (output, target) => math.abs(output - target),
+    der: () => 1
+}
 
 /**
  * Matrixmultiplikation
@@ -56,7 +83,7 @@ function Node(id) {
     this.updateOutput = function () {
         if (this.needsUpdate) {
             this.result = this.inputLinks.reduce((sum, link) => sum + link.getValue(), this.bias);
-            this.output = this.activationFun(this.result);
+            this.output = this.activationFun.output(this.result);
         }
     }
 
@@ -92,7 +119,7 @@ function Node(id) {
     }
 
     this.getParam = function () {
-        return this.param;
+        return this.bias;
     }
 
     this.setParam = function (value) {
@@ -227,7 +254,7 @@ function Network(networkShape, activation, outputActivation, inputActivation = A
 
             let m = [].concat(...multiplyMatrix([inp], weights));  // m = Input * Weights
             let result = addVector(m, biases);                       // result = m + biases
-            return result.map((x, i) => actFuns[i](x)); // Act(result) punktweise
+            return result.map((x, i) => actFuns[i].output(x)); // Act(result) punktweise
         };
 
         return this.layers.slice(0, -1).reduce((lastResult, layer, i) => iterate(lastResult, i, this), input);
@@ -251,11 +278,18 @@ function Network(networkShape, activation, outputActivation, inputActivation = A
     }
 
     this.asSimpleNN = function () {
-        //weights = new Array(this.layers - 1)
-        let w = this.layers.slice(1).map(layer => layer.map(node =>
-            node.inputLinks.map(link => link.weight).concat(node.bias)));
-        return {weights: w};
+        return {
+            weights:
+                this.layers.slice(1).map(layer => layer.map(node =>
+                    node.inputLinks.map(link => link.weight).concat(node.bias))),
 
+            ids:
+                this.layers.slice(1).map(layer => layer.map(node =>
+                    node.inputLinks.map(link => "" + link.id).concat("" + node.id))),
+
+            actFunc:
+                this.layers.slice(1).map(layer => layer[0].activationFun)
+        };
     };
 }
 
@@ -286,12 +320,12 @@ network.changeParams({
     "1": 0,
     "2": .35,
     "2-4": .4,
-    "2-5":.5,
+    "2-5": .5,
     "3": .35,
     "3-4": .45,
-    "3-5":.55,
+    "3-5": .55,
     "4": .6,
-    "5":.6,
+    "5": .6,
 });
 console.log(network.asSimpleNN())
 // network.links[0].weight = -2;

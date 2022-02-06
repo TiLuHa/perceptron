@@ -1,3 +1,5 @@
+import {activations} from "../sims/state";
+
 let matrixProd = (A, B) => A.map((row, i) => B[0].map((_, j) => row.reduce((acc, _, n) => acc + A[i][n] * B[n][j], 0)));
 let combineMatriciesPointwise = (A, B, operation) => A.map((row, i) => row.map((_, j) => operation(A[i][j], B[i][j])));
 let hadamardProductMatricies = (A, B) => combineMatriciesPointwise(A,B,((a,b) => a * b))
@@ -6,26 +8,6 @@ let vectorToMatrix = vec => vec.map(v_i => [v_i]);
 let transpose = m => m[0].map((x, i) => m.map(x => x[i]));
 let applyOnMatrix = (func, m) => m.map(row => row.map(v => func(v)))
 let scaleMatrix = (a, m) => applyOnMatrix((x => a * x), m)
-
-const TANH = {
-    output: x => Math.tanh(x),
-    der: x => 1 - Math.pow(TANH.output(x), 2)
-};
-const RELU = {
-    output: x => Math.max(0, x),
-    der: x => x <= 0 ? 0 : 1
-};
-const SIGMOID = {
-    output: x => 1 / (1 + Math.exp(-x)),
-    der: x => {
-        let output = SIGMOID.output(x);
-        return output * (1 - output);
-    }
-};
-const LINEAR = {
-    output: x => x,
-    der: x => 1
-};
 
 const errorL2 = {
     output: (output, target) => .5 * Math.pow(output - target, 2),
@@ -105,7 +87,7 @@ let NN2 = {
             [.5, .55, .6]
         ]
     ],
-    actFunc: [RELU, RELU]
+    actFunc: [Activations.RELU, Activations.RELU]
 }
 
 forwardPropagate(NN2, [.05, .1])
