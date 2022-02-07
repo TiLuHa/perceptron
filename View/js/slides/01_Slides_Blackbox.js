@@ -574,7 +574,7 @@ SLIDES.push(
             _.all_birnen.forEach(b => _fadeOut(b, 200, 0.2))
             _.yes_item2 = [
                 o[_.b01], o[_.b02], //o[_.b03], o[_.b04], o[_.b05], o[_.b06], o[_.b07], o[_.b08],
-                o[_.b11],o[_.b12],o[_.b13],o[_.b14],o[_.b15],o[_.b16],//o[_.b17],o[_.b18],
+                o[_.b11], o[_.b12], o[_.b13], o[_.b14], o[_.b15], o[_.b16],//o[_.b17],o[_.b18],
                 o[_.b21], o[_.b22], o[_.b23], o[_.b24], //o[_.b25], o[_.b26], o[_.b27], o[_.b28],
             ];
             _.yes_item2.forEach(b => _fadeIn(b, 400))
@@ -635,11 +635,11 @@ SLIDES.push(
 
             _.moveX = -100;
             _.moveY = 0;
-            _.birne = "birne"
+            _.birne0 = "birne0"
             self.add({
-                id: _.birne, type: "ImageBox",
+                id: _.birne0, type: "ImageBox",
                 src: "assets/birnen/b1.jpg",
-                x: 454+_.moveX, y: 154+_.moveY,
+                x: 454 + _.moveX, y: 154 + _.moveY,
                 width: 40,
                 rotation: 0
             });
@@ -648,7 +648,7 @@ SLIDES.push(
             self.add({
                 id: _.arrow0, type: "ImageBox",
                 src: "assets/Jochen/arrow.PNG",
-                x: 500+_.moveX, y: 100+_.moveY,
+                x: 500 + _.moveX, y: 100 + _.moveY,
                 width: 40,
                 rotation: 315
             });
@@ -656,8 +656,8 @@ SLIDES.push(
             self.add({
                 id: _.item0, type: "ImageBox",
                 src: "assets/birnen/Birnenmarmelade.png",
-                x: 523+_.moveX,//_.item_x,
-                y: -13+_.moveY,//_.item_y,
+                x: 523 + _.moveX,//_.item_x,
+                y: -13 + _.moveY,//_.item_y,
                 width: _.item_width, height: _.item_height,
             });
 
@@ -665,7 +665,7 @@ SLIDES.push(
             self.add({
                 id: _.arrow1, type: "ImageBox",
                 src: "assets/Jochen/arrow.PNG",
-                x: 526+_.moveX, y: 176+_.moveY,
+                x: 526 + _.moveX, y: 176 + _.moveY,
                 width: 40,
                 rotation: 0
             });
@@ -674,8 +674,8 @@ SLIDES.push(
             self.add({
                 id: _.item1, type: "ImageBox",
                 src: "assets/birnen/Birnenkuchen.png",
-                x: 587+_.moveX,//_.item_x,
-                y: 100+_.moveY,//_.item_y,
+                x: 587 + _.moveX,//_.item_x,
+                y: 100 + _.moveY,//_.item_y,
                 width: _.item_width, height: _.item_height,
             });
 
@@ -683,7 +683,7 @@ SLIDES.push(
             self.add({
                 id: _.arrow2, type: "ImageBox",
                 src: "assets/Jochen/arrow.PNG",
-                x: 500+_.moveX, y: 248+_.moveY,
+                x: 500 + _.moveX, y: 248 + _.moveY,
                 width: 40,
                 rotation: 45
             });
@@ -691,21 +691,89 @@ SLIDES.push(
             self.add({
                 id: _.item2, type: "ImageBox",
                 src: "assets/birnen/Birnensaft.png",
-                x: 542+_.moveX,//_.item_x,
-                y: 213+_.moveY,//_.item_y,
+                x: 542 + _.moveX,//_.item_x,
+                y: 213 + _.moveY,//_.item_y,
                 width: _.item_width, height: _.item_height,
             });
 
-            _.newItems = [o[_.birne], o[_.arrow0], o[_.item0], o[_.arrow1], o[_.item1], o[_.arrow2], o[_.item2]]
+            _.btmWords = "btmWords";
+            self.add({
+                id: _.btmWords, type: "TextBox", text_id: "01_text7",
+                x: 10, y: 450,
+                width: 700, height: 100, align: "center"
+            })
+
+
+            _.newItems = [o[_.birne0], o[_.arrow0], o[_.item0],
+                o[_.arrow1], o[_.item1], o[_.arrow2], o[_.item2], o[_.btmWords], o[_.next]]
             _.newItems.forEach(obj => _hide(obj))
             _.newItems.reduce((time, obj) => {
                 _fadeIn(obj, time)
                 return time + 300;
             }, 0)
 
+            _.birne1 = "birne1"
+            self.add({
+                id: _.birne1, type: "ImageBox",
+                src: "assets/birnen/b4.jpg",
+                x: 454 + _.moveX, y: 154 + _.moveY,
+                width: 40,
+                rotation: 0
+            });
+
+            _.birne2 = "birne2"
+            self.add({
+                id: _.birne2, type: "ImageBox",
+                src: "assets/birnen/b5.jpg",
+                x: 454 + _.moveX, y: 154 + _.moveY,
+                width: 40,
+                rotation: 0
+            });
+            _hide(o[_.birne1])
+            _hide(o[_.birne2])
+
+            _.hacken0 = "hacken0"
+            self.add({
+                id: _.hacken0, type: "ImageBox",
+                src: "assets/birnen/Right.png",
+                x: 523 + 100 + _.moveX,//_.item_x,
+                y: -13 + 100 + _.moveY,//_.item_y,
+                width: 40,
+                rotation: 0
+            });
+            _.hacken1 = "hacken1"
+            self.add({
+                id: _.hacken1, type: "ImageBox",
+                src: "assets/birnen/Right.png",
+                x: 587 + 100 + _.moveX,//_.item_x,
+                y: 100 + 100 + _.moveY,//_.item_y,
+                width: 40,
+                rotation: 0
+            });
+            _.hacken2 = "hacken2"
+            self.add({
+                id: _.hacken0, type: "ImageBox",
+                src: "assets/birnen/Right.png",
+                x: 650 + _.moveX,//_.item_x,
+                y: 330 + _.moveY,//_.item_y,
+                width: 40,
+                rotation: 0
+            });
+            // _hide(o[_.hacken0])
+            // _hide(o[_.hacken1])
+            // _hide(o[_.hacken2])
+
         },
         onend: function (self) {
             self.remove(_.next);
+            _hide(o[_.hacken0]);
+            _hide(o[_.hacken1]);
+            _hide(o[_.hacken2]);
+            _show(o[_.item0]);
+            _show(o[_.item1]);
+            _show(o[_.item2]);
+            _hide(o[_.birne1]);
+            _hide(o[_.birne2]);
         }
     },
     {
@@ -724,7 +792,7 @@ SLIDES.push(
 
             _.moveRight = [o[_.item0], o[_.item1], o[_.item2], o[_.arrow0], o[_.arrow1], o[_.arrow2]];
             _.moveRight.forEach(obj => _moveX(obj, _.moveX))
-            _moveX(o[_.birne], (-1)*_.moveX)
+            _moveX(o[_.birne], (-1) * _.moveX)
         },
         onend: function (self) {
             self.remove(_.birne);
@@ -739,147 +807,147 @@ SLIDES.push(
             self.remove(_.next);
         }
     },
-/*    {
-        onstart: function (self) {
-            let o = self.objects;
+    /*    {
+            onstart: function (self) {
+                let o = self.objects;
 
-            // Jochen zum Rand bewegen.
-            o[_.jochen].dom.style.left = 0;
-            o[_.jochen].dom.src = "assets/Jochen/Jochen_laecheln.jpg";
-
-            // Erklärungstext
-            _.leftwords = "leftWords";
-            self.add({
-                id: _.leftwords, type: "TextBox", text_id: "01_birnenlegen",
-                x: 530, y: 50, width: 350, height: 400, align: "center"
-            });
-            _hide(o[_.leftwords]);
-            _fadeIn(o[_.leftwords], 200);
-
-            //Birnen
-            _.birne = "birne";
-
-            //Standardgröße Birnen
-            let widthstd = 35,
-                hightstd = 50;
-
-            //Auflistung der Birnen mit Variation
-            _.birnen = [
-                {good: true, widthplus: 3, hightplus: 0},
-                {good: false, widthplus: 10, hightplus: 0},
-                {good: true, widthplus: 0, hightplus: 3},
-                {good: false, widthplus: 0, hightplus: -20}
-            ];
-
-            //Birnen einfügen.
-            let x_birne_entrance = 400, y_birne_entrance = 200;
-            _.birnen.forEach((b, i) => {
-                self.add({
-                    id: _.birne + i, type: "ImageBox",
-                    src: "assets/birnen/b1.jpg",
-                    x: x_birne_entrance + i * 20, y: y_birne_entrance,
-                    width: widthstd + b.widthplus,
-                    hight: hightstd + b.hightplus,
-                });
-
-                _hide(o[_.birne + i]);
-            });
-
-            // Sortierboxen einfügen
-            _.boxgood = "boxgood";
-            _.boxbad = "boxbad";
-            let xboxgood = 200, yboxgood = 400,
-                xboxbad = 450, yboxbad = 400,
-                widthbox = 200, heightbox = 75;
-            self.add({
-                id: _.boxgood, type: "ImageBox",
-                src: "assets/Jochen/box.png",
-                x: xboxgood, y: yboxgood,
-                width: widthbox,
-                hight: heightbox,
-            });
-            self.add({
-                id: _.boxbad, type: "ImageBox",
-                src: "assets/Jochen/box2.png",
-                x: xboxbad, y: yboxbad,
-                width: widthbox,
-                hight: heightbox,
-            });
-
-            // Pinsel hinzufügen
-            _.pinsel = "pinsel";
-            self.add({
-                id: _.pinsel, type: "ImageBox",
-                src: "assets/Jochen/pinsel.png",
-                x: x_birne_entrance + 100, y: y_birne_entrance + 100,
-                width: 75,
-                hight: 60,
-            });
-
-            // Weiter-Button
-            _.next = "next";
-            self.add({
-                id: _.next, type: "Button",
-                x: 680, y: 496, //long size
-                // x:383, y:463, //normal size
-                text_id: "01_button_next2", uppercase: false,
-                // size: "long",
-                onclick: function () {
-                    publish("slideshow/next");
-                }
-            });
-            _hide(o[_.next]);
-            _fadeIn(o[_.next], 400);
-
-            //Animation Birnen
-            let i = 0;
-            _.timer = setInterval(function () {
-                if (i === _.birnen.length) clearInterval(_.timer);
-                _fadeIn(o[_.birne + i], 0);
-                o[_.birne + i].dom.style.left = x_birne_entrance - 30;
-                let b = _.birnen[i];
-                setTimeout(function () {
-                    o[_.jochen].dom.src = "assets/Jochen/Jochen_fragend.jpg";
-                    setTimeout(function () {
-                        o[_.jochen].dom.src = b.good ? "assets/Jochen/Jochen_zufrieden.jpg" : "assets/Jochen/Jochen_wuetend.jpg";
-                        o[_.birne + i].dom.style.left = (b.good ? xboxgood : xboxbad) + i * 30 + 20;
-                        o[_.birne + i].dom.style.top = b.good ? yboxgood : yboxbad;
-                        setTimeout(function () {
-                            if (!b.good) o[_.birne + i].dom.src = "assets/Jochen/birne_schlecht.png";
-                            i++;
-                        }, 200);
-
-                    }, 1000);
-                }, 500);
+                // Jochen zum Rand bewegen.
+                o[_.jochen].dom.style.left = 0;
                 o[_.jochen].dom.src = "assets/Jochen/Jochen_laecheln.jpg";
 
-            }, 3000);
+                // Erklärungstext
+                _.leftwords = "leftWords";
+                self.add({
+                    id: _.leftwords, type: "TextBox", text_id: "01_birnenlegen",
+                    x: 530, y: 50, width: 350, height: 400, align: "center"
+                });
+                _hide(o[_.leftwords]);
+                _fadeIn(o[_.leftwords], 200);
 
-            //Text nach sortieren
-            _.sortiert = "sortiertText"
-            self.add({
-                id: _.sortiert, type: "TextBox", text_id: "01_richtig_gelegt",
-                x: 70, y: 647, width: 700, height: 100, align: "center"
-            })
-            _hide(o[_.sortiert]);
-            _fadeIn(o[_.sortiert], 13000);
+                //Birnen
+                _.birne = "birne";
 
-        },
-        onend: function (self) {
-            clearInterval(_.timer);
-            self.remove(_.leftwords);
-            self.remove(_.sortiert);
-            self.remove(_.next);
-            self.remove(_.boxgood);
-            self.remove(_.boxbad);
-            self.remove(_.pinsel);
-            _.birnen.forEach((b, i) => {
-                self.remove(_.birne + i);
-            });
+                //Standardgröße Birnen
+                let widthstd = 35,
+                    hightstd = 50;
 
-        }
+                //Auflistung der Birnen mit Variation
+                _.birnen = [
+                    {good: true, widthplus: 3, hightplus: 0},
+                    {good: false, widthplus: 10, hightplus: 0},
+                    {good: true, widthplus: 0, hightplus: 3},
+                    {good: false, widthplus: 0, hightplus: -20}
+                ];
 
-    },*/
+                //Birnen einfügen.
+                let x_birne_entrance = 400, y_birne_entrance = 200;
+                _.birnen.forEach((b, i) => {
+                    self.add({
+                        id: _.birne + i, type: "ImageBox",
+                        src: "assets/birnen/b1.jpg",
+                        x: x_birne_entrance + i * 20, y: y_birne_entrance,
+                        width: widthstd + b.widthplus,
+                        hight: hightstd + b.hightplus,
+                    });
+
+                    _hide(o[_.birne + i]);
+                });
+
+                // Sortierboxen einfügen
+                _.boxgood = "boxgood";
+                _.boxbad = "boxbad";
+                let xboxgood = 200, yboxgood = 400,
+                    xboxbad = 450, yboxbad = 400,
+                    widthbox = 200, heightbox = 75;
+                self.add({
+                    id: _.boxgood, type: "ImageBox",
+                    src: "assets/Jochen/box.png",
+                    x: xboxgood, y: yboxgood,
+                    width: widthbox,
+                    hight: heightbox,
+                });
+                self.add({
+                    id: _.boxbad, type: "ImageBox",
+                    src: "assets/Jochen/box2.png",
+                    x: xboxbad, y: yboxbad,
+                    width: widthbox,
+                    hight: heightbox,
+                });
+
+                // Pinsel hinzufügen
+                _.pinsel = "pinsel";
+                self.add({
+                    id: _.pinsel, type: "ImageBox",
+                    src: "assets/Jochen/pinsel.png",
+                    x: x_birne_entrance + 100, y: y_birne_entrance + 100,
+                    width: 75,
+                    hight: 60,
+                });
+
+                // Weiter-Button
+                _.next = "next";
+                self.add({
+                    id: _.next, type: "Button",
+                    x: 680, y: 496, //long size
+                    // x:383, y:463, //normal size
+                    text_id: "01_button_next2", uppercase: false,
+                    // size: "long",
+                    onclick: function () {
+                        publish("slideshow/next");
+                    }
+                });
+                _hide(o[_.next]);
+                _fadeIn(o[_.next], 400);
+
+                //Animation Birnen
+                let i = 0;
+                _.timer = setInterval(function () {
+                    if (i === _.birnen.length) clearInterval(_.timer);
+                    _fadeIn(o[_.birne + i], 0);
+                    o[_.birne + i].dom.style.left = x_birne_entrance - 30;
+                    let b = _.birnen[i];
+                    setTimeout(function () {
+                        o[_.jochen].dom.src = "assets/Jochen/Jochen_fragend.jpg";
+                        setTimeout(function () {
+                            o[_.jochen].dom.src = b.good ? "assets/Jochen/Jochen_zufrieden.jpg" : "assets/Jochen/Jochen_wuetend.jpg";
+                            o[_.birne + i].dom.style.left = (b.good ? xboxgood : xboxbad) + i * 30 + 20;
+                            o[_.birne + i].dom.style.top = b.good ? yboxgood : yboxbad;
+                            setTimeout(function () {
+                                if (!b.good) o[_.birne + i].dom.src = "assets/Jochen/birne_schlecht.png";
+                                i++;
+                            }, 200);
+
+                        }, 1000);
+                    }, 500);
+                    o[_.jochen].dom.src = "assets/Jochen/Jochen_laecheln.jpg";
+
+                }, 3000);
+
+                //Text nach sortieren
+                _.sortiert = "sortiertText"
+                self.add({
+                    id: _.sortiert, type: "TextBox", text_id: "01_richtig_gelegt",
+                    x: 70, y: 647, width: 700, height: 100, align: "center"
+                })
+                _hide(o[_.sortiert]);
+                _fadeIn(o[_.sortiert], 13000);
+
+            },
+            onend: function (self) {
+                clearInterval(_.timer);
+                self.remove(_.leftwords);
+                self.remove(_.sortiert);
+                self.remove(_.next);
+                self.remove(_.boxgood);
+                self.remove(_.boxbad);
+                self.remove(_.pinsel);
+                _.birnen.forEach((b, i) => {
+                    self.remove(_.birne + i);
+                });
+
+            }
+
+        },*/
     {
         onstart: function (self) {
             let o = self.objects;

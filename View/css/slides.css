@@ -4,6 +4,10 @@
 	src: url('FuturaHandwritten.ttf') format('truetype');
 }
 
+:root{
+	--NWP-src: "assets/birnen/mitte.png"
+}
+
 html,body{
 	width: 100%;
 	height: 100%;

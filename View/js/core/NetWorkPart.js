@@ -1,21 +1,25 @@
 const parts = {
 	connection:{
 		src: "assets/birnen/verbindung.png",
+		className: "connection",
 		xOffsetText: 20,
 		yOffsetText: 13
 	},
 	weigth:{
 		src: "assets/birnen/mitte.png",
+		className: "weight",
 		xOffsetText: 20,
 		yOffsetText: 13
 	},
 	left:{
 		src: "assets/birnen/links.png",
+		className: "left",
 		xOffsetText: 20,
 		yOffsetText: 13
 	},
 	right:{
 		src: "assets/birnen/rechts.png",
+		className: "right",
 		xOffsetText: 20,
 		yOffsetText: 13
 	}
