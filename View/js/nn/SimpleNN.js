@@ -65,7 +65,7 @@ const backProp = (nn, input, target, lossFunc, learningRate) => {
     forwardPropagate(nn, input);
     let deltas = [];
     let nabla = getNabla(nn.a.slice(-1).pop().slice(0,-1), target, lossFunc)
-    deltas.unshift(hadamardProductMatricies(nabla, applyOnMatrix(SIGMOID.der, nn.z.slice(-1).pop())))
+    deltas.unshift(hadamardProductMatricies(nabla, applyOnMatrix(SIGMOID.der, nn.z.slice(-1).pop()))) //TODO: SIGMOID.der ändern
     let newWeights = []
     for (let i = nn.weights.length - 1; i >= 0; i--) {
         newWeights.unshift(Update(nn.weights[i], learningRate, deltas[0], nn.a[i]));

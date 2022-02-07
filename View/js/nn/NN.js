@@ -25,15 +25,20 @@ let Activations =
         }
     };
 
-const errorL2 = {
-    output: (output, target) => .5 * Math.pow(output - target, 2),
-    der: (output, target) => output - target,
-};
-const errorL1 = {
-    output: (output, target) => math.abs(output - target),
-    der: () => 1
+let Loss ={
+    errorL2 : {
+        output: (output, target) => .5 * Math.pow(output - target, 2),
+        der: (output, target) => output - target,
+    },
+    errorL1 : {
+        output: (output, target) => Math.abs(output - target),
+        der: () => 1
+    },
+    logLikelihood: {
+        output: (output, target) => -target * Math.log(output + 1 - target) * Math.log(1 - output),
+        der: (output, target) => (target*Math.log(1+output+target)/(1-output))-(target*Math.log(1-output)/(1+output-target))
+    }
 }
-
 /**
  * Matrixmultiplikation
  * @param a left Matrix
