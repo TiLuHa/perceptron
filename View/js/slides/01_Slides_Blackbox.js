@@ -684,6 +684,9 @@ SLIDES.push(
 
             _.step0 = function () {
                 console.log("start Step 0")
+
+                o[_.jochenHello].setTextID("01_ehm");
+                o[_.jochen].changeImage(_.face0);
                 _fadeIn(o[_.birne0], 0);
                 _hide(o[_.birne1])
                 _hide(o[_.birne2])
@@ -695,12 +698,9 @@ SLIDES.push(
                 _fadeOut(o[_.item1], 0, _.itemOpacity)
                 _fadeOut(o[_.item2], 0, _.itemOpacity)
 
-                o[_.jochen].changeImage(_.face0);
-                o[_.jochenHello].setTextID("01_ehm");
-
                 setTimeout(function () {
-                    o[_.jochen].changeImage(_.face1);
                     o[_.jochenHello].setTextID("01_step0");
+                    o[_.jochen].changeImage(_.face1);
                     _fadeIn(o[_.hacken0], 0);
                     _fadeIn(o[_.hacken2], 0);
                     _fadeIn(o[_.item0], 0);
@@ -714,6 +714,9 @@ SLIDES.push(
 
             _.step1 = function () {
                 console.log("start Step 1")
+
+                o[_.jochenHello].setTextID("01_ehm");
+                o[_.jochen].changeImage(_.face0);
                 _fadeIn(o[_.birne1], 0);
                 _hide(o[_.birne0])
                 _hide(o[_.birne2])
@@ -724,13 +727,10 @@ SLIDES.push(
                 _fadeOut(o[_.item1], 0, _.itemOpacity)
                 _fadeOut(o[_.item2], 0, _.itemOpacity)
 
-                o[_.jochen].changeImage(_.face0);
-                o[_.jochenHello].setTextID("01_ehm");
-
 
                 setTimeout(function () {
-                    o[_.jochen].changeImage(_.face1);
                     o[_.jochenHello].setTextID("01_step1");
+                    o[_.jochen].changeImage(_.face1);
                     _fadeIn(o[_.hacken1], 0);
                     _fadeIn(o[_.hacken2], 0);
                     _fadeIn(o[_.item1], 0);
@@ -744,6 +744,8 @@ SLIDES.push(
 
             _.step2 = function () {
                 console.log("start Step 1");
+                o[_.jochenHello].setTextID("01_ehm");
+                o[_.jochen].changeImage(_.face0);
                 _fadeIn(o[_.birne2], 0);
                 _hide(o[_.birne0])
                 _hide(o[_.birne1])
@@ -754,12 +756,9 @@ SLIDES.push(
                 _fadeOut(o[_.item1], 0, _.itemOpacity)
                 _fadeOut(o[_.item2], 0, _.itemOpacity)
 
-                o[_.jochen].changeImage(_.face0);
-                o[_.jochenHello].setTextID("01_ehm");
-
                 setTimeout(function () {
-                    o[_.jochen].changeImage(_.face1);
                     o[_.jochenHello].setTextID("01_step2");
+                    o[_.jochen].changeImage(_.face1);
                     _fadeIn(o[_.hacken1], 0);
                     _fadeIn(o[_.item1], 0);
                 }, _.findingTime);
@@ -880,6 +879,63 @@ SLIDES.push(
             let o = self.objects;
             _hide(o[_.btmWords]);
             _hide(o[_.nextMiddle]);
+            _fadeOut(o[_.tochter], 0);
+        }
+    },
+    {
+        onstart: function (self) {
+            let o = self.objects;
+
+            o[_.btmWords].setTextID("01_text12");
+
+
+            _.wrongImg0 = "wrong1"
+            self.add({
+                id: _.wrongImg0, type: "ImageBox",
+                src: "assets/Jochen/wrong1.PNG",
+                x: 497, y: 60, width: 520 / 3, height: 810 / 3,
+            });
+            _.wrongImg1 = "wrong2"
+            self.add({
+                id: _.wrongImg1, type: "ImageBox",
+                src: "assets/Jochen/wrong2.PNG",
+                x: 493, y: 60, width: 714 / 3.4, height: 862 / 3.4,
+            });
+            _.wrongImg2 = "wrong3"
+            self.add({
+                id: _.wrongImg2, type: "ImageBox",
+                src: "assets/Jochen/wrong3.PNG",
+                x: 436, y: 102, width: 701 / 2.1, height: 459 / 2.1,
+            });
+            _.wrongs = [o[_.wrongImg0], o[_.wrongImg1], o[_.wrongImg2]];
+
+            _.showNextWrong = function () {
+                nextImg = _.wrongs.pop()
+                _fadeIn(nextImg,0);
+                _fadeOut(nextImg, 1500);
+                _.wrongs.unshift(nextImg);
+                setTimeout(() => publish("nextWrong"), 2500);
+            }
+
+            listen(self, "nextWrong",_.showNextWrong)
+            setTimeout(() => publish("nextWrong"), 500);
+
+            o[_.jochen].changeImage(JochenFaces.verduzt);
+
+            _.wrongs.forEach(obj => _hide(obj));
+            _fadeIn(o[_.btmWords], 200);
+            _fadeIn(o[_.nextMiddle], 400);
+        },
+        onend: function (self) {
+            unlisten(self)
+            let o = self.objects;
+            _hide(o[_.btmWords]);
+            _hide(o[_.nextMiddle]);
+            self.remove(_.wrongImg0);
+            self.remove(_.wrongImg1);
+            self.remove(_.wrongImg2);
+
+            //_hide(o[_.wrongImg])
         }
     },
     /*    {
@@ -1022,7 +1078,7 @@ SLIDES.push(
 
             }
 
-        },*/
+        },
     {
         onstart: function (self) {
             let o = self.objects;
@@ -1061,10 +1117,9 @@ SLIDES.push(
         }
     },
 
-    /*
     {
-    // Birnen manuell sortieren
-    onstart: function (self) {
+        //Birnen manuell sortieren
+        onstart: function (self) {
         let o = self.objects;
 
         //Position Jochen anpassen.
