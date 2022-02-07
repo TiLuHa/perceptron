@@ -8,7 +8,7 @@ SLIDES.push(
             let o = self.objects;
 
             // Bild Jochen
-            _.jochen = "img";
+            _.jochen = "jochenBild";
             _.xpush = 380;
             self.add({
                 id: _.jochen, type: "ImageBox",
@@ -38,9 +38,9 @@ SLIDES.push(
             })
 
             // Buttons
-            _.next = "next";
+            _.nextMiddle = "nextMiddle";
             self.add({
-                id: _.next, type: "Button",
+                id: _.nextMiddle, type: "Button",
                 x: 383, y: 463, //normal size
                 //size: "long", x:304, y:466,
                 text_id: "01_button_next", uppercase: false,
@@ -55,8 +55,8 @@ SLIDES.push(
             _fadeIn(o[_.jochenHello], 200);
             _hide(o[_.btmWords]);
             _fadeIn(o[_.btmWords], 400);
-            _hide(o[_.next]);
-            _fadeIn(o[_.next], 700);
+            _hide(o[_.nextMiddle]);
+            _fadeIn(o[_.nextMiddle], 700);
 
 
         },
@@ -64,41 +64,24 @@ SLIDES.push(
             self.remove(_.topWords);
 
             let o = self.objects;
-            o[_.jochenHello].setText("");
-
-            //self.remove(_.jochenHello);
-            self.remove(_.btmWords);
-            self.remove(_.next);
+            _hide(o[_.jochenHello]);
+            _hide(o[_.btmWords]);
+            _hide(o[_.nextMiddle]);
         }
     }, {
         // Slide 2
         onstart: function (self) {
             let o = self.objects;
 
-            _.btmWords = "btmWords";
-            self.add({
-                id: _.btmWords, type: "TextBox", text_id: "01_text2",
-                x: 130, y: 347, width: 700, height: 100, align: "center"
-            })
-
-            _.next = "next";
-            self.add({
-                id: _.next, type: "Button",
-                x: 383, y: 463, //normal size
-                //size: "long", x:304, y:466,
-                text_id: "01_button_next", uppercase: false,
-                onclick: () => publish("slideshow/next")
-            });
-
-            _hide(o[_.btmWords]);
+            o[_.btmWords].setTextID("01_text2");
             _fadeIn(o[_.btmWords], 100);
-            _hide(o[_.next]);
-            _fadeIn(o[_.next], 300);
+            _fadeIn(o[_.nextMiddle], 300);
         },
 
         onend: function (self) {
-            self.remove(_.btmWords);
-            self.remove(_.next);
+            let o = self.objects;
+            _hide(o[_.btmWords])
+            _hide(o[_.nextMiddle]);
         }
     },
     {
@@ -111,27 +94,21 @@ SLIDES.push(
             o[_.jochen].dom.src = "assets/Jochen/Jochen_laecheln.jpg";
             o[_.jochenHello].dom.style.left = 210;
 
-            _.btmWords = "btmWords";
+            _.btmLeftWords = "btmLeftWords";
             self.add({
-                id: _.btmWords, type: "TextBox", text_id: "01_text3",
+                id: _.btmLeftWords, type: "TextBox", text_id: "01_text3",
                 x: 10, y: 450,
                 width: 700, height: 100, align: "center"
             })
 
-            _.next = "next";
+            _.nextRight = "nextRight";
             self.add({
-                id: _.next, type: "Button",
+                id: _.nextRight, type: "Button",
                 x: 730, y: 463, //normal size
                 //size: "long", x:304, y:466,
                 text_id: "01_button_next", uppercase: false,
                 onclick: () => publish("slideshow/next")
             });
-
-            //Birnen hinzufügen
-            // self.add({
-            //     id: "birnenGrid", type:"Birnengrid",
-            //     x:0, y:0
-            // })
 
             _.scale0 = 1
             _.scale1 = 0.9
@@ -226,14 +203,15 @@ SLIDES.push(
             _fadeIn(o[_.b17], 800);
             _hide(o[_.b18]);
             _fadeIn(o[_.b18], 900);
-            _hide(o[_.btmWords]);
-            _fadeIn(o[_.btmWords], 100);
-            _hide(o[_.next]);
-            _fadeIn(o[_.next], 100);
+            _hide(o[_.btmLeftWords]);
+            _fadeIn(o[_.btmLeftWords], 100);
+            _hide(o[_.nextRight]);
+            _fadeIn(o[_.nextRight], 100);
         },
         onend: function (self) {
-            self.remove(_.btmWords);
-            self.remove(_.next);
+            let o = self.objects;
+            _hide(o[_.btmLeftWords]);
+            _hide(o[_.nextRight]);
 
         }
     },
@@ -241,22 +219,7 @@ SLIDES.push(
         //Slide 4
         onstart: function (self) {
             let o = self.objects;
-
-            _.btmWords = "btmWords";
-            self.add({
-                id: _.btmWords, type: "TextBox", text_id: "01_text4",
-                x: 10, y: 450,
-                width: 700, height: 100, align: "center"
-            })
-
-            _.next = "next";
-            self.add({
-                id: _.next, type: "Button",
-                x: 730, y: 463, //normal size
-                //size: "long", x:304, y:466,
-                text_id: "01_button_next", uppercase: false,
-                onclick: () => publish("slideshow/next")
-            });
+            o[_.btmLeftWords].setTextID("01_text4");
 
             _.b01 = "b01"
             self.add({
@@ -420,15 +383,15 @@ SLIDES.push(
             _hide(o[_.b28]);
             _fadeIn(o[_.b28], 900);
 
-            _hide(o[_.btmWords]);
-            _fadeIn(o[_.btmWords], 100);
-            _hide(o[_.next]);
-            _fadeIn(o[_.next], 100);
+            _hide(o[_.btmLeftWords]);
+            _fadeIn(o[_.btmLeftWords], 100);
+            _fadeIn(o[_.nextRight], 100);
 
         },
         onend: function (self) {
-            self.remove(_.btmWords);
-            self.remove(_.next);
+            let o = self.objects;
+            _hide(o[_.btmLeftWords]);
+            _hide(o[_.nextRight]);
 
         }
     },
@@ -450,22 +413,7 @@ SLIDES.push(
                 width: _.item_width, height: _.item_height,
             });
 
-            _.btmWords = "btmWords";
-            self.add({
-                id: _.btmWords, type: "TextBox", text_id: "01_text5",
-                x: 10, y: 450,
-                width: 700, height: 100, align: "center"
-            })
-
-            _.next = "next";
-            self.add({
-                id: _.next, type: "Button",
-                x: 730, y: 463, //normal size
-                //size: "long", x:304, y:466,
-                text_id: "01_button_next", uppercase: false,
-                onclick: () => publish("slideshow/next")
-            });
-
+            o[_.btmLeftWords].setTextID("01_text5");
 
             _.all_birnen = [
                 o[_.b01], o[_.b02], o[_.b03], o[_.b04], o[_.b05], o[_.b06], o[_.b07], o[_.b08],
@@ -482,17 +430,15 @@ SLIDES.push(
 
             _hide(o[_.item]);
             _fadeIn(o[_.item], 200);
-
-            _hide(o[_.btmWords]);
-            _fadeIn(o[_.btmWords], 100);
-            _hide(o[_.next]);
-            _fadeIn(o[_.next], 100);
+            _fadeIn(o[_.btmLeftWords], 100);
+            _fadeIn(o[_.nextRight], 100);
 
         },
         onend: function (self) {
+            let o = self.objects;
+            _hide(o[_.btmLeftWords]);
+            _hide(o[_.nextRight]);
             self.remove(_.item);
-            self.remove(_.btmWords);
-            self.remove(_.next);
         }
     },
     {
@@ -508,21 +454,7 @@ SLIDES.push(
                 width: _.item_width, height: _.item_height,
             });
 
-            _.btmWords = "btmWords";
-            self.add({
-                id: _.btmWords, type: "TextBox", text_id: "01_text6",
-                x: 10, y: 450,
-                width: 700, height: 100, align: "center"
-            })
-
-            _.next = "next";
-            self.add({
-                id: _.next, type: "Button",
-                x: 730, y: 463, //normal size
-                //size: "long", x:304, y:466,
-                text_id: "01_button_next", uppercase: false,
-                onclick: () => publish("slideshow/next")
-            });
+            o[_.btmLeftWords].setTextID("01_text6");
 
             _.all_birnen.forEach(b => _fadeOut(b, 200, 0.2))
             _.yes_item2 = [
@@ -534,17 +466,15 @@ SLIDES.push(
 
             _hide(o[_.item]);
             _fadeIn(o[_.item], 400);
-
-            _hide(o[_.btmWords]);
-            _fadeIn(o[_.btmWords], 100);
-            _hide(o[_.next]);
-            _fadeIn(o[_.next], 100);
+            _fadeIn(o[_.btmLeftWords], 100);
+            _fadeIn(o[_.nextRight], 100);
 
         },
         onend: function (self) {
+            let o = self.objects;
+            _hide(o[_.btmLeftWords]);
+            _hide(o[_.nextRight]);
             self.remove(_.item);
-            self.remove(_.btmWords);
-            self.remove(_.next);
         }
     },
     {
@@ -560,21 +490,7 @@ SLIDES.push(
                 width: _.item_width, height: _.item_height,
             });
 
-            _.btmWords = "btmWords";
-            self.add({
-                id: _.btmWords, type: "TextBox", text_id: "01_text7",
-                x: 10, y: 450,
-                width: 700, height: 100, align: "center"
-            })
-
-            _.next = "next";
-            self.add({
-                id: _.next, type: "Button",
-                x: 730, y: 463, //normal size
-                //size: "long", x:304, y:466,
-                text_id: "01_button_next", uppercase: false,
-                onclick: () => publish("slideshow/next")
-            });
+            o[_.btmLeftWords].setTextID("01_text7");
 
             _.all_birnen.forEach(b => _fadeOut(b, 200, 0.2))
             _.yes_item2 = [
@@ -586,17 +502,15 @@ SLIDES.push(
 
             _hide(o[_.item]);
             _fadeIn(o[_.item], 400);
-
-            _hide(o[_.btmWords]);
-            _fadeIn(o[_.btmWords], 100);
-            _hide(o[_.next]);
-            _fadeIn(o[_.next], 100);
+            _fadeIn(o[_.btmLeftWords], 100);
+            _fadeIn(o[_.nextRight], 100);
 
         },
         onend: function (self) {
             self.remove(_.item);
-            self.remove(_.btmWords);
-            self.remove(_.next);
+            let o = self.objects;
+            _hide(o[_.btmLeftWords]);
+            _hide(o[_.nextRight]);
 
             self.remove(_.b01);
             self.remove(_.b02);
@@ -629,13 +543,12 @@ SLIDES.push(
         onstart: function (self) {
             let o = self.objects;
 
-            _.next = "next";
-            self.add({
-                id: _.next, type: "Button",
-                x: 730, y: 463, //normal size
-                //size: "long", x:304, y:466,
-                text_id: "01_button_next", uppercase: false,
-                onclick: () => publish("slideshow/next")
+            o[_.nextRight].changeOnClick(() => {
+                publish("startStep0");
+                _show(o[_.jochenHello])
+                _hide(o[_.nextRight]);
+                _fadeIn(o[_.nextRight], 2000);
+                o[_.nextRight].changeOnClick(() => publish("slideshow/next"))
             });
 
             _.moveX = -100;
@@ -701,16 +614,11 @@ SLIDES.push(
                 width: _.item_width, height: _.item_height,
             });
 
-            _.btmWords = "btmWords";
-            self.add({
-                id: _.btmWords, type: "TextBox", text_id: "01_text8",
-                x: 10, y: 450,
-                width: 700, height: 100, align: "center"
-            })
+            o[_.btmLeftWords].setTextID("01_text8");
 
 
-            _.newItems = [/*o[_.birne0]*/, o[_.arrow0], o[_.item0],
-                o[_.arrow1], o[_.item1], o[_.arrow2], o[_.item2], o[_.btmWords], o[_.next]]
+            _.newItems = [o[_.birne0], o[_.arrow0], o[_.item0],
+                o[_.arrow1], o[_.item1], o[_.arrow2], o[_.item2], o[_.btmLeftWords], o[_.nextRight]]
             _.newItems.forEach(obj => _hide(obj))
             _.newItems.reduce((time, obj) => {
                 _fadeIn(obj, time)
@@ -861,19 +769,24 @@ SLIDES.push(
                 }, _.nextStepTime);
             }
 
-            // listen(self, "startStep0", () => console.log("start Step 0"))
-            // listen(self, "startStep1", () => console.log("start Step 1"))
-            // listen(self, "startStep2", () => console.log("start Step 2"))
             listen(self, "startStep0", _.step0)
             listen(self, "startStep1", _.step1)
             listen(self, "startStep2", _.step2)
-            setTimeout(() => publish("startStep0"), 1500);
 
         },
         onend: function (self) {
             let o = self.objects;
+            _hide(o[_.btmLeftWords]);
+            _hide(o[_.jochenHello]);
+            o[_.jochenHello].setText("");
+
+            self.remove(_.btmLeftWords);
+
+            o[_.jochen].changeImage(JochenFaces.aua);
+            _.face0 = JochenFaces.aua;
+            _.face1 = JochenFaces.aua;
             unlisten(self);
-            self.remove(_.next);
+            self.remove(_.nextRight);
             _hide(o[_.hacken0]);
             _hide(o[_.hacken1]);
             _hide(o[_.hacken2]);
@@ -882,37 +795,91 @@ SLIDES.push(
             _show(o[_.item2]);
             _hide(o[_.birne1]);
             _hide(o[_.birne2]);
+            self.remove(_.birne0);
+            self.remove(_.birne1);
+            self.remove(_.birne2);
+            self.remove(_.arrow0);
+            self.remove(_.arrow1);
+            self.remove(_.arrow2);
+            self.remove(_.item0);
+            self.remove(_.item1);
+            self.remove(_.item2);
+            self.remove(_.hacken0);
+            self.remove(_.hacken1);
+            self.remove(_.hacken2);
+
         }
     },
     {
         //Slide 9
         onstart: function (self) {
             let o = self.objects;
-            _.moveX = 60
 
-            _.next = "next";
-            self.add({
-                id: _.next, type: "Button",
-                x: 730, y: 463,
-                text_id: "01_button_next", uppercase: false,
-                onclick: () => publish("slideshow/next")
-            });
+            _moveX(o[_.jochenHello], 200);
+            _moveX(o[_.jochen], 200);
+            o[_.jochenHello].setTextID("01_platt");
+            o[_.btmWords].setTextID("01_text9");
 
-            _.moveRight = [o[_.item0], o[_.item1], o[_.item2], o[_.arrow0], o[_.arrow1], o[_.arrow2]];
-            _.moveRight.forEach(obj => _moveX(obj, _.moveX))
-            _moveX(o[_.birne], (-1) * _.moveX)
+
+            //BEWEGEN DER PFEILE
+            //_.moveX = 60
+            //_.moveRight = [o[_.item0], o[_.item1], o[_.item2], o[_.arrow0], o[_.arrow1], o[_.arrow2]];
+            //_.moveRight.forEach(obj => _moveX(obj, _.moveX))
+            //_moveX(o[_.birne], (-1) * _.moveX)
+
+            _fadeIn(o[_.btmWords],200)
+            _fadeIn(o[_.nextMiddle],400)
+            _fadeIn(o[_.jochenHello], 600)
+
         },
         onend: function (self) {
-            self.remove(_.birne);
+            let o = self.objects;
+            _hide(o[_.jochenHello])
+            _hide(o[_.btmWords]);
+            _hide(o[_.nextMiddle]);
+        }
 
-            self.remove(_.arrow0);
-            self.remove(_.item0);
-            self.remove(_.arrow1);
-            self.remove(_.item1);
-            self.remove(_.arrow2);
-            self.remove(_.item2);
+    },
+    {
+        onstart: function (self) {
+            let o = self.objects;
 
-            self.remove(_.next);
+            _.tochter = "tochterBild";
+            self.add({
+                id: _.tochter, type: "ImageBox",
+                src: "assets/Jochen/Tochter.PNG",
+                x: 600, y: 60, width: 380 / 2.1, height: 545 / 2.1,
+            });
+
+            o[_.btmWords].setTextID("01_text10");
+
+            _hide(o[_.tochter])
+            _fadeIn(o[_.tochter])
+
+            _fadeIn(o[_.btmWords],200)
+            _fadeIn(o[_.nextMiddle],400)
+        },
+        onend: function (self) {
+            let o = self.objects;
+            _hide(o[_.btmWords]);
+            _hide(o[_.nextMiddle]);
+        }
+    },
+    {
+        onstart: function (self) {
+            let o = self.objects;
+
+            o[_.btmWords].setTextID("01_text11");
+
+            o[_.jochen].changeImage(JochenFaces.fragend);
+
+            _fadeIn(o[_.btmWords],200)
+            _fadeIn(o[_.nextMiddle],400)
+        },
+        onend: function (self) {
+            let o = self.objects;
+            _hide(o[_.btmWords]);
+            _hide(o[_.nextMiddle]);
         }
     },
     /*    {
@@ -1087,11 +1054,13 @@ SLIDES.push(
             _fadeIn(o[_.next], 400);
         },
         onend: function (self) {
+            let o = self.objects;
             self.remove(_.jochen);
             self.remove(_.leftwords);
             self.remove(_.next);
         }
     },
+
     /*
     {
     // Birnen manuell sortieren

@@ -86,6 +86,10 @@ function Button(config){
 
 	};
 
+	self.changeOnClick = function (newFunc) {
+		hitbox.onclick = newFunc
+	}
+
 	// Activate/Deactivate
 	self.active = true;
 	self.activate = function(){
