@@ -879,14 +879,34 @@ SLIDES.push(
             let o = self.objects;
             _hide(o[_.btmWords]);
             _hide(o[_.nextMiddle]);
-            _fadeOut(o[_.tochter], 0);
+
+        }
+    },{
+        onstart: function (self) {
+            let o = self.objects;
+            //_moveX(o[_.tochter],100)
+            o[_.btmWords].setTextID("01_text12");
+
+            o[_.jochen].changeImage(JochenFaces.zufrieden);
+            o[_.jochenHello].setTextID("01_tschau")
+
+            _fadeOut(o[_.tochter], 600);
+            _fadeIn(o[_.btmWords],200)
+            _fadeIn(o[_.nextMiddle],400)
+            _fadeIn(o[_.jochenHello],600)
+        },
+        onend: function (self) {
+            let o = self.objects;
+            _hide(o[_.btmWords]);
+            _hide(o[_.nextMiddle]);
+            _hide(o[_.jochenHello])
         }
     },
     {
         onstart: function (self) {
             let o = self.objects;
 
-            o[_.btmWords].setTextID("01_text12");
+            o[_.btmWords].setTextID("01_text13");
 
 
             _.wrongImg0 = "wrong1"
@@ -937,6 +957,23 @@ SLIDES.push(
 
             //_hide(o[_.wrongImg])
         }
+    },{
+        onstart:function (self) {
+            let o = self.objects;
+
+            o[_.btmWords].setTextID("01_text14");
+            o[_.nextMiddle].changeOnClick(() => publish("slideshow/scratch"))
+
+            //TODO TEXT FÜR MAYA EINFÜGEN
+            _fadeIn(o[_.btmWords], 200);
+            _fadeIn(o[_.nextMiddle], 400);
+        },
+        onend: function (self) {
+            let o = self.objects;
+            _hide(o[_.btmWords]);
+            _hide(o[_.nextMiddle]);
+            _hide(o[_.jochen]);
+        },
     },
     /*    {
             onstart: function (self) {
