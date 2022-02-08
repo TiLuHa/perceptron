@@ -89,7 +89,7 @@ SLIDES.push(
             let i = 0;
             self.add({
                 id: _.fotoBtm, type: "Button",
-                size: "long", x: 304, y: _.yPosTopBtm + (i++)*_.yStepToNextBtm,
+                size: "long", x: 304, y: _.yPosTopBtm + (i++) * _.yStepToNextBtm,
                 text_id: "02_button_foto_machen", uppercase: false,
                 //active: false,
                 onclick: () => publish("slideshow/scratch")
@@ -97,7 +97,7 @@ SLIDES.push(
             _.marmeladeBtm = "marmeladeBtm";
             self.add({
                 id: _.marmeladeBtm, type: "Button",
-                size: "long", x: 304, y: _.yPosTopBtm + (i++)*_.yStepToNextBtm,
+                size: "long", x: 304, y: _.yPosTopBtm + (i++) * _.yStepToNextBtm,
                 text_id: "02_button_birnenmarmelade", uppercase: false,
                 active: false
                 //onclick: () => publish("slideshow/next")
@@ -105,7 +105,7 @@ SLIDES.push(
             _.kuchenBtm = "kuchenBtm";
             self.add({
                 id: _.kuchenBtm, type: "Button",
-                size: "long", x: 304, y: _.yPosTopBtm + (i++)*_.yStepToNextBtm,
+                size: "long", x: 304, y: _.yPosTopBtm + (i++) * _.yStepToNextBtm,
                 text_id: "02_button_birnenkuchen", uppercase: false,
                 active: false,
                 //onclick: () => publish("slideshow/next")
@@ -113,7 +113,7 @@ SLIDES.push(
             _.bierBtm = "bierBtm";
             self.add({
                 id: _.bierBtm, type: "Button",
-                size: "long", x: 304, y: _.yPosTopBtm + (i++)*_.yStepToNextBtm,
+                size: "long", x: 304, y: _.yPosTopBtm + (i++) * _.yStepToNextBtm,
                 text_id: "02_button_birnenbier", uppercase: false,
                 active: false,
                 //onclick: () => publish("slideshow/next")
@@ -126,11 +126,19 @@ SLIDES.push(
             _hide(o[_.kuchenBtm])
             _hide(o[_.bierBtm])
         }
+    }, {
+        onstart: function (self) {
+            let o = self.objects;
+            o[_.slideCounter].setText("2-3");
+        },
+        onend: function (self) {
+            let o = self.objects;
+        }
     },
     {
         onstart: function (self) {
             let o = self.objects;
-            o[_.slideCounter].setText("2-3")
+            o[_.slideCounter].setText("2-4")
 
             _.conection1 = "conection1";
             _.conection2 = "connection2";
