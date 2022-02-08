@@ -82,6 +82,7 @@ SLIDES.push(
         onstart: function (self) {
             let o = self.objects;
             o[_.slideCounter].setText("2-2")
+            o[_.btmWords].setTextID("02_text2")
 
             _.yPosTopBtm = 100;
             _.yStepToNextBtm = 60;
@@ -118,21 +119,79 @@ SLIDES.push(
                 active: false,
                 //onclick: () => publish("slideshow/next")
             });
+
+
+            _fadeIn(o[_.btmWords], 800)
         },
         onend: function (self) {
             let o = self.objects;
-            _hide(o[_.fotoBtm])
-            _hide(o[_.marmeladeBtm])
-            _hide(o[_.kuchenBtm])
-            _hide(o[_.bierBtm])
+            _hide(o[_.fotoBtm]);
+            _hide(o[_.marmeladeBtm]);
+            _hide(o[_.kuchenBtm]);
+            _hide(o[_.bierBtm]);
+            _hide(o[_.btmWords]);
         }
     }, {
         onstart: function (self) {
             let o = self.objects;
             o[_.slideCounter].setText("2-3");
+
+            _.tablet2 = "tablet2";
+            self.add({
+                id: _.tablet2, type: "ImageBox",
+                src: "assets/birnen/tablet2.jpg",
+                x: 350, y: 170, width: 438 / 4.5, height: 689 / 4.5,
+            });
+
+            _.flashlight = "flashlight";
+            self.add({
+                id: _.flashlight, type: "ImageBox",
+                src: "assets/Jochen/blitzlicht.jpg",
+                x: 350, y: 170, width: 208 / 2.5, height: 222 / 2.5,
+            });
+
+            _.moveX = -100;
+            _.moveY = 0;
+            _.scale0 = 1
+            _.scale1 = 0.9
+            _.scale2 = 0.8
+            _.birnen_shrinkfactor = .15
+            _.birnen_width = 303 * _.birnen_shrinkfactor
+            _.birnen_height = 514 * _.birnen_shrinkfactor
+            _.appart = 20
+            _.start_x = 220
+            _.start_y = 50
+            _.get_x = (pos) => _.start_x + pos * (_.birnen_width + _.appart)
+            _.get_y = (pos) => _.start_y + pos * (_.birnen_height + _.appart)
+
+            _.birne0 = "birne0"
+            self.add({
+                id: _.birne0, type: "ImageBox",
+                src: "assets/birnen/b1.jpg",
+                x: 554 ,//+ _.moveX,
+                y: 254 ,//+ _.moveY,
+                width: 40,//_.birnen_width * _.scale0,
+                rotation: 0
+            });
+
+            // TODO: Text für Jochen hinzufügen
+            // TODO: Ton bei Kameraklick hinzufügen
+            // TODO: ggf. ein oder zwei Button "Klick" und "Weiter" hinzufügen
+            o[_.jochen].changeImage(JochenFaces.verduzt)
+            _show(o[_.jochen]);
+            _show(o[_.tablet2]);
+            _fadeIn(o[_.birne0], 1000);
+            _show(o[_.flashlight],3000);
+            setTimeout(() => self.remove(_.flashlight), 3000);
+            setTimeout(() => o[_.jochen].changeImage(JochenFaces.zufrieden), 3500);
+            //setTimeout(() => publish("slideshow/scratch"), 3500);
+
         },
         onend: function (self) {
             let o = self.objects;
+            _hide(o[_.jochen])
+            _hide(o[_.tablet2])
+            _hide(o[_.birne0])
         }
     },
     {

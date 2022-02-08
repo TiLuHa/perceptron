@@ -127,11 +127,11 @@ SLIDES.push(
             _.scale1 = 0.9
             _.scale2 = 0.8
             _.birnen_shrinkfactor = .15
-            _.birnen_width = 303 * _.birnen_shrinkfactor,
-                _.birnen_height = 514 * _.birnen_shrinkfactor,
-                _.appart = 20,
-                _.start_x = 220,
-                _.start_y = 50
+            _.birnen_width = 303 * _.birnen_shrinkfactor
+            _.birnen_height = 514 * _.birnen_shrinkfactor
+            _.appart = 20
+            _.start_x = 220
+            _.start_y = 50
             _.get_x = (pos) => _.start_x + pos * (_.birnen_width + _.appart)
             _.get_y = (pos) => _.start_y + pos * (_.birnen_height + _.appart)
 
@@ -845,8 +845,8 @@ SLIDES.push(
             //_.moveRight.forEach(obj => _moveX(obj, _.moveX))
             //_moveX(o[_.birne], (-1) * _.moveX)
 
-            _fadeIn(o[_.btmWords],200)
-            _fadeIn(o[_.nextMiddle],400)
+            _fadeIn(o[_.btmWords], 200)
+            _fadeIn(o[_.nextMiddle], 400)
             _fadeIn(o[_.jochenHello], 600)
 
         },
@@ -875,8 +875,8 @@ SLIDES.push(
             _hide(o[_.tochter])
             _fadeIn(o[_.tochter])
 
-            _fadeIn(o[_.btmWords],200)
-            _fadeIn(o[_.nextMiddle],400)
+            _fadeIn(o[_.btmWords], 200)
+            _fadeIn(o[_.nextMiddle], 400)
         },
         onend: function (self) {
             let o = self.objects;
@@ -893,8 +893,8 @@ SLIDES.push(
 
             o[_.jochen].changeImage(JochenFaces.fragend);
 
-            _fadeIn(o[_.btmWords],200)
-            _fadeIn(o[_.nextMiddle],400)
+            _fadeIn(o[_.btmWords], 200)
+            _fadeIn(o[_.nextMiddle], 400)
         },
         onend: function (self) {
             let o = self.objects;
@@ -902,7 +902,7 @@ SLIDES.push(
             _hide(o[_.nextMiddle]);
 
         }
-    },{
+    }, {
         onstart: function (self) {
             let o = self.objects;
             o[_.slideCounter].setText("1-12")
@@ -913,9 +913,9 @@ SLIDES.push(
             o[_.jochenHello].setTextID("01_tschau")
 
             _fadeOut(o[_.tochter], 600);
-            _fadeIn(o[_.btmWords],200)
-            _fadeIn(o[_.nextMiddle],400)
-            _fadeIn(o[_.jochenHello],600)
+            _fadeIn(o[_.btmWords], 200)
+            _fadeIn(o[_.nextMiddle], 400)
+            _fadeIn(o[_.jochenHello], 600)
         },
         onend: function (self) {
             let o = self.objects;
@@ -953,13 +953,13 @@ SLIDES.push(
 
             _.showNextWrong = function () {
                 nextImg = _.wrongs.pop()
-                _fadeIn(nextImg,0);
+                _fadeIn(nextImg, 0);
                 _fadeOut(nextImg, 1500);
                 _.wrongs.unshift(nextImg);
                 setTimeout(() => publish("nextWrong"), 2500);
             }
 
-            listen(self, "nextWrong",_.showNextWrong)
+            listen(self, "nextWrong", _.showNextWrong)
             setTimeout(() => publish("nextWrong"), 500);
 
             o[_.jochen].changeImage(JochenFaces.verduzt);
@@ -979,8 +979,8 @@ SLIDES.push(
 
             //_hide(o[_.wrongImg])
         }
-    },{
-        onstart:function (self) {
+    }, {
+        onstart: function (self) {
             let o = self.objects;
             o[_.slideCounter].setText("1-14")
             o[_.btmWords].setTextID("01_text14");
