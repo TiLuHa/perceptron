@@ -21,7 +21,7 @@ function ImageBoxFlipFlop(config){
 			b = !b;
 			return b;
 		};
-		let flipmessage = config.flipmessage ? config.flipmessage : "newOutput";
+		let flipmessage = config.flipmessage !== undefined ? config.flipmessage : "newOutput";
 		listen(self, flipmessage, function () {
 			img.src = self.flipFunction() ? config.src : config.altsrc;
 		});
@@ -30,10 +30,7 @@ function ImageBoxFlipFlop(config){
 	// Flipflop based on Networkinput
 	if (config.network && config.xinput && config.yinput) {
 		self.network = config.network;
-		self.flipFunction = function () {
-			let nnoutput = self.network.getOutputFast([config.xinput,config.yinput])[0];
-			return nnoutput > 0;
-		};
+		self.flipFunction = () => 0.5 < self.network.getOutputFast([config.xinput, config.yinput])[0];
 	}
 
 	if (config.tooltip) {
@@ -58,7 +55,7 @@ function ImageBoxFlipFlop(config){
 	}
 
 	// Customize
-	_configText(config, self.dom);
+	_configText(config, img);
 
 	// Add & Remove
 	self.add = function(){ _add(self); };

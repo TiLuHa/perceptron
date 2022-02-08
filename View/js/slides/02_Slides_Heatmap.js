@@ -118,8 +118,8 @@ SLIDES.push(
                 id: _.marmeladeBtm, type: "Button",
                 size: "long", x: 304, y: _.yPosTopBtm + (i++) * _.yStepToNextBtm,
                 text_id: "02_button_birnenmarmelade", uppercase: false,
-                active: false
-                //onclick: () => publish("slideshow/next")
+                active: false,
+                onclick: () => publish("slideshow/next")
             });
             _.kuchenBtm = "kuchenBtm";
             self.add({
@@ -149,6 +149,7 @@ SLIDES.push(
             _hide(o[_.btmWords]);
             _hide(o[_.birnenScanner]);
             _hide(o[_.birnenScannerText]);
+            _moveX(o[_.birnenScanner], 400)
         }
     },
     {
@@ -200,30 +201,25 @@ SLIDES.push(
             _hide(o[_.jochen]);
             _hide(o[_.tablet2]);
             _hide(o[_.birne0]);
+
         }
     },
     {
         onstart: function (self) {
             let o = self.objects;
             o[_.slideCounter].setText("2-4")
-            o[_.fotoBtm].deactivate();
-            //o[_.marmeladeBtm].activate();
             o[_.btmWords].setTextID("02_text4")
             _.birne1 = "birne1"
             self.add({
                 id: _.birne1, type: "ImageBox",
                 src: _.exampleBirneSrc,
-                x: 40,//+ _.moveX,
+                x: 440,//+ _.moveX,
                 y: 150,//+ _.moveY,
                 width: 80,//_.birnen_width * _.scale0,
                 rotation: 0
             });
 
             o[_.nextMiddle].changeOnClick(() => publish("slideshow/next"));
-            _show(o[_.fotoBtm]);
-            _show(o[_.marmeladeBtm]);
-            _show(o[_.kuchenBtm]);
-            _show(o[_.bierBtm]);
 
             _show(o[_.birnenScanner])
             _fadeIn(o[_.btmWords], 1000);
@@ -243,16 +239,18 @@ SLIDES.push(
             _.input1 = "input1"
             self.add({
                 id: _.input1, type: "NWP", part: parts.input,
-                x: 160, y: 120,
+                x: 560, y: 120,
             })
             _.input1Text = "input1Text"
             self.add({id: _.input1Text, type: "TextBox", connectedWith: o[_.input1], text: "7"});
 
-            _.input1Description =  "input1Description";
-            self.add({id: _.input1Description, type: "TextBox",
-                x: 130, y:183, width: 130, height: 50,
-                    align: "center", color: "#aaa", size: 17
-                , text_id: "input1_description"})
+            _.input1Description = "input1Description";
+            self.add({
+                id: _.input1Description, type: "TextBox",
+                x: 530, y: 183, width: 130, height: 50,
+                align: "center", color: "#aaa", size: 17
+                , text_id: "input1_description"
+            })
 
 
             _fadeIn(o[_.btmWords], 500);
@@ -275,16 +273,18 @@ SLIDES.push(
             _.input2 = "input2"
             self.add({
                 id: _.input2, type: "NWP", part: parts.input,
-                x: 160, y: 270,
+                x: 560, y: 270,
             })
             _.input2Text = "input2Text"
             self.add({id: _.input2Text, type: "TextBox", connectedWith: o[_.input2], text: "3"});
 
-            _.input2Description =  "input2Description";
-            self.add({id: _.input2Description, type: "TextBox",
-                x: 130, y:333, width: 130, height: 50,
+            _.input2Description = "input2Description";
+            self.add({
+                id: _.input2Description, type: "TextBox",
+                x: 530, y: 333, width: 130, height: 50,
                 align: "center", color: "#aaa", size: 17
-                , text_id: "input2_description"})
+                , text_id: "input2_description"
+            })
 
             _fadeIn(o[_.btmWords], 500);
             _fadeIn(o[_.nextMiddle], 1000);
@@ -295,24 +295,92 @@ SLIDES.push(
             _hide(o[_.nextMiddle])
             _hide(o[_.btmWords])
             o[_.input2].setInBackGround();
+            [
+                o[_.birne1], o[_.birnenScanner],
+                o[_.input1Text], o[_.input1Description],
+                o[_.input2Text], o[_.input2Description],
+
+            ].forEach(obj => _moveX(obj, -400));
+            o[_.input1].img.style.left = parseInt(o[_.input1].img.style.left.slice(0, -2)) - 400
+            o[_.input2].img.style.left = parseInt(o[_.input2].img.style.left.slice(0, -2)) - 400
         }
     },
     {
         onstart: function (self) {
             let o = self.objects;
-            o[_.slideCounter].setText("2-7")
+            o[_.slideCounter].setText("2-7");
+            o[_.btmWords].setTextID("02_text7");
+
+            o[_.fotoBtm].deactivate();
+            o[_.marmeladeBtm].activate();
+
+            [o[_.fotoBtm], o[_.marmeladeBtm], o[_.kuchenBtm], o[_.bierBtm],
+                o[_.btmWords], o[_.nextMiddle]]
+                .reduce((time, obj) => {
+                    _fadeIn(obj, time)
+                    return time + 300;
+                }, 500)
+
+
         },
         onend: function (self) {
             let o = self.objects;
             _hide(o[_.nextMiddle])
             _hide(o[_.btmWords])
-            //o[_.input2].setInBackGround();
+            o[_.marmeladeBtm].deactivate();
         }
     },
     {
         onstart: function (self) {
             let o = self.objects;
-            o[_.slideCounter].setText("2-8")
+            o[_.slideCounter].setText("2-8");
+
+            _.perceptron = "perceptron"
+            self.add({
+                id: _.perceptron, type: "Perceptron",
+                size: [2, 1],
+                activationFun: Activations.RELU,
+                activationFunOutput: Activations.SIGMOID,
+            });
+
+            _.configBtm = "configBtm";
+            self.add({
+                id: _.configBtm, type: "Button",
+                x: 663, y: 160,
+                text_id: "02_button_bearbeiten", uppercase: false,
+                onclick: () => publish("slideshow/next")
+            });
+
+            _.result = "result"
+            self.add({
+                id: _.result, type: "ImageBoxFlipFlop",
+                x: 84, y: 234, width: 80, height: 80,
+                src: "assets/birnen/Right.png",
+                altsrc: "assets/birnen/Wrong.png",
+                hoverZoom: false, tooltip: false,
+                xinput: 5, yinput: 7, network: _.perceptron.network,
+            });
+
+            _fadeIn(o[_.btmWords], 500);
+            _fadeIn(o[_.nextMiddle], 1000);
+
+        },
+        onend: function (self) {
+            let o = self.objects;
+            _hide(o[_.fotoBtm]);
+            _hide(o[_.marmeladeBtm]);
+            _hide(o[_.kuchenBtm]);
+            _hide(o[_.bierBtm]);
+            _hide(o[_.configBtm]);
+            _hide(o[_.nextMiddle]);
+            _hide(o[_.btmWords]);
+
+        }
+    },
+    {
+        onstart: function (self) {
+            let o = self.objects;
+            o[_.slideCounter].setText("2-9")
 
             _.conection1 = "conection1";
             _.conection2 = "connection2";

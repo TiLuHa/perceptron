@@ -41,6 +41,7 @@ function NWP(config) {
     self.dom = document.createElement("div");
     self.dom.id = self.id;
     let part = config.size === undefined ? new Image() : new Image(config.size.width, config.size.height);
+    self.img = part
     part.className = "object";
     part.classList.add("nwp");
     part.src = config.part !== undefined ? config.part.src : config.src;
