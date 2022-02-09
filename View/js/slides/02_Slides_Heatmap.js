@@ -315,7 +315,7 @@ SLIDES.push(
             o[_.marmeladeBtm].activate();
 
             [o[_.fotoBtm], o[_.marmeladeBtm], o[_.kuchenBtm], o[_.bierBtm],
-                o[_.btmWords], o[_.nextMiddle]]
+                o[_.btmWords],]
                 .reduce((time, obj) => {
                     _fadeIn(obj, time)
                     return time + 300;
@@ -362,7 +362,7 @@ SLIDES.push(
             });
 
             _fadeIn(o[_.btmWords], 500);
-            _fadeIn(o[_.nextMiddle], 1000);
+            //_fadeIn(o[_.nextMiddle], 1000);
 
         },
         onend: function (self) {
@@ -374,6 +374,17 @@ SLIDES.push(
             _hide(o[_.configBtm]);
             _hide(o[_.nextMiddle]);
             _hide(o[_.btmWords]);
+            _hide(o[_.birne1]);
+            _hide(o[_.result]);
+            _hide(o[_.birnenScanner]);
+            _hide(o[_.input1])
+            _hide(o[_.input2])
+            self.remove(_.input1)
+            self.remove(_.input2)
+            _hide(o[_.input1Text])
+            _hide(o[_.input2Text])
+            _hide(o[_.input1Description])
+            _hide(o[_.input2Description])
 
         }
     },
@@ -435,30 +446,30 @@ SLIDES.push(
             });
             _.input1Value = "input1Value";
             self.add({
-                id: _.input1Value, type: "NWP", part: parts.right,
+                id: _.input1Value, type: "NWP", part: parts.input,
                 x: 115, y: 115,
                 alwaysOn: true,
             });
 
             _.input1Name = "input1Name";
-            self.add({
+            /*self.add({
                 id: _.input1Name, type: "NWP", part: parts.left,
                 x: 35, y: 115,
                 alwaysOn: true,
-            });
+            });*/
             _.input2Value = "input2Value";
             self.add({
-                id: _.input2Value, type: "NWP", part: parts.right,
+                id: _.input2Value, type: "NWP", part: parts.input,
                 x: 115, y: 315,
                 alwaysOn: true,
             });
 
-            _.input2Name = "input2Name";
+            /*_.input2Name = "input2Name";
             self.add({
                 id: _.input2Name, type: "NWP", part: parts.left,
                 x: 35, y: 315,
                 alwaysOn: true,
-            });
+            });*/
 
             _.sliderX = 50;
             _.sliderY = 400;

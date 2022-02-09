@@ -1,30 +1,30 @@
 const parts = {
     input: {
-        src: "assets/birnen/rechts.png",
+        src: "assets/birnen/blau/pfeilrechtsblau.png",
         className: "input",
         xOffsetText: 20,
         yOffsetText: 13
     },
     connection: {
-        src: "assets/birnen/verbindung.png",
+        src: "assets/birnen/blau/verbindung.png",
         className: "connection",
         xOffsetText: 20,
         yOffsetText: 13
     },
     weigth: {
-        src: "assets/birnen/mitte.png",
+        src: "assets/birnen/blau/dot.png",
         className: "weight",
         xOffsetText: 20,
         yOffsetText: 13
     },
     left: {
-        src: "assets/birnen/links.png",
+        src: "assets/birnen/blau/dingslinks.png",
         className: "left",
         xOffsetText: 20,
         yOffsetText: 13
     },
     right: {
-        src: "assets/birnen/rechts.png",
+        src: "assets/birnen/blau/dingsrechts.png",
         className: "right",
         xOffsetText: 20,
         yOffsetText: 13
