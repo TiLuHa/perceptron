@@ -77,9 +77,9 @@ var _s = function (seconds) {
 };
 
 // Animation
-var _hide = function (object) {
-    object.dom.style.opacity = 0;
+var _hide = function (object, time = 0) {
     object.dom.classList.add("unclickable")
+    setTimeout(() => object.dom.style.opacity = "" + 0, time);
 };
 var _show = function (object, time = 0) {
     object.dom.classList.remove("unclickable")
