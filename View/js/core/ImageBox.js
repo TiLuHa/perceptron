@@ -11,8 +11,8 @@ function ImageBox(config){
 	// Customize
 
 	_configText(config, self.dom);
-	self.changeImage = function (newSrc) {
 
+	self.changeImage = function (newSrc) {
 		self.dom.src = newSrc;
 	};
 	// Add & Remove

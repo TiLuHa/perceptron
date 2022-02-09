@@ -86,7 +86,7 @@ SLIDES.push(
 
 
             _.birnenscannerX = 0
-            _.birnenscannerY = 120
+            _.birnenscannerY = 100
             _.birnenScanner = "birnenScanner";
             self.add({
                 id: _.birnenScanner, type: "ImageBox",
@@ -214,7 +214,7 @@ SLIDES.push(
                 id: _.birne1, type: "ImageBox",
                 src: _.exampleBirneSrc,
                 x: 440,//+ _.moveX,
-                y: 150,//+ _.moveY,
+                y: 130,//+ _.moveY,
                 width: 80,//_.birnen_width * _.scale0,
                 rotation: 0
             });
@@ -236,30 +236,46 @@ SLIDES.push(
             let o = self.objects;
             o[_.slideCounter].setText("2-5")
             o[_.btmWords].setTextID("02_text5")
+
+            _.anchorInput1X = 560;
+            _.anchorInput1Y = 70;
+            _.xPlusInputText = 40;
+            _.yPlusInputText = 30;
+            _.xPlusInputDescription = -47;
+            _.yPlusInputDescription = 35;
+
             _.input1 = "input1"
             self.add({
-                id: _.input1, type: "NWP", part: parts.input,
-                x: 560, y: 120,
+                id: _.input1, type: "ImageBox",
+                src: "assets/birnen/blau/pfeilrechtsblau.png",
+                x: _.anchorInput1X,
+                y: _.anchorInput1Y,
             })
             _.input1Text = "input1Text"
-            self.add({id: _.input1Text, type: "TextBox", connectedWith: o[_.input1], text: "7"});
+            self.add({
+                id: _.input1Text, type: "TextBox",
+                x: _.anchorInput1X + _.xPlusInputText,
+                y: _.anchorInput1Y + _.yPlusInputText,
+                text: "7"
+            });
 
             _.input1Description = "input1Description";
             self.add({
                 id: _.input1Description, type: "TextBox",
-                x: 530, y: 183, width: 130, height: 50,
-                align: "center", color: "#aaa", size: 17
-                , text_id: "input1_description"
+                x: _.anchorInput1X + _.xPlusInputDescription,
+                y: _.anchorInput1Y + _.yPlusInputDescription,
+                width: 130, height: 50,
+                align: "center", color: "blue", size: 17,
+                rotation: 270,
+                text_id: "input1_description"
             })
 
 
             _fadeIn(o[_.btmWords], 500);
             _fadeIn(o[_.nextMiddle], 1000);
-            o[_.input1].setInForeGround();
         },
         onend: function (self) {
             let o = self.objects;
-            o[_.input1].setInBackGround();
             _hide(o[_.nextMiddle])
             _hide(o[_.btmWords])
         }
@@ -270,39 +286,47 @@ SLIDES.push(
             o[_.slideCounter].setText("2-6")
             o[_.btmWords].setTextID("02_text6")
 
+            _.anchorInput2X = _.anchorInput1X + 0;
+            _.anchorInput2Y = _.anchorInput1Y + 170;
+
             _.input2 = "input2"
             self.add({
-                id: _.input2, type: "NWP", part: parts.input,
-                x: 560, y: 270,
+                id: _.input2, type: "ImageBox",
+                src: "assets/birnen/blau/pfeilrechtsblau.png",
+                x: _.anchorInput2X,
+                y: _.anchorInput2Y,
             })
             _.input2Text = "input2Text"
-            self.add({id: _.input2Text, type: "TextBox", connectedWith: o[_.input2], text: "3"});
+            self.add({
+                id: _.input2Text, type: "TextBox",
+                x: _.anchorInput2X + _.xPlusInputText,
+                y: _.anchorInput2Y + _.yPlusInputText,
+                text: "3"
+            });
 
             _.input2Description = "input2Description";
             self.add({
                 id: _.input2Description, type: "TextBox",
-                x: 530, y: 333, width: 130, height: 50,
-                align: "center", color: "#aaa", size: 17
-                , text_id: "input2_description"
+                x: _.anchorInput2X + _.xPlusInputDescription,
+                y: _.anchorInput2Y + _.yPlusInputDescription,
+                width: 130, height: 50,
+                align: "center", color: "blue", size: 17,
+                rotation: 270, text_id: "input2_description"
             })
 
             _fadeIn(o[_.btmWords], 500);
             _fadeIn(o[_.nextMiddle], 1000);
-            o[_.input2].setInForeGround();
         },
         onend: function (self) {
             let o = self.objects;
-            _hide(o[_.nextMiddle])
-            _hide(o[_.btmWords])
-            o[_.input2].setInBackGround();
+            _hide(o[_.nextMiddle]);
+            _hide(o[_.btmWords]);
             [
                 o[_.birne1], o[_.birnenScanner],
                 o[_.input1Text], o[_.input1Description],
                 o[_.input2Text], o[_.input2Description],
-
+                o[_.input1], o[_.input2]
             ].forEach(obj => _moveX(obj, -400));
-            o[_.input1].img.style.left = parseInt(o[_.input1].img.style.left.slice(0, -2)) - 400
-            o[_.input2].img.style.left = parseInt(o[_.input2].img.style.left.slice(0, -2)) - 400
         }
     },
     {
@@ -334,14 +358,8 @@ SLIDES.push(
         onstart: function (self) {
             let o = self.objects;
             o[_.slideCounter].setText("2-8");
+            o[_.btmWords].setTextID("02_text8");
 
-            _.perceptron = "perceptron"
-            self.add({
-                id: _.perceptron, type: "Perceptron",
-                size: [2, 1],
-                activationFun: Activations.RELU,
-                activationFunOutput: Activations.SIGMOID,
-            });
 
             _.configBtm = "configBtm";
             self.add({
@@ -353,12 +371,9 @@ SLIDES.push(
 
             _.result = "result"
             self.add({
-                id: _.result, type: "ImageBoxFlipFlop",
-                x: 84, y: 234, width: 80, height: 80,
-                src: "assets/birnen/Right.png",
-                altsrc: "assets/birnen/Wrong.png",
-                hoverZoom: false, tooltip: false,
-                xinput: 5, yinput: 7, network: _.perceptron.network,
+                id: _.result, type: "ImageBox",
+                x: 70, y: 205, width: 80, height: 80,
+                src: "assets/birnen/Wrong.png"
             });
 
             _fadeIn(o[_.btmWords], 500);
@@ -374,24 +389,208 @@ SLIDES.push(
             _hide(o[_.configBtm]);
             _hide(o[_.nextMiddle]);
             _hide(o[_.btmWords]);
-            _hide(o[_.birne1]);
-            _hide(o[_.result]);
-            _hide(o[_.birnenScanner]);
-            _hide(o[_.input1])
-            _hide(o[_.input2])
-            self.remove(_.input1)
-            self.remove(_.input2)
-            _hide(o[_.input1Text])
-            _hide(o[_.input2Text])
-            _hide(o[_.input1Description])
-            _hide(o[_.input2Description])
-
         }
     },
     {
         onstart: function (self) {
             let o = self.objects;
             o[_.slideCounter].setText("2-9")
+            o[_.btmWords].setTextID("02_text9");
+
+
+            _.perceptron = "perceptron"
+            self.add({
+                id: _.perceptron, type: "Perceptron",
+                size: [2, 1],
+                activationFun: Activations.RELU,
+                activationFunOutput: Activations.SIGMOID,
+            });
+
+            _.explainLinks = "explainLinks"
+            self.add({
+                id: _.explainLinks, type: "ImageBox",
+                src: "assets/birnen/schwarz/explainTall.png",
+                x: 420,
+                y: 60,
+            })
+            _.explainRechts = "explainRechts"
+            self.add({
+                id: _.explainRechts, type: "ImageBox",
+                src: "assets/birnen/schwarz/explainTall.png",
+                x: 499,
+                y: 60,
+            })
+
+            _.sliderWeight1 = "sliderWeight1"
+            self.add({
+                id: _.sliderWeight1, type: "Slider",
+                x: 258, y: 93,
+                width: 200, rotation: 25,
+                min: -10, max: 10, step: 1,
+                message: "update/0-2"
+            });
+
+            _.sliderWeight2 = "sliderWeight2"
+            self.add({
+                id: _.sliderWeight2, type: "Slider",
+                x: 238, y: 260,
+                width: 200, rotation: 340,
+                min: -10, max: 10, step: 1,
+                message: "update/1-2"
+            });
+
+
+            _.biasDot = "biasDot"
+            self.add({
+                id: _.biasDot, type: "ImageBox",
+                src: "assets/birnen/blau/bias.png",
+                x: 413,
+                y: 235,
+            })
+            _.sliderBias = "slider_bias";
+            self.add({
+                id: _.sliderBias, type: "Slider",
+                x: 422, y: 264,
+                width: 100,
+                min: -10, max: 10, step: 1,
+                message: "update/2"
+            });
+
+
+            _.perceptronLinks = "perceptronLinks"
+            self.add({
+                id: _.perceptronLinks, type: "ImageBox",
+                src: "assets/birnen/blau/dingslinks.png",
+                x: 420,
+                y: 178,
+            })
+            _.perceptronRechts = "perceptronRechts"
+            self.add({
+                id: _.perceptronRechts, type: "ImageBox",
+                src: "assets/birnen/blau/dingsrechts.png",
+                x: 499,
+                y: 179,
+            })
+
+            _.result2 = "result2"
+            self.add({
+                id: _.result2, type: "ImageBox",
+                x: 515, y: 170, width: 80, height: 80,
+                src: "assets/birnen/Wrong.png"
+            });
+
+            _.sumText = "sumText"
+            self.add({
+                id: _.sumText, type: "TextBox",
+                x: 456,
+                y: 197,
+                text: "3"
+            });
+            _.sumExplainText = "sumExplainText"
+            self.add({
+                id: _.sumExplainText, type: "TextBox",
+                x: 424,
+                y: 71,
+                width: 80, align: "center",
+                text: "(-3)*4<br>+(-2)*8<br>+10"
+            });
+            _.resultExplainText = "resultExplainText"
+            self.add({
+                id: _.resultExplainText, type: "TextBox",
+                x: 506,
+                y: 71,
+                width: 80, align: "center",
+                text: "14 > 0 ?"
+            });
+
+            _hide(o[_.resultExplainText])
+            _hide(o[_.sumExplainText])
+            _hide(o[_.explainLinks])
+            _hide(o[_.explainRechts])
+            _hide(o[_.sliderWeight1])
+            _hide(o[_.sliderWeight2])
+            _hide(o[_.sliderBias])
+            _hide(o[_.biasDot])
+
+            _fadeIn(o[_.btmWords], 500);
+            _fadeIn(o[_.nextMiddle], 1000);
+        },
+        onend: function (self) {
+            let o = self.objects;
+
+
+
+            _hide(o[_.nextMiddle]);
+            _hide(o[_.btmWords]);
+
+        }
+    }, {
+        onstart: function (self) {
+            let o = self.objects;
+            o[_.slideCounter].setText("2-10")
+            _.biasLabel = "biasLabel";
+            self.add({
+                id: _.biasLabel, type: "TextBox",
+                x: 431, y: 249, width: 80, height: 50,
+                align: "center", color: "#aaa", size: 17,
+                text_id: "02_biaslabel"
+            });
+            _.potenzialLabel = "potenzialLabel";
+            self.add({
+                id: _.potenzialLabel, type: "TextBox",
+                x: 427, y: 39, width: 80, height: 50,
+                align: "center", color: "#aaa", size: 17,
+                text_id: "02_potenziallabel"
+            });
+            _.gewichteLabel = "gewichteLabel";
+            self.add({
+                id: _.gewichteLabel, type: "TextBox",
+                x: 285, y: 39, width: 80, height: 50,
+                align: "center", color: "#aaa", size: 17,
+                text_id: "02_gewichtelabel"
+            });
+            _.ergebnisLabel = "ergebnisLabel";
+            self.add({
+                id: _.ergebnisLabel, type: "TextBox",
+                x: 506, y: 39, width: 80, height: 50,
+                align: "center", color: "#aaa", size: 17,
+                text_id: "02_Ergebnislabel"
+            });
+
+            o[_.btmWords].setTextID("02_text10");
+
+            _show(o[_.resultExplainText])
+            _show(o[_.sumExplainText])
+            _show(o[_.explainLinks])
+            _show(o[_.explainRechts])
+            _show(o[_.sliderWeight1])
+            _show(o[_.sliderWeight2])
+            _show(o[_.sliderBias])
+            _show(o[_.biasDot])
+
+            _fadeIn(o[_.btmWords], 500);
+            _fadeIn(o[_.nextMiddle], 1000);
+        },
+        onend: function (self) {
+            let o = self.objects;
+            _hide(o[_.nextMiddle]);
+            _hide(o[_.btmWords]);
+
+            _hide(o[_.input1])
+            _hide(o[_.input2])
+            _hide(o[_.input1Text])
+            _hide(o[_.input2Text])
+            _hide(o[_.input1Description])
+            _hide(o[_.input2Description])
+            _hide(o[_.result]);
+            _hide(o[_.birnenScanner]);
+            _hide(o[_.birne1]);
+        }
+    },
+    {
+        onstart: function (self) {
+            let o = self.objects;
+            o[_.slideCounter].setText("2-11")
 
             _.conection1 = "conection1";
             _.conection2 = "connection2";
@@ -478,6 +677,7 @@ SLIDES.push(
                 id: _.sliderInput1, type: "Slider",
                 x: _.sliderX, y: _.sliderY + 50,
                 width: _.sliderWidth,
+                rotation: 45,
                 min: -10, max: 10, step: 1,
                 message: "update/0",
                 alwaysOn: true

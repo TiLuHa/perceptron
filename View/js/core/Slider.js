@@ -6,6 +6,7 @@
 }
  **************************************/
 function Slider(config) {
+    let sliderSize = 50
 
     var self = this;
     self.id = config.id;
@@ -19,6 +20,8 @@ function Slider(config) {
     dom.id = self.id;
     self.dom = dom;
 
+    dom.style.transform = "rotate("+(config.rotation || 0)+"deg)"
+
     // Background
     var bg = document.createElement("div");
     bg.className = "slider_bg";
@@ -28,6 +31,12 @@ function Slider(config) {
     var knob = document.createElement("div");
     knob.className = "slider_knob";
     dom.appendChild(knob);
+
+    // Text
+    var text = document.createElement("div")
+    text.className = "slider_text"
+    text.innerHTML = "7"
+    knob.appendChild(text)
 
     // Set value
     self.value = 0;
@@ -46,19 +55,20 @@ function Slider(config) {
         var value = config.min + (config.max - config.min) * param;
         value = Math.round(value / config.step) * config.step;
         self.value = value;
+        text.innerHTML = value
 
         // DOM
-        knob.style.left = self.value * config.width - 15;
+        knob.style.left = self.value * config.width - (sliderSize / 2);
 
     };
     self.setValue = function (value) {
 
         // Set
         self.value = value;
-
+        text.innerHTML = value
         // DOM with param
         var param = _valueToParam(self.value);
-        knob.style.left = param * (config.width - 30);
+        knob.style.left = param * (config.width - sliderSize);
 
     };
     if (config.message) listen(self, config.message, self.setValue);
@@ -79,7 +89,7 @@ function Slider(config) {
     var _mouseToParam = function (event) {
 
         // Mouse to Param to Value
-        var param = (event.clientX - _offsetX - dom.getBoundingClientRect().left - 8) / (config.width - 30);
+        var param = (event.clientX - _offsetX - dom.getBoundingClientRect().left - (sliderSize/4)) / (config.width - sliderSize);
         if (param < 0) param = 0;
         if (param > 1) param = 1;
         var value = _paramToValue(param);

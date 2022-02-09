@@ -2,6 +2,7 @@ SLIDES.push({
     id: "perceptron_debug",
     onstart: function (self) {
 
+
         // Perceptron
         self.add({
             id: "perceptron", type: "Perceptron",
@@ -137,6 +138,12 @@ SLIDES.push({
             onclick:function(){
                 publish("slideshow/next");
             }
+        });
+
+
+        self.add({
+            id: "hallo", type: "SVGBox",
+            x:0, y:0,
         });
     },
 
