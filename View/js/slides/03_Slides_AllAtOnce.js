@@ -57,6 +57,7 @@ SLIDES.push(
             o[_.btmWords].setTextID("03_text2")
 
             addBirnenGrid(self)
+            addNetwork21small(self)
 
             _fadeIn(o[_.btmWords], 500);
             _fadeIn(o[_.nextMiddle], 1000);
@@ -100,7 +101,7 @@ SLIDES.push(
 );
 
 function addBirnenGrid(self,
-                       start_x = 220,
+                       start_x = 420,
                        start_y = 50,
                        scale = [1, 0.9, 0.8],
                        src = ["assets/birnen/b1.jpg", "assets/birnen/b2.jpg", "assets/birnen/b3.jpg",
@@ -146,8 +147,6 @@ function addBirnenGrid(self,
     _.all_birnen = []
     _.all_results = []
     for (let i = 0; i < rows; i++) {
-
-
         for (let j = 0; j < columns; j++) {
             let birnenString = ("b" + i) + j
             _[birnenString] = birnenString;
@@ -174,8 +173,8 @@ function addBirnenGrid(self,
 
                 let nnoutput = network.getOutputFast([x, y])[0];
 
-                if (nnoutput > 0.5) _hide(_[resultString]);
-                else _show(_[resultString]);
+                if (nnoutput > 0.5) _show(o[_[resultString]]);
+                else _hide(o[_[resultString]]);
             });
         }
 
@@ -188,4 +187,117 @@ function addBirnenGrid(self,
         o[_.b11], o[_.b12], o[_.b13], o[_.b14], o[_.b15],/*o[_.b16],o[_.b17],o[_.b18],*/
         o[_.b21], o[_.b22], o[_.b23], o[_.b24],/*o[_.b25],o[_.b26],o[_.b27],o[_.b28],*/
     ];
+}
+
+function addNetwork21small(self, shiftx = 0, shifty = 0) {
+    let o = self.objects;
+    _.perceptron = "perceptron"
+    self.add({
+        id: _.perceptron, type: "Perceptron",
+        size: [2, 1],
+        activationFun: Activations.RELU,
+        activationFunOutput: Activations.SIGMOID,
+        activationFunInput: Activations.LINEAR,
+        params: {
+            "0": 7, //Input1
+            "1": 3,  //Input2
+            "2": (-3), //Bias
+            "0-2": 4,
+            "1-2": 6,
+        }
+    });
+    _.network = o[_.perceptron].network;
+
+    _.biasDot = "biasDot"
+    self.add({
+        id: _.biasDot, type: "ImageBox",
+        src: "assets/birnen/blau/bias.png",
+        x: 132 + shiftx,
+        y: 226 + shifty,
+    })
+    _.sliderWeight1 = "sliderWeight1"
+    self.add({
+        id: _.sliderWeight1, type: "Slider",
+        x: 100 + shiftx, y: 93 + shifty,
+        width: 100, rotation: 40,
+        min: -10, max: 10, step: 1,
+        message: "update/0-2"
+    });
+    _.sliderWeight2 = "sliderWeight2"
+
+
+    self.add({
+        id: _.sliderWeight2, type: "Slider",
+        x: 71 + shiftx, y: 265+shifty,
+        width: 100, rotation: 324,
+        min: -10, max: 10, step: 1,
+        message: "update/1-2"
+    });
+    _.sliderBias = "slider_bias";
+    self.add({
+        id: _.sliderBias, type: "Slider",
+        x: 140+shiftx, y: 255+shifty,
+        width: 100,
+        min: -10, max: 10, step: 1,
+        message: "update/2"
+    });
+    _.anchorInput1X = 0+shiftx;
+    _.anchorInput1Y = 70+shiftx;
+    _.xPlusInputText = 40;
+    _.yPlusInputText = 30;
+    _.xPlusInputDescription = -47;
+    _.yPlusInputDescription = 35;
+
+    _.input1 = "input1"
+    self.add({
+        id: _.input1, type: "ImageBox",
+        src: "assets/birnen/blau/pfeilrechtsblau.png",
+        x: _.anchorInput1X,
+        y: _.anchorInput1Y,
+    })
+    _.input1Description = "input1Description";
+    self.add({
+        id: _.input1Description, type: "TextBox",
+        x: _.anchorInput1X + _.xPlusInputDescription,
+        y: _.anchorInput1Y + _.yPlusInputDescription,
+        width: 130, height: 50,
+        align: "center", color: "blue", size: 17,
+        rotation: 270,
+        text_id: "input1_description"
+    })
+
+    _.anchorInput2X = _.anchorInput1X + 0;
+    _.anchorInput2Y = _.anchorInput1Y + 170;
+    _.input2 = "input2"
+    self.add({
+        id: _.input2, type: "ImageBox",
+        src: "assets/birnen/blau/pfeilrechtsblau.png",
+        x: _.anchorInput2X,
+        y: _.anchorInput2Y,
+    })
+    _.input2Description = "input2Description";
+    self.add({
+        id: _.input2Description, type: "TextBox",
+        x: _.anchorInput2X + _.xPlusInputDescription,
+        y: _.anchorInput2Y + _.yPlusInputDescription,
+        width: 130, height: 50,
+        align: "center", color: "blue", size: 17,
+        rotation: 270, text_id: "input2_description"
+    })
+
+    _.perceptronLinks = "perceptronLinks"
+    self.add({
+        id: _.perceptronLinks, type: "ImageBox",
+        src: "assets/birnen/blau/linksteil.png",
+        x: 155+shiftx,
+        y: 170+shifty,
+    })
+    _.perceptronRechts = "perceptronRechts"
+    self.add({
+        id: _.perceptronRechts, type: "ImageBox",
+        src: "assets/birnen/blau/teilrechts.png",
+        x: 188+shiftx,
+        y: 171+shifty,
+    })
+
 }

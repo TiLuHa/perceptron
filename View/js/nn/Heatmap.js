@@ -24,7 +24,7 @@ function Heatmap(config) {
             pixel.setAttribute("output", false);
             listen(self, "newOutput", function (network) {
                 let nnoutput = network.getOutputFast([x,y])[0];
-                pixel.setAttribute("output", nnoutput > 0);
+                pixel.setAttribute("output", nnoutput > 0.5);
                 pixel.setAttribute("outputvalue", nnoutput);
             });
             self.dom.appendChild(pixel);
