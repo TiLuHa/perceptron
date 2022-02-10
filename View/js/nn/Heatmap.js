@@ -9,14 +9,16 @@ function Heatmap(config) {
 
     let pixels = [];
 
-    for (let i = config.xfirst; i < config.xcount; i++) {
-        for (let j = config.yfirst; j < config.ycount; j++) {
+    for (let i = 0; i < config.xcount; i++) {
+        for (let j = 0; j < config.ycount; j++) {
             let pixel = document.createElement("div");
             let x = config.xfirst + config.xstepsize * i,
                 y = config.yfirst + config.ystepsize * j;
             pixel.id = "pixel/" + x + "/" + y;
             pixel.style.left = (config.xsize * i + config.x) + "px";
-            pixel.style.bottom = (config.ysize * j + config.y) + "px";
+            pixel.style.top = (config.ysize * j + config.y) + "px";
+            pixel.style.width = config.xsize + "px"
+            pixel.style.height = config.ysize + "px"
             pixel.className = "object";
             pixel.classList.add("heatmap_pixel");
             pixel.setAttribute("output", false);

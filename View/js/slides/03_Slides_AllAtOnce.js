@@ -109,7 +109,8 @@ function addBirnenGrid(self,
                        inputColMin = 0,
                        inputColStep = 1,
                        inputRowMin = 10,
-                       inputRowStep = 2) {
+                       inputRowStep = 2,
+                       heatmapGitter = 5) {
     let o = self.objects;
 
     _.start_x = start_x
@@ -126,39 +127,50 @@ function addBirnenGrid(self,
     let rows = scale.length;
     let columns = src.length;
 
-    _.all_birnen = [
-        o[_.b01], o[_.b02], o[_.b03], o[_.b04], o[_.b05], o[_.b06], o[_.b07], o[_.b08],
-        o[_.b11], o[_.b12], o[_.b13], o[_.b14], o[_.b15], o[_.b16], o[_.b17], o[_.b18],
-        o[_.b21], o[_.b22], o[_.b23], o[_.b24], o[_.b25], o[_.b26], o[_.b27], o[_.b28],
-    ];
+    self.add({
+        id: "heatmap", type: "Heatmap",
+        x: _.start_x,// - (_.birnen_width + _.appart),
+        y: _.start_y,// - (_.birnen_height + _.appart),
 
-    _.not_item1 = [
-        o[_.b01], o[_.b02], o[_.b03], o[_.b04], o[_.b05], o[_.b06],/*o[_.b07],o[_.b08],*/
-        o[_.b11], o[_.b12], o[_.b13], o[_.b14], o[_.b15],/*o[_.b16],o[_.b17],o[_.b18],*/
-        o[_.b21], o[_.b22], o[_.b23], o[_.b24],/*o[_.b25],o[_.b26],o[_.b27],o[_.b28],*/
-    ];
+        xfirst: inputColMin ,//- inputColStep,
+        xstepsize: inputColStep / heatmapGitter,
+        xcount: (columns /*+2*/) * heatmapGitter,
 
+        yfirst: inputRowMin,// - inputRowStep,
+        ystepsize: inputRowStep / heatmapGitter,
+        ycount: (rows /*+2*/) * heatmapGitter,
+        xsize: (_.birnen_width + _.appart) /heatmapGitter,
+        ysize: (_.birnen_height + _.appart) / heatmapGitter,
+    });
 
+    _.all_birnen = []
+    _.all_results = []
     for (let i = 0; i < rows; i++) {
+
+
         for (let j = 0; j < columns; j++) {
             let birnenString = ("b" + i) + j
-
             _[birnenString] = birnenString;
+
             self.add({
-                id: _.b28, type: "ImageBox",
+                id: birnenString, type: "ImageBox",
                 src: src[j],
                 x: _.get_x(j), y: _.get_y(i),
                 width: _.birnen_width * scale[i], height: _.birnen_height * scale[i],
             });
-
+            _.all_birnen.push(o[_[birnenString]])
             let resultString = ("r" + i) + j
+
             _[resultString] = resultString;
             self.add({
                 id: resultString, type: "ImageBox",
                 x: _.get_x(j) + 15, y: _.get_y(i) + 40, width: 40, height: 40,
                 src: "assets/birnen/Right.png"
             });
+            _.all_results.push(o[_[resultString]])
             listen(self, "newOutput", function (network) {
+                let x = inputColMin + j * inputColStep;
+                let y = inputRowMin + i * inputRowStep;
 
                 let nnoutput = network.getOutputFast([x, y])[0];
 
@@ -166,5 +178,14 @@ function addBirnenGrid(self,
                 else _show(_[resultString]);
             });
         }
+
+
     }
+
+
+    _.not_item1 = [
+        o[_.b01], o[_.b02], o[_.b03], o[_.b04], o[_.b05], o[_.b06],/*o[_.b07],o[_.b08],*/
+        o[_.b11], o[_.b12], o[_.b13], o[_.b14], o[_.b15],/*o[_.b16],o[_.b17],o[_.b18],*/
+        o[_.b21], o[_.b22], o[_.b23], o[_.b24],/*o[_.b25],o[_.b26],o[_.b27],o[_.b28],*/
+    ];
 }

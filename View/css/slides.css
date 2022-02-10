@@ -597,7 +597,7 @@ s{
 .heatmap_pixel {
 	width: 20px;
 	height: 20px;
-	border: 1px solid #4089DD;
+	border: 0px solid #4089DD;
 }
 
 .heatmap_pixel[output=true]{
