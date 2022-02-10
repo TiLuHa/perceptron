@@ -56,9 +56,16 @@ SLIDES.push(
             o[_.slideCounter].setText("3-2")
             o[_.btmWords].setTextID("03_text2")
 
-            addBirnenGrid(self)
-            addNetwork21small(self)
+            _.allBirnen = addBirnenGrid(self)
+            _.allNetwork = addNetwork21small(self)
 
+            _.not_item1 = [
+                o[_.b00], o[_.b01], o[_.b02], o[_.b03], o[_.b04], o[_.b05],/* o[_.b06],o[_.b07],*/
+                o[_.b10], o[_.b11], o[_.b12], o[_.b13], o[_.b14], /*o[_.b15],o[_.b16],o[_.b17],*/
+                o[_.b20], o[_.b21], o[_.b22], o[_.b23], /*o[_.b24],o[_.b25],o[_.b26],o[_.b27],*/
+            ];
+
+            _.not_item1.forEach(obj => _fadeOut(obj,0,0.2))
             _fadeIn(o[_.btmWords], 500);
             _fadeIn(o[_.nextMiddle], 1000);
         },
@@ -66,6 +73,7 @@ SLIDES.push(
             let o = self.objects;
             _hide(o[_.btmWords])
             _hide(o[_.nextMiddle])
+
         }
     },
     {
@@ -81,6 +89,9 @@ SLIDES.push(
             let o = self.objects;
             _hide(o[_.btmWords])
             _hide(o[_.nextMiddle])
+
+            _.allBirnen.concat(_.allNetwork).forEach(obj => _hide(obj))
+
         }
     },
     {
@@ -88,6 +99,37 @@ SLIDES.push(
             let o = self.objects;
             o[_.slideCounter].setText("3-4")
             o[_.btmWords].setTextID("03_text4")
+
+            _fadeIn(o[_.jochen],0);
+            _fadeIn(o[_.btmWords], 500);
+            _fadeIn(o[_.nextMiddle], 1000);
+        },
+        onend: function (self) {
+            let o = self.objects;
+            _hide(o[_.btmWords])
+            _hide(o[_.nextMiddle])
+        }
+    },
+    {
+        onstart: function (self) {
+            let o = self.objects;
+            o[_.slideCounter].setText("3-5")
+            o[_.btmWords].setTextID("03_text5")
+
+            _fadeIn(o[_.btmWords], 500);
+            _fadeIn(o[_.nextMiddle], 1000);
+        },
+        onend: function (self) {
+            let o = self.objects;
+            _hide(o[_.btmWords])
+            _hide(o[_.nextMiddle])
+        }
+    },
+    {
+        onstart: function (self) {
+            let o = self.objects;
+            o[_.slideCounter].setText("3-6")
+            o[_.btmWords].setTextID("03_text6")
 
             _fadeIn(o[_.btmWords], 500);
             _fadeIn(o[_.nextMiddle], 1000);
@@ -111,8 +153,11 @@ function addBirnenGrid(self,
                        inputColStep = 1,
                        inputRowMin = 10,
                        inputRowStep = 2,
-                       heatmapGitter = 5) {
+                       heatmapGitterX = 5,
+                       heatmapGitterY = 8,
+) {
     let o = self.objects;
+    let all = [];
 
     _.start_x = start_x
     _.start_y = start_y
@@ -128,21 +173,23 @@ function addBirnenGrid(self,
     let rows = scale.length;
     let columns = src.length;
 
+    _.heatmap = "heatmap"
     self.add({
-        id: "heatmap", type: "Heatmap",
-        x: _.start_x,// - (_.birnen_width + _.appart),
-        y: _.start_y,// - (_.birnen_height + _.appart),
+        id: _.heatmap, type: "Heatmap",
+        x: _.start_x - (_.birnen_width + _.appart)/5,
+        y: _.start_y - (_.birnen_height + _.appart)/5,
 
         xfirst: inputColMin ,//- inputColStep,
-        xstepsize: inputColStep / heatmapGitter,
-        xcount: (columns /*+2*/) * heatmapGitter,
+        xstepsize: inputColStep / heatmapGitterX,
+        xcount: (columns) * heatmapGitterX,
 
         yfirst: inputRowMin,// - inputRowStep,
-        ystepsize: inputRowStep / heatmapGitter,
-        ycount: (rows /*+2*/) * heatmapGitter,
-        xsize: (_.birnen_width + _.appart) /heatmapGitter,
-        ysize: (_.birnen_height + _.appart) / heatmapGitter,
+        ystepsize: inputRowStep / heatmapGitterY,
+        ycount: (rows) * heatmapGitterY,
+        xsize: (_.birnen_width + _.appart) /heatmapGitterX,
+        ysize: (_.birnen_height + _.appart) / heatmapGitterY,
     });
+    all.push(o[_.heatmap])
 
     _.all_birnen = []
     _.all_results = []
@@ -158,6 +205,7 @@ function addBirnenGrid(self,
                 width: _.birnen_width * scale[i], height: _.birnen_height * scale[i],
             });
             _.all_birnen.push(o[_[birnenString]])
+            all.push(o[_[birnenString]])
             let resultString = ("r" + i) + j
 
             _[resultString] = resultString;
@@ -167,6 +215,8 @@ function addBirnenGrid(self,
                 src: "assets/birnen/Right.png"
             });
             _.all_results.push(o[_[resultString]])
+            all.push(o[_[resultString]])
+
             listen(self, "newOutput", function (network) {
                 let x = inputColMin + j * inputColStep;
                 let y = inputRowMin + i * inputRowStep;
@@ -177,20 +227,14 @@ function addBirnenGrid(self,
                 else _hide(o[_[resultString]]);
             });
         }
-
-
     }
-
-
-    _.not_item1 = [
-        o[_.b01], o[_.b02], o[_.b03], o[_.b04], o[_.b05], o[_.b06],/*o[_.b07],o[_.b08],*/
-        o[_.b11], o[_.b12], o[_.b13], o[_.b14], o[_.b15],/*o[_.b16],o[_.b17],o[_.b18],*/
-        o[_.b21], o[_.b22], o[_.b23], o[_.b24],/*o[_.b25],o[_.b26],o[_.b27],o[_.b28],*/
-    ];
+    return all;
 }
 
 function addNetwork21small(self, shiftx = 0, shifty = 0) {
     let o = self.objects;
+    all = []
+
     _.perceptron = "perceptron"
     self.add({
         id: _.perceptron, type: "Perceptron",
@@ -207,6 +251,7 @@ function addNetwork21small(self, shiftx = 0, shifty = 0) {
         }
     });
     _.network = o[_.perceptron].network;
+    all.push(o[_.perceptron])
 
     _.biasDot = "biasDot"
     self.add({
@@ -215,6 +260,8 @@ function addNetwork21small(self, shiftx = 0, shifty = 0) {
         x: 132 + shiftx,
         y: 226 + shifty,
     })
+    all.push(o[_.biasDot]);
+
     _.sliderWeight1 = "sliderWeight1"
     self.add({
         id: _.sliderWeight1, type: "Slider",
@@ -223,9 +270,9 @@ function addNetwork21small(self, shiftx = 0, shifty = 0) {
         min: -10, max: 10, step: 1,
         message: "update/0-2"
     });
+    all.push(o[_.sliderWeight1]);
+
     _.sliderWeight2 = "sliderWeight2"
-
-
     self.add({
         id: _.sliderWeight2, type: "Slider",
         x: 71 + shiftx, y: 265+shifty,
@@ -233,6 +280,8 @@ function addNetwork21small(self, shiftx = 0, shifty = 0) {
         min: -10, max: 10, step: 1,
         message: "update/1-2"
     });
+    all.push(o[_.sliderWeight2]);
+
     _.sliderBias = "slider_bias";
     self.add({
         id: _.sliderBias, type: "Slider",
@@ -241,6 +290,9 @@ function addNetwork21small(self, shiftx = 0, shifty = 0) {
         min: -10, max: 10, step: 1,
         message: "update/2"
     });
+    all.push(o[_.sliderBias]);
+
+
     _.anchorInput1X = 0+shiftx;
     _.anchorInput1Y = 70+shiftx;
     _.xPlusInputText = 40;
@@ -255,6 +307,8 @@ function addNetwork21small(self, shiftx = 0, shifty = 0) {
         x: _.anchorInput1X,
         y: _.anchorInput1Y,
     })
+    all.push(o[_.input1]);
+
     _.input1Description = "input1Description";
     self.add({
         id: _.input1Description, type: "TextBox",
@@ -265,6 +319,8 @@ function addNetwork21small(self, shiftx = 0, shifty = 0) {
         rotation: 270,
         text_id: "input1_description"
     })
+    all.push(o[_.input1Description]);
+
 
     _.anchorInput2X = _.anchorInput1X + 0;
     _.anchorInput2Y = _.anchorInput1Y + 170;
@@ -275,6 +331,8 @@ function addNetwork21small(self, shiftx = 0, shifty = 0) {
         x: _.anchorInput2X,
         y: _.anchorInput2Y,
     })
+    all.push(o[_.input2]);
+
     _.input2Description = "input2Description";
     self.add({
         id: _.input2Description, type: "TextBox",
@@ -284,6 +342,7 @@ function addNetwork21small(self, shiftx = 0, shifty = 0) {
         align: "center", color: "blue", size: 17,
         rotation: 270, text_id: "input2_description"
     })
+    all.push(o[_.input2Description]);
 
     _.perceptronLinks = "perceptronLinks"
     self.add({
@@ -292,6 +351,8 @@ function addNetwork21small(self, shiftx = 0, shifty = 0) {
         x: 155+shiftx,
         y: 170+shifty,
     })
+    all.push(o[_.perceptronLinks]);
+
     _.perceptronRechts = "perceptronRechts"
     self.add({
         id: _.perceptronRechts, type: "ImageBox",
@@ -299,5 +360,7 @@ function addNetwork21small(self, shiftx = 0, shifty = 0) {
         x: 188+shiftx,
         y: 171+shifty,
     })
+    all.push(o[_.perceptronRechts]);
 
+    return all
 }
