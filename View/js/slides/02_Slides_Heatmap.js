@@ -639,6 +639,7 @@ SLIDES.push(
             _hide(o[_.biasDot]);
             _hide(o[_.sumExplainText]);
             _hide(o[_.resultExplainText]);
+            _hide(o[_.sumText]);
 
         }
     },
