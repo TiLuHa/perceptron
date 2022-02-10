@@ -401,6 +401,7 @@ s{
 .slider_text {
 	text-align: center;
 	margin-top: 13px;
+	pointer-events: none
 }
 
 

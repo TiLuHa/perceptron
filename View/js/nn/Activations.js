@@ -100,7 +100,7 @@ let Link = function (){
     }
 }
 
-let Network = function(){
+let Network3 = function(){
 
     let idCounter = 0;
     Network.generateNodeId = function() {

@@ -35,7 +35,8 @@ function Slider(config) {
     // Text
     var text = document.createElement("div")
     text.className = "slider_text"
-    text.innerHTML = "7"
+    self.setText = newText => text.innerHTML = newText
+    self.setText("")
     knob.appendChild(text)
 
     // Set value
@@ -55,7 +56,7 @@ function Slider(config) {
         var value = config.min + (config.max - config.min) * param;
         value = Math.round(value / config.step) * config.step;
         self.value = value;
-        text.innerHTML = value
+        self.setText(value);
 
         // DOM
         knob.style.left = self.value * config.width - (sliderSize / 2);
@@ -65,7 +66,7 @@ function Slider(config) {
 
         // Set
         self.value = value;
-        text.innerHTML = value
+        self.setText(value);
         // DOM with param
         var param = _valueToParam(self.value);
         knob.style.left = param * (config.width - sliderSize);

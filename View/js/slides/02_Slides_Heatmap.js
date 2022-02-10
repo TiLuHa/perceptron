@@ -404,7 +404,17 @@ SLIDES.push(
                 size: [2, 1],
                 activationFun: Activations.RELU,
                 activationFunOutput: Activations.SIGMOID,
+                activationFunInput: Activations.LINEAR,
+                params: {
+                    "0": 7, //Input1
+                    "1": 3,  //Input2
+                    "2": (-3), //Bias
+                    "0-2": 4,
+                    "1-2": 6,
+                }
             });
+            _.network = o[_.perceptron].network;
+
 
             _.explainLinks = "explainLinks"
             self.add({
@@ -517,9 +527,6 @@ SLIDES.push(
         },
         onend: function (self) {
             let o = self.objects;
-
-
-
             _hide(o[_.nextMiddle]);
             _hide(o[_.btmWords]);
 
@@ -528,6 +535,8 @@ SLIDES.push(
         onstart: function (self) {
             let o = self.objects;
             o[_.slideCounter].setText("2-10")
+            o[_.btmWords].setTextID("02_text10");
+
             _.biasLabel = "biasLabel";
             self.add({
                 id: _.biasLabel, type: "TextBox",
@@ -557,7 +566,6 @@ SLIDES.push(
                 text_id: "02_Ergebnislabel"
             });
 
-            o[_.btmWords].setTextID("02_text10");
 
             _show(o[_.resultExplainText])
             _show(o[_.sumExplainText])
@@ -569,7 +577,37 @@ SLIDES.push(
             _show(o[_.biasDot])
 
             _fadeIn(o[_.btmWords], 500);
+            _show(o[_.nextMiddle]);
+            o[_.nextMiddle].changeOnClick(() => publish("slideshow/scratch"))
+
+            _.networklistener = "networklistener";
+            listen(_.networklistener, "newOutput", function (network) {
+                let sum = network.getNodes()[2].result;
+                o[_.sumText].setText(sum);
+                o[_.sumExplainText].setText(network.getNodes()[2].getResultCalcStringWithBrWithoutFinalResult());
+                o[_.resultExplainText].setText(sum + " > 0 ?");
+                let newImage = sum > 0 ? "assets/birnen/Right.png" : "assets/birnen/Wrong.png";
+                o[_.result].changeImage(newImage);
+                o[_.result2].changeImage(newImage);
+                if (sum > 0) o[_.nextMiddle].activate();
+                else o[_.nextMiddle].deactivate();
+            });
+            publish("newOutput", [_.network])
+        },
+        onend: function (self) {
+            let o = self.objects;
+            _hide(o[_.nextMiddle]);
+            _hide(o[_.btmWords]);
+
+        }
+    }, {
+        onstart: function (self) {
+            let o = self.objects;
+            o[_.slideCounter].setText("2-11");
+            o[_.btmWords].setTextID("02_text11");
+            _fadeIn(o[_.btmWords], 500);
             _fadeIn(o[_.nextMiddle], 1000);
+
         },
         onend: function (self) {
             let o = self.objects;
@@ -583,14 +621,32 @@ SLIDES.push(
             _hide(o[_.input1Description])
             _hide(o[_.input2Description])
             _hide(o[_.result]);
+            _hide(o[_.result2]);
             _hide(o[_.birnenScanner]);
             _hide(o[_.birne1]);
+
+            _hide(o[_.sliderWeight1]);
+            _hide(o[_.sliderWeight2]);
+            _hide(o[_.sliderBias]);
+            _hide(o[_.explainRechts]);
+            _hide(o[_.explainLinks]);
+            _hide(o[_.biasLabel]);
+            _hide(o[_.gewichteLabel]);
+            _hide(o[_.potenzialLabel]);
+            _hide(o[_.ergebnisLabel]);
+            _hide(o[_.perceptronLinks]);
+            _hide(o[_.perceptronRechts]);
+            _hide(o[_.biasDot]);
+            _hide(o[_.sumExplainText]);
+            _hide(o[_.resultExplainText]);
+
         }
     },
+/*
     {
         onstart: function (self) {
             let o = self.objects;
-            o[_.slideCounter].setText("2-11")
+            o[_.slideCounter].setText("2-12")
 
             _.conection1 = "conection1";
             _.conection2 = "connection2";
@@ -651,11 +707,11 @@ SLIDES.push(
             });
 
             _.input1Name = "input1Name";
-            /*self.add({
+            /!*self.add({
                 id: _.input1Name, type: "NWP", part: parts.left,
                 x: 35, y: 115,
                 alwaysOn: true,
-            });*/
+            });*!/
             _.input2Value = "input2Value";
             self.add({
                 id: _.input2Value, type: "NWP", part: parts.input,
@@ -663,12 +719,12 @@ SLIDES.push(
                 alwaysOn: true,
             });
 
-            /*_.input2Name = "input2Name";
-            self.add({
-                id: _.input2Name, type: "NWP", part: parts.left,
-                x: 35, y: 315,
-                alwaysOn: true,
-            });*/
+            // _.input2Name = "input2Name";
+            // self.add({
+            //     id: _.input2Name, type: "NWP", part: parts.left,
+            //     x: 35, y: 315,
+            //     alwaysOn: true,
+            // });
 
             _.sliderX = 50;
             _.sliderY = 400;
@@ -744,7 +800,9 @@ SLIDES.push(
                 o[_.biasOutputText].setText(network.getNodes()[2].bias);
                 o[_.input1Text].setText(network.getNodes()[0].bias);
                 o[_.input2Text].setText(network.getNodes()[1].bias);
-                o[_.outputNameText].setText(network.getNodes()[2].result);
+                o[_.sumText].setText(network.getNodes()[2].result);
+
+
                 o[_.outputValueText].setText(network.getNodes()[2].output);
             });
         },
@@ -991,5 +1049,7 @@ SLIDES.push(
             self.remove(_.jochen);
             _.clear();
         }
-    },);
+    },
+*/
+);
 

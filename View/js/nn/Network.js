@@ -96,7 +96,7 @@ class Link {
     }
 }
 
-class Network {
+class Network2 {
     layers = [];
     links = [];
     constructor(networkShape, activation, outputActivation, inputActivation = Activations.LINEAR) {

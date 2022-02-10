@@ -100,6 +100,10 @@ function Node(id) {
         return this.inputLinks.reduce((sum, link) => sum + " + " + link.getCalcString(), "" + this.bias) + " = " + this.result;
     }
 
+    this.getResultCalcStringWithBrWithoutFinalResult = function () {
+        return this.inputLinks.reduce((sum, link) => sum + link.getCalcString() + "<br>+ ", "") + this.bias;
+    }
+
     this.getOutputCalcString = function () {
         return "f(" + this.result + ") = " + this.output;
     }
