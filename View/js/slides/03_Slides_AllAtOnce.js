@@ -121,12 +121,12 @@ function addBirnenGrid(self,
                        src = ["assets/birnen/b1.jpg", "assets/birnen/b2.jpg", "assets/birnen/b3.jpg",
                            "assets/birnen/b4.jpg", "assets/birnen/b5.jpg", "assets/birnen/b6.jpg",
                            "assets/birnen/b7.jpg", "assets/birnen/b8.jpg"],
-                       inputColMin = 0,
-                       inputColStep = 1,
-                       inputRowMin = 10,
+                       inputColMin = -3,
+                       inputColStep = 3,
+                       inputRowMin = -4,
                        inputRowStep = 2,
-                       heatmapGitterX = 5,
-                       heatmapGitterY = 8,
+                       heatmapGitterX = 10,
+                       heatmapGitterY = 16,
 ) {
     let o = self.objects;
     let all = [];
@@ -183,7 +183,7 @@ function addBirnenGrid(self,
             _[resultString] = resultString;
             self.add({
                 id: resultString, type: "ImageBox",
-                x: _.get_x(j) + 15, y: _.get_y(i) + 40, width: 40, height: 40,
+                x: _.get_x(j) + 15, y: _.get_y(i) + 40, width: 30, height: 30,
                 src: "assets/birnen/Right.png"
             });
             _.all_results.push(o[_[resultString]])
