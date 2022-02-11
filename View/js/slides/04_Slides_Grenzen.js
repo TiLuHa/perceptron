@@ -2,6 +2,10 @@ SLIDES.push(
     {
         id: "grenzen",
         onjump: function (self) {
+
+        },
+        onstart: function (self) {
+            let o = self.objects;
             _.slideCounter = "slideCounter";
             self.add({
                 id: _.slideCounter, type: "TextBox",
@@ -9,9 +13,6 @@ SLIDES.push(
                 align: "center", color: "#aaa", size: 17,
                 text: ""
             });
-        },
-        onstart: function (self) {
-            let o = self.objects;
             o[_.slideCounter].setText("4-1")
 
             _.topWords = "topWords";
