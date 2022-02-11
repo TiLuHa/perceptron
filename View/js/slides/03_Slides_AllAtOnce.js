@@ -266,7 +266,7 @@ function addNetwork21small(self, shiftx = 0, shifty = 0) {
 
 
     _.anchorInput1X = 0+shiftx;
-    _.anchorInput1Y = 70+shiftx;
+    _.anchorInput1Y = 70+shifty;
     _.xPlusInputText = 40;
     _.yPlusInputText = 30;
     _.xPlusInputDescription = -47;
