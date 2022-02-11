@@ -409,8 +409,8 @@ SLIDES.push(
                     "0": 7, //Input1
                     "1": 3,  //Input2
                     "2": (-3), //Bias
-                    "0-2": 4,
-                    "1-2": 6,
+                    "0-2": (-7),
+                    "1-2": (-5),
                 }
             });
             _.network = o[_.perceptron].network;
