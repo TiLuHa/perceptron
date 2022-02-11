@@ -601,11 +601,11 @@ s{
 }
 
 .heatmap_pixel[output=true]{
-	background-color: rgba(191, 227, 165, 0.61);
+	background-color: rgba(191, 227, 165, 0.3);
 }
 
 .heatmap_pixel[output=false] {
-	background-color: rgba(178, 188, 192, 0.2);
+	/*background-color: rgba(178, 188, 192, 0.2);*/
 }
 
 [zoom=true]:hover{

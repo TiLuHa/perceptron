@@ -660,7 +660,7 @@ SLIDES.push(
                 width: _.birnen_width * _.scale1,
                 rotation: 0
             });
-            _hide(o[_.birne0])
+            //_hide(o[_.birne0])
             _hide(o[_.birne1])
             _hide(o[_.birne2])
 

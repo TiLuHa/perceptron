@@ -566,6 +566,9 @@ SLIDES.push(
                 text_id: "02_Ergebnislabel"
             });
 
+            publish("update/0-2", [_.network.links[0].weight]);
+            publish("update/1-2", [_.network.links[1].weight]);
+            publish("update/2", [_.network.getNodes()[2].bias]);
 
             _show(o[_.resultExplainText])
             _show(o[_.sumExplainText])

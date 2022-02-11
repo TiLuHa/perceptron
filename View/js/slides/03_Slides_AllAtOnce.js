@@ -12,7 +12,7 @@ SLIDES.push(
         },
         onstart: function (self) {
             let o = self.objects;
-            o[_.slideCounter].setText("1-3")
+            o[_.slideCounter].setText("3-1")
 
             _.topWords = "topWords";
             self.add({
@@ -246,8 +246,8 @@ function addNetwork21small(self, shiftx = 0, shifty = 0) {
             "0": 7, //Input1
             "1": 3,  //Input2
             "2": (-3), //Bias
-            "0-2": 4,
-            "1-2": 6,
+            "0-2": -4,
+            "1-2": 2,
         }
     });
     _.network = o[_.perceptron].network;
@@ -361,6 +361,11 @@ function addNetwork21small(self, shiftx = 0, shifty = 0) {
         y: 171+shifty,
     })
     all.push(o[_.perceptronRechts]);
+
+
+    publish("update/0-2", [_.network.links[0].weight]);
+    publish("update/1-2", [_.network.links[1].weight]);
+    publish("update/2", [_.network.getNodes()[2].bias]);
 
     return all
 }
