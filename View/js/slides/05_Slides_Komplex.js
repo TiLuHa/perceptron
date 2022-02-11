@@ -88,7 +88,6 @@ SLIDES.push(
             _hide(o[_.btmWords]);
             _hide(o[_.birnenScanner]);
             _hide(o[_.birnenScannerText]);
-            //_moveX(o[_.birnenScanner], 400)
 
         }
     },
@@ -122,9 +121,6 @@ SLIDES.push(
                 rotation: 0
             });
 
-            // TODO: Text für Jochen hinzufügen
-            // TODO: Ton bei Kameraklick hinzufügen
-            // TODO: ggf. ein oder zwei Button "Klick" und "Weiter" hinzufügen
             o[_.jochen].changeImage(JochenFaces.verduzt)
             _hide(o[_.flashlight])
             _show(o[_.jochen]);
@@ -148,7 +144,6 @@ SLIDES.push(
             let o = self.objects;
             o[_.slideCounter].setText("5-4")
             o[_.btmWords].setTextID("05_text4")
-
 
             o[_.nextMiddle].changeOnClick(() => publish("slideshow/next"));
 
@@ -237,6 +232,7 @@ SLIDES.push(
 
 function buildTabletInterface(self) {
     let o = self.objects;
+    let all = []
 
     _.birnenscannerX = 0
     _.birnenscannerY = 100
@@ -246,6 +242,7 @@ function buildTabletInterface(self) {
         src: "assets/birnen/birnenScanner.jpg",
         x: _.birnenscannerX, y: _.birnenscannerY, width: 639 / 4, height: 782 / 4,
     });
+    all.push(o[_.birnenScanner])
 
     _.birnenScannerText = "birnenScannerText";
     self.add({
@@ -254,6 +251,8 @@ function buildTabletInterface(self) {
         align: "center", color: "#aaa", size: 17,
         text_id: "02_scannerText"
     });
+    all.push(o[_.birnenScannerText])
+
 
     _.yPosTopBtm = 100;
     _.yStepToNextBtm = 60;
@@ -266,6 +265,8 @@ function buildTabletInterface(self) {
         active: false,
         onclick: () => publish("slideshow/scratch")
     });
+    all.push(o[_.fotoBtm])
+
 
     _.marmeladeBtm = "marmeladeBtm";
     self.add({
@@ -275,6 +276,8 @@ function buildTabletInterface(self) {
         active: false,
         onclick: () => publish("slideshow/next")
     });
+    all.push(o[_.marmeladeBtm])
+
 
     _.kuchenBtm = "kuchenBtm";
     self.add({
@@ -284,6 +287,8 @@ function buildTabletInterface(self) {
         active: false,
         onclick: () => publish("slideshow/next")
     });
+    all.push(o[_.kuchenBtm])
+
 
     _.bierBtm = "bierBtm";
     self.add({
@@ -293,6 +298,8 @@ function buildTabletInterface(self) {
         active: false,
         onclick: () => publish("slideshow/next")
     });
+    all.push(o[_.bierBtm])
+
 
     _.birne1 = "birne1"
     self.add({
@@ -303,6 +310,8 @@ function buildTabletInterface(self) {
         width: 80,//_.birnen_width * _.scale0,
         rotation: 0
     });
+    all.push(o[_.birne1])
+
 
     _.anchorInput1X = 160;
     _.anchorInput1Y = 70;
@@ -318,6 +327,9 @@ function buildTabletInterface(self) {
         x: _.anchorInput1X,
         y: _.anchorInput1Y,
     })
+    all.push(o[_.input1])
+
+
     _.input1Text = "input1Text"
     self.add({
         id: _.input1Text, type: "TextBox",
@@ -325,6 +337,8 @@ function buildTabletInterface(self) {
         y: _.anchorInput1Y + _.yPlusInputText,
         text: "7"
     });
+    all.push(o[_.input1Text])
+
 
     _.input1Description = "input1Description";
     self.add({
@@ -336,7 +350,11 @@ function buildTabletInterface(self) {
         rotation: 270,
         text_id: "input1_description"
     })
+    all.push(o[_.input1Description])
 
+
+    _.anchorInput2X = _.anchorInput1X + 0;
+    _.anchorInput2Y = _.anchorInput1Y + 170;
     _.input2 = "input2"
     self.add({
         id: _.input2, type: "ImageBox",
@@ -344,6 +362,9 @@ function buildTabletInterface(self) {
         x: _.anchorInput2X,
         y: _.anchorInput2Y,
     })
+    all.push(o[_.input2])
+
+
     _.input2Text = "input2Text"
     self.add({
         id: _.input2Text, type: "TextBox",
@@ -351,6 +372,8 @@ function buildTabletInterface(self) {
         y: _.anchorInput2Y + _.yPlusInputText,
         text: "3"
     });
+    all.push(o[_.input2Text])
+
 
     _.input2Description = "input2Description";
     self.add({
@@ -361,4 +384,7 @@ function buildTabletInterface(self) {
         align: "center", color: "blue", size: 17,
         rotation: 270, text_id: "input2_description"
     })
+    all.push(o[_.input2Description])
+
+    return all
 }
