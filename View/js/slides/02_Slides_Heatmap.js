@@ -201,7 +201,6 @@ SLIDES.push(
             _hide(o[_.jochen]);
             _hide(o[_.tablet2]);
             _hide(o[_.birne0]);
-
         }
     },
     {
