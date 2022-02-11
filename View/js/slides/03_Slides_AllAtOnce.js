@@ -110,36 +110,6 @@ SLIDES.push(
             _hide(o[_.nextMiddle])
         }
     },
-    {
-        onstart: function (self) {
-            let o = self.objects;
-            o[_.slideCounter].setText("3-5")
-            o[_.btmWords].setTextID("03_text5")
-
-            _fadeIn(o[_.btmWords], 500);
-            _fadeIn(o[_.nextMiddle], 1000);
-        },
-        onend: function (self) {
-            let o = self.objects;
-            _hide(o[_.btmWords])
-            _hide(o[_.nextMiddle])
-        }
-    },
-    {
-        onstart: function (self) {
-            let o = self.objects;
-            o[_.slideCounter].setText("3-6")
-            o[_.btmWords].setTextID("03_text6")
-
-            _fadeIn(o[_.btmWords], 500);
-            _fadeIn(o[_.nextMiddle], 1000);
-        },
-        onend: function (self) {
-            let o = self.objects;
-            _hide(o[_.btmWords])
-            _hide(o[_.nextMiddle])
-        }
-    },
 );
 
 function addBirnenGrid(self,
