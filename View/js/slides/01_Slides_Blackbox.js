@@ -995,6 +995,8 @@ SLIDES.push(
             _hide(o[_.btmWords]);
             _hide(o[_.nextMiddle]);
             _hide(o[_.jochen]);
+
+            self.clear()
         },
     },
 );

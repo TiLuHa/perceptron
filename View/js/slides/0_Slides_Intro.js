@@ -15,6 +15,46 @@ Labels should be in the en.html folder
 *********************/
 
 Loader.addToManifest(Loader.manifest,{
+	//Birnenassets
+	b1: "assets/birnen/b1.jpg",
+	b2: "assets/birnen/b2.jpg",
+	b3: "assets/birnen/b3.jpg",
+	b4: "assets/birnen/b4.jpg",
+	b5: "assets/birnen/b5.jpg",
+	b6: "assets/birnen/b6.jpg",
+	b7: "assets/birnen/b7.jpg",
+	b8: "assets/birnen/b8.jpg",
+	birnenkuchen: "assets/birnen/birnenkuchen.png",
+	birnenmarmelade: "assets/birnen/birnenmarmelade.png",
+	birnenbier: "assets/birnen/birnensaft.jpg",
+	right: "assets/birnen/Right.png",
+	wrong: "assets/birnen/Wrong.png",
+	tablet1: "assets/birnen/tablet1.jpg",
+	tablet2: "assets/birnen/tablet2.jpg",
+	birnenscanner: "assets/birnen/birnenScanner.jpg",
+	arrow: "assets/Jochen/arrow.PNG",
+	jochen_aua: "assets/Jochen/Jochen_aua.jpg",
+	jochen_erstaunt: "assets/Jochen/Jochen_erstaunt.jpg",
+	jochen_fragend: "assets/Jochen/Jochen_fragend.jpg",
+	jochen_kamera: "assets/Jochen/Jochen_kamera.jpg",
+	jochen_laecheln: "assets/Jochen/Jochen_laecheln.jpg",
+	jochen_leer: "assets/Jochen/Jochen_leer.jpg",
+	jochen_stars: "assets/Jochen/Jochen_stars.jpg",
+	jochen_verduzt: "assets/Jochen/Jochen_verduzt.jpg",
+	jochen_wuetend: "assets/Jochen/Jochen_wuetend.jpg",
+	jochen_zufrieden: "assets/Jochen/Jochen_zufrieden.jpg",
+	tochter: "assets/Jochen/Tochter.PNG",
+	wrong1: "assets/Jochen/wrong1.PNG",
+	wrong2: "assets/Jochen/wrong2.PNG",
+	wrong3: "assets/Jochen/wrong3.PNG",
+	network_bias: "assets/birnen/blau/bias.png",
+	network_bigLinks: "assets/birnen/blau/dingslinks.png",
+	network_bigRechts: "assets/birnen/blau/dingsrechts.png",
+	network_smallLinks: "assets/birnen/blau/linksteil.png",
+	network_smallRechts: "assets/birnen/blau/teilrechts.png",
+	network_pfeilRechts: "assets/birnen/blau/pfeilrechtsblau.png",
+	network_explainTall: "assets/birnen/schwarz/explainTall.png",
+
 
 	// CSS ASSETS
 	cssAsset0: "assets/ui/button.png",
@@ -85,7 +125,7 @@ SLIDES.push({
 			o.loading_button.activate();
 			o.loading_button.config.onclick = function(){
 				publish("start/game");
-				Loader.sounds.bg_music.volume(0.75).loop(true).play(); // play music!
+				//Loader.sounds.bg_music.volume(0.75).loop(true).play(); // play music!
 			};
 		});
 
