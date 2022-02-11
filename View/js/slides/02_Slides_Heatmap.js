@@ -583,8 +583,7 @@ SLIDES.push(
             _show(o[_.nextMiddle]);
             o[_.nextMiddle].changeOnClick(() => publish("slideshow/scratch"))
 
-            _.networklistener = "networklistener";
-            listen(_.networklistener, "newOutput", function (network) {
+            listen(_, "newOutput", function (network) {
                 let sum = network.getNodes()[2].result;
                 o[_.sumText].setText(sum);
                 o[_.sumExplainText].setText(network.getNodes()[2].getResultCalcStringWithBrWithoutFinalResult());
@@ -643,6 +642,8 @@ SLIDES.push(
             _hide(o[_.sumExplainText]);
             _hide(o[_.resultExplainText]);
             _hide(o[_.sumText]);
+
+            self.clear()
 
         }
     },

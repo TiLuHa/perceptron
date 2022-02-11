@@ -139,6 +139,7 @@ SLIDES.push(
             let o = self.objects;
             _hide(o[_.btmWords])
             _hide(o[_.nextMiddle])
+            self.clear()
         }
     },
 );
