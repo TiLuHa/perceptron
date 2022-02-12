@@ -175,6 +175,10 @@ function addBirnenGrid(self,
                 src: src[j],
                 x: _.get_x(j), y: _.get_y(i),
                 width: _.birnen_width * scale[i], height: _.birnen_height * scale[i],
+                onclick: () => {
+                    publish("update/1", [inputRowMin + i * inputRowStep]);
+                    publish("update/0", [inputColMin + j * inputColStep]);
+                },
             });
             _.all_birnen.push(o[_[birnenString]])
             all.push(o[_[birnenString]])

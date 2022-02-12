@@ -537,6 +537,22 @@ SLIDES.push(
             o[_.slideCounter].setText("2-10")
             o[_.btmWords].setTextID("02_text10");
 
+            /*
+            listen(_, "wrongOutput", (network) => {
+                let network = _.network
+                console.log(network)
+                let firstOutput = network.getFirstOutput();
+                let target = firstOutput > 0.5 ? 0.01 : 0.99;
+                let simpleNN = network.asSimpleNN();
+                let input = network.getInput();
+                console.log(simpleNN)
+                backProp(simpleNN, input, [target],Loss.logLikelihood, 0.2)
+                console.log(simpleNN)
+                network.updateFromSimpleNN(simpleNN);
+
+                network.getNodes().concat(network.links).forEach(x => publish("update/"+x))
+            })*/
+
             _.biasLabel = "biasLabel";
             self.add({
                 id: _.biasLabel, type: "TextBox",

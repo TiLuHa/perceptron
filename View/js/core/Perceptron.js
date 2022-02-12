@@ -21,10 +21,12 @@ function Perceptron(config) {
 
     network.getNodes().concat(network.links).forEach(x =>
         listen(network, "change/" + x.id, function (value, expected) {
-        network.getById(x.id).setParam(value);
-    }));
+            network.getById(x.id).setParam(value);
+        }));
 
     self.network = network;
+
+
 
     // Add & Remove
     self.add = function () {

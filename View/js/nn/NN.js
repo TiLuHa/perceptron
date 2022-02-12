@@ -1,44 +1,31 @@
-let Activations =
-    {
-        TANH: {
-            output: x => Math.tanh(x),
-            der: x => 1 - Math.pow(TANH.output(x), 2)
-        },
-        RELU: {
-            output: x => Math.max(0, x),
-            der: x => x <= 0 ? 0 : 1
-        },
-        SIGMOID: {
-            output: x => 1 / (1 + Math.exp(-x)),
-            der: x => {
-                let output = SIGMOID.output(x);
-                return output * (1 - output);
-            }
-        },
-        LINEAR: {
-            output: x => x,
-            der: x => 1
-        },
-        STEP: {
-            output: (x, alpha = 0) => x <= alpha ? 0 : 1,
-            der: x => 0
+let Activations = {
+    TANH: {
+        output: x => Math.tanh(x), der: x => 1 - Math.pow(TANH.output(x), 2)
+    }, RELU: {
+        output: x => Math.max(0, x), der: x => x <= 0 ? 0 : 1
+    }, SIGMOID: {
+        output: x => 1 / (1 + Math.exp(-x)), der: x => {
+            let output = Activations.SIGMOID.output(x);
+            return output * (1 - output);
         }
-    };
+    }, LINEAR: {
+        output: x => x, der: x => 1
+    }, STEP: {
+        output: (x, alpha = 0) => x <= alpha ? 0 : 1, der: x => 0
+    }
+};
 
-let Loss ={
-    errorL2 : {
-        output: (output, target) => .5 * Math.pow(output - target, 2),
-        der: (output, target) => output - target,
-    },
-    errorL1 : {
-        output: (output, target) => Math.abs(output - target),
-        der: () => 1
-    },
-    logLikelihood: {
+let Loss = {
+    errorL2: {
+        output: (output, target) => .5 * Math.pow(output - target, 2), der: (output, target) => output - target,
+    }, errorL1: {
+        output: (output, target) => Math.abs(output - target), der: () => 1
+    }, logLikelihood: {
         output: (output, target) => -target * Math.log(output + 1 - target) * Math.log(1 - output),
-        der: (output, target) => (target*Math.log(1+output+target)/(1-output))-(target*Math.log(1-output)/(1+output-target))
+        der: (output, target) => (target * Math.log(1 + output + target) / (1 - output)) - (target * Math.log(1 - output) / (1 + output - target))
     }
 }
+
 /**
  * Matrixmultiplikation
  * @param a left Matrix
@@ -46,8 +33,7 @@ let Loss ={
  * @returns [[]]
  */
 function multiplyMatrix(a, b) {
-    var aNumRows = a.length, aNumCols = a[0].length,
-        bNumRows = b.length, bNumCols = b[0].length,
+    var aNumRows = a.length, aNumCols = a[0].length, bNumRows = b.length, bNumCols = b[0].length,
         m = new Array(aNumRows);  // initialize array of rows
     for (var r = 0; r < aNumRows; ++r) {
         m[r] = new Array(bNumCols); // initialize the current row
@@ -220,7 +206,7 @@ function Network(networkShape, activation, outputActivation, inputActivation = A
     }
 
     this.changeParams = function (params) {
-        Object.entries(params).forEach(([id, value]) => this.getById(id).setParam(value));
+        Object.entries(params).forEach(([id, value]) => this.getById(id).setParam(Number(value)));
     }
 
     this.getInputLayer = function () {
@@ -230,8 +216,7 @@ function Network(networkShape, activation, outputActivation, inputActivation = A
     this.setInput = function (newInput) {
         let inputLayer = this.getInputLayer();
 
-        if (inputLayer.length !== newInput.length)
-            throw new Error("input must match the number of nodes in the input layer");
+        if (inputLayer.length !== newInput.length) throw new Error("input must match the number of nodes in the input layer");
 
         newInput.forEach((value, i) => inputLayer[i].bias = value);
     }
@@ -249,8 +234,7 @@ function Network(networkShape, activation, outputActivation, inputActivation = A
     }
 
     this.getWeightsOfLayer = function (index) {
-        if (index >= this.layers.length)
-            return [[]];
+        if (index >= this.layers.length) return [[]];
 
         return this.layers[index].map(inputNode => inputNode.outputLinks.map(link => link.weight));
     }
@@ -288,34 +272,99 @@ function Network(networkShape, activation, outputActivation, inputActivation = A
 
     this.asSimpleNN = function () {
         return {
-            weights:
-                this.layers.slice(1).map(layer => layer.map(node =>
-                    node.inputLinks.map(link => link.weight).concat(node.bias))),
+            weights: this.layers.slice(1).map(layer => layer.map(node => node.inputLinks.map(link => link.weight).concat(node.bias))),
 
-            ids:
-                this.layers.slice(1).map(layer => layer.map(node =>
-                    node.inputLinks.map(link => "" + link.id).concat("" + node.id))),
+            ids: this.layers.slice(1).map(layer => layer.map(node => node.inputLinks.map(link => "" + link.id).concat("" + node.id))),
 
-            actFunc:
-                this.layers.slice(1).map(layer => layer[0].activationFun)
+            actFunc: this.layers.slice(1).map(layer => layer[0].activationFun)
         };
     };
+
+    this.updateFromSimpleNN = function ({weights: weights, ids: idsss}) {
+        idsss.forEach((idss, h) => idss.forEach((ids, i) => ids.forEach((id, j) => this.getById(id).setParam(weights[h][i][j]))));
+    };
 }
+
+//*****************************************************************************
+
+
+let matrixProd = (A, B) => A.map((row, i) => B[0].map((_, j) => row.reduce((acc, _, n) => acc + A[i][n] * B[n][j], 0)));
+let combineMatriciesPointwise = (A, B, operation) => A.map((row, i) => row.map((_, j) => operation(A[i][j], B[i][j])));
+let hadamardProductMatricies = (A, B) => combineMatriciesPointwise(A, B, ((a, b) => a * b))
+let matrixSubtract = (A, B) => combineMatriciesPointwise(A, B, ((a, b) => a - b))
+let vectorToMatrix = vec => vec.map(v_i => [v_i]);
+let transpose = m => m[0].map((x, i) => m.map(x => x[i]));
+let applyOnMatrix = (func, m) => m.map(row => row.map(v => func(v)))
+let scaleMatrix = (a, m) => applyOnMatrix((x => a * x), m)
+
+const errorL2 = {
+    output: (output, target) => .5 * Math.pow(output - target, 2), der: (output, target) => output - target,
+};
+const errorL1 = {
+    output: (output, target) => math.abs(output - target), der: () => 1
+}
+
+const createNN = (layers, actFunc) => {
+    let result = {weights: [], z: [], a: [], actFunc: []};
+    const createMatrix = (rows, columns, filling = 1) => Array(rows).fill(Array(columns).fill(filling));
+
+    for (let i = 0; i < layers.length - 1; i++) {
+        result.actFunc[i] = actFunc[i];
+        result.weights[i] = createMatrix(layers[i + 1], layers[i] + 1);
+    }
+    return result;
+};
+
+const forwardPropagate = (nn, input) => {
+    nn.z = [];
+    if (input) {
+        nn.a = [];
+        nn.a[0] = vectorToMatrix([...input]);
+        nn.a[0].push([1]);
+    } else {
+        let save = [...nn.a[0]]
+        nn.a = [];
+        nn.a[0] = save;
+    }
+
+    for (let i = 0; i < nn.weights.length; i++) {
+        nn.z[i] = matrixProd(nn.weights[i], nn.a[i]);
+        nn.a[i + 1] = applyOnMatrix(nn.actFunc[i].output, nn.z[i]);
+        nn.a[i + 1].push([1]);
+    }
+};
+
+const backProp = (nn, input, target, lossFunc, learningRate) => {
+    const getNabla = (a_L, target, lossFunc) => vectorToMatrix(a_L.map((o_i, i) => lossFunc.der(o_i, target[i])));
+
+    let getDelta = (weights_l_plus_1, delta_l_plus_1, z_l, actFunc) => {
+        z_l.push([1]);
+        return hadamardProductMatricies(matrixProd(transpose(weights_l_plus_1), delta_l_plus_1), applyOnMatrix(actFunc.der, z_l));
+    }
+
+    const Update = (weightMatrix, learningRate, delta_l, a_l_minus_1) => matrixSubtract(weightMatrix, scaleMatrix(learningRate, matrixProd(delta_l, transpose(a_l_minus_1))))
+
+    forwardPropagate(nn, input);
+    let deltas = [];
+    let nabla = getNabla(nn.a.slice(-1).pop().slice(0, -1), target, lossFunc)
+    deltas.unshift(hadamardProductMatricies(nabla, applyOnMatrix(Activations.SIGMOID.der, nn.z.slice(-1).pop()))) //TODO: SIGMOID.der ändern
+    let newWeights = []
+    for (let i = nn.weights.length - 1; i >= 0; i--) {
+        newWeights.unshift(Update(nn.weights[i], learningRate, deltas[0], nn.a[i]));
+        if (i !== 0) deltas.unshift(getDelta(nn.weights[i], deltas[0], nn.z[i - 1], nn.actFunc[i]));
+    }
+    nn.weights = newWeights;
+    nn.deltas = deltas;
+};
+
+/*Example**************************************************************************************/
+
 
 //let network = new Network([2, 1], Activations.LINEAR, Activations.LINEAR);
 let network = new Network([2, 2, 2], Activations.RELU, Activations.RELU);
 
 let NN2 = {
-    weights: [
-        [
-            [.15, .2, .35],
-            [.25, .3, .35]
-        ],
-        [
-            [.4, .45, .6],
-            [.5, .55, .6]
-        ]
-    ],
+    weights: [[[.15, .2, .35], [.25, .3, .35]], [[.4, .45, .6], [.5, .55, .6]]],
     actFunc: [Activations.RELU, Activations.RELU]
 }
 // network.setInput([2, 4]);
@@ -336,7 +385,21 @@ network.changeParams({
     "4": .6,
     "5": .6,
 });
-console.log(network.asSimpleNN())
+let simpleNN = network.asSimpleNN();
+
+backProp(simpleNN, [.05, .1], [.01, .99], Loss.errorL2, .5)
+network.updateFromSimpleNN(simpleNN)
+console.log(network)
+
+let nn3 = {
+    "weights": [[[-7, -5, -3]]],
+    "ids": [[["0-2", "1-2", "2"]]],
+    "actFunc": [Activations.RELU, Activations.SIGMOID],
+}
+//console.log(nn3);
+//backProp(nn3, [7,3],[0.01],Loss.errorL2,0.5)
+//console.log(nn3);
+
 // network.links[0].weight = -2;
 // network.links[1].weight = 3;
 // network.getOutput()[0].bias = 1;

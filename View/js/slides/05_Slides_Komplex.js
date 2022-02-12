@@ -7,6 +7,42 @@ SLIDES.push(
         onstart: function (self) {
             _.allBirnen = addBirnenGrid(self)
             _.allNetwork = addNetwork221small(self)
+
+            _.nextMiddle = "nextMiddle";
+            self.add({
+                id: _.nextMiddle, type: "Button",
+                x: 383, y: 463,
+                text_id: "01_button_next", uppercase: false,
+                onclick: () => publish("slides^how/scratch")
+            });
+
+            _.learningRate = 1;
+
+            _.wrong = "wrong";
+            self.add({
+                id: _.wrong, type: "Button",
+                x: 100, y: 463,
+                text: "falsch", uppercase: false,
+                onclick: () => {
+                    let network = _.network
+                    let firstOutput = network.getFirstOutput();
+                    let target = firstOutput > 0.5 ? 0.01 : 0.99;
+                    let input = network.getInput();
+                    let simpleNN = network.asSimpleNN();
+                    backProp(simpleNN, input, [target], Loss.errorL2, _.learningRate)
+                    network.updateFromSimpleNN(simpleNN);
+
+                    publish("update/0-2", [_.network.links[0].weight]);
+                    publish("update/0-3", [_.network.links[1].weight]);
+                    publish("update/1-2", [_.network.links[2].weight]);
+                    publish("update/1-3", [_.network.links[3].weight]);
+                    publish("update/2-4", [_.network.links[4].weight]);
+                    publish("update/3-4", [_.network.links[5].weight]);
+                    publish("update/2", [_.network.getNodes()[2].bias]);
+                    publish("update/3", [_.network.getNodes()[3].bias]);
+                    publish("update/4", [_.network.getNodes()[4].bias]);
+                }
+            });
         },
         onstart2: function (self) {
             let o = self.objects;
@@ -395,7 +431,8 @@ function buildTabletInterface(self) {
     return all
 }
 
-function addNetwork221small(self, shiftx = 0, shifty = 0) {
+function addNetwork221small(self, shiftx = 0, shifty = 0,
+                            slidermin = -10, slidermax = 10, sliderstep = 1) {
     let o = self.objects;
     all = []
 
@@ -403,12 +440,12 @@ function addNetwork221small(self, shiftx = 0, shifty = 0) {
     self.add({
         id: _.perceptron, type: "Perceptron",
         size: [2,2, 1],
-        activationFun: Activations.RELU,
+        activationFun: Activations.SIGMOID,
         activationFunOutput: Activations.SIGMOID,
-        activationFunInput: Activations.LINEAR,
+        activationFunInput: Activations.SIGMOID,
         params: {
-            "0": 7, //Input1
-            "1": 3,  //Input2
+            "0": 1, //Input1
+            "1": 1,  //Input2
             "2": (-3), //Hidden Bias
             "3": (-2), //Hidden Bias
             "4": (-4), //Output Bias
@@ -457,7 +494,7 @@ function addNetwork221small(self, shiftx = 0, shifty = 0) {
         id: _.sliderWeight02, type: "Slider",
         x: 71 + shiftx, y: 80 + shifty,
         width: 100, rotation: 0,
-        min: -10, max: 10, step: 1,
+        min: slidermin, max: slidermax, step: sliderstep,
         message: "update/0-2"
     });
     all.push(o[_.sliderWeight02]);
@@ -467,7 +504,7 @@ function addNetwork221small(self, shiftx = 0, shifty = 0) {
         id: _.sliderWeight12, type: "Slider",
         x: 54 + shiftx, y: 265+shifty,
         width: 165, rotation: 300,
-        min: -10, max: 10, step: 1,
+        min: slidermin, max: slidermax, step: sliderstep,
         message: "update/1-2"
     });
     all.push(o[_.sliderWeight12]);
@@ -477,7 +514,7 @@ function addNetwork221small(self, shiftx = 0, shifty = 0) {
         id: _.sliderWeight03, type: "Slider",
         x: 100 + shiftx, y: 100 + shifty,
         width: 165, rotation: 60,
-        min: -10, max: 10, step: 1,
+        min: slidermin, max: slidermax, step: sliderstep,
         message: "update/0-3"
     });
     all.push(o[_.sliderWeight03]);
@@ -487,7 +524,7 @@ function addNetwork221small(self, shiftx = 0, shifty = 0) {
         id: _.sliderWeight13, type: "Slider",
         x: 71 + shiftx, y: 265+shifty,
         width: 100, rotation: 0,
-        min: -10, max: 10, step: 1,
+        min: slidermin, max: slidermax, step: sliderstep,
         message: "update/1-3"
     });
     all.push(o[_.sliderWeight13]);
@@ -497,7 +534,7 @@ function addNetwork221small(self, shiftx = 0, shifty = 0) {
         id: _.sliderWeight24, type: "Slider",
         x: 245 + shiftx, y: 93 + shifty,
         width: 100, rotation: 40,
-        min: -10, max: 10, step: 1,
+        min: slidermin, max: slidermax, step: sliderstep,
         message: "update/2-4"
     });
     all.push(o[_.sliderWeight24]);
@@ -507,7 +544,7 @@ function addNetwork221small(self, shiftx = 0, shifty = 0) {
         id: _.sliderWeight34, type: "Slider",
         x: 213 + shiftx, y: 265+shifty,
         width: 100, rotation: 324,
-        min: -10, max: 10, step: 1,
+        min: slidermin, max: slidermax, step: sliderstep,
         message: "update/3-4"
     });
     all.push(o[_.sliderWeight34]);
@@ -517,7 +554,7 @@ function addNetwork221small(self, shiftx = 0, shifty = 0) {
         id: _.sliderBias2, type: "Slider",
         x: 140+shiftx, y: 13+shifty,
         width: 100,
-        min: -10, max: 10, step: 1,
+        min: slidermin, max: slidermax, step: sliderstep,
         message: "update/2"
     });
     all.push(o[_.sliderBias2]);
@@ -527,7 +564,7 @@ function addNetwork221small(self, shiftx = 0, shifty = 0) {
         id: _.sliderBias3, type: "Slider",
         x: 140+shiftx, y: 329+shifty,
         width: 100,
-        min: -10, max: 10, step: 1,
+        min: slidermin, max: slidermax, step: sliderstep,
         message: "update/3"
     });
     all.push(o[_.sliderBias3]);
@@ -537,7 +574,7 @@ function addNetwork221small(self, shiftx = 0, shifty = 0) {
         id: _.sliderBias4, type: "Slider",
         x: 289+shiftx, y: 255+shifty,
         width: 100,
-        min: -10, max: 10, step: 1,
+        min: slidermin, max: slidermax, step: sliderstep,
         message: "update/4"
     });
     all.push(o[_.sliderBias4]);

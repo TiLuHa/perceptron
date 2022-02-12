@@ -8,6 +8,7 @@ function ImageBox(config){
 	self.dom = new Image();
 	self.dom.className = "object";
 	self.dom.src = config.src;
+	if(config.onclick) self.dom.onclick = config.onclick;
 	// Customize
 
 	_configText(config, self.dom);
