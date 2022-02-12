@@ -24,9 +24,17 @@ const setUpAll = function (self) {
     self.add({
         id: _.jochen, type: "ImageBox",
         src: JochenFaces.kamera,
-        x: 380, y: 60, width: 380 / 2, height: 545 / 2,
+        x: 200, y: 60, width: 380 / 2, height: 545 / 2,
     });
     all.push(o[_.jochen])
+
+    _.tablet = "tablet";
+    self.add({
+        id: _.tablet, type: "ImageBox",
+        src: Loader.manifest.tablet1,
+        x: 600, y: 170, width: 438 / 3, height: 689 / 3,
+    });
+    all.push(o[_.tablet])
 
     _.tochter = "tochterBild";
     self.add({
@@ -103,6 +111,281 @@ const setUpAll = function (self) {
 
     return all;
 };
+
+function addScalas(self) {
+    let o = self.objects;
+    _.topScala = []
+    _.bottomScala = []
+
+    _.scalaTop = "scalaTop";
+    self.add({
+        id: _.scalaTop, type: "ImageBox",
+        src: Loader.manifest.scala,
+        x: 380, y: 100,
+    });
+    _.topScala.push(o[_.scalaTop])
+
+    _.scalaButtom = "scalaButtom";
+    self.add({
+        id: _.scalaButtom, type: "ImageBox",
+        src: Loader.manifest.scala,
+        x: 380, y: 270,
+    });
+    _.bottomScala.push(o[_.scalaButtom])
+
+    _.birneTopLeft = "birneTopLeft";
+    self.add({
+        id: _.birneTopLeft, type: "ImageBox",
+        src: Loader.manifest.b1,
+        x: 330, y: 90,
+        width: 570 * 0.075, height: 554 * 0.075,
+    });
+    _.topScala.push(o[_.birneTopLeft])
+
+    _.birneTopRight = "birneTopRight";
+    self.add({
+        id: _.birneTopRight, type: "ImageBox",
+        src: Loader.manifest.b8,
+        x: 605, y: 90,
+        width: 570 * 0.075, height: 554 * 0.075,
+    });
+    _.topScala.push(o[_.birneTopRight])
+
+    _.birneButtomLeft = "birneButtomLeft";
+    self.add({
+        id: _.birneButtomLeft, type: "ImageBox",
+        src: Loader.manifest.b1,
+        x: 340, y: 275,
+        width: 570 * 0.05, height: 554 * 0.05,
+    });
+    _.bottomScala.push(o[_.birneButtomLeft])
+
+    _.birneButtomRight = "birneButtomRight";
+    self.add({
+        id: _.birneButtomRight, type: "ImageBox",
+        src: Loader.manifest.b1,
+        x: 605, y: 235,
+        width: 570 * 0.1, height: 554 * 0.1,
+    });
+    _.bottomScala.push(o[_.birneButtomRight])
+
+    _.textScale00 = "textScale00";
+    self.add({
+        id: _.textScale00, type: "TextBox",
+        x: 362, y: 146, width: 50, height: 50,
+        align: "center", color: "#484848", size: 17,
+        text: "-5"
+    });
+    _.topScala.push(o[_.textScale00])
+
+    _.textScale01 = "textScale01";
+    self.add({
+        id: _.textScale01, type: "TextBox",
+        x: 464, y: 146, width: 50, height: 50,
+        align: "center", color: "#484848", size: 17,
+        text: "0"
+    });
+    _.topScala.push(o[_.textScale01])
+
+    _.textScale02 = "textScale02";
+    self.add({
+        id: _.textScale02, type: "TextBox",
+        x: 568, y: 146, width: 50, height: 50,
+        align: "center", color: "#484848", size: 17,
+        text: "5"
+    });
+    _.topScala.push(o[_.textScale02])
+
+    _.textScale10 = "textScale10";
+    self.add({
+        id: _.textScale10, type: "TextBox",
+        x: 362, y: 316, width: 50, height: 50,
+        align: "center", color: "#484848", size: 17,
+        text: "-5"
+    });
+    _.bottomScala.push(o[_.textScale10])
+
+    _.textScale11 = "textScale11";
+    self.add({
+        id: _.textScale11, type: "TextBox",
+        x: 464, y: 316, width: 50, height: 50,
+        align: "center", color: "#484848", size: 17,
+        text: "0"
+    });
+    _.bottomScala.push(o[_.textScale11])
+
+    _.textScale12 = "textScale12";
+    self.add({
+        id: _.textScale12, type: "TextBox",
+        x: 568, y: 316, width: 50, height: 50,
+        align: "center", color: "#484848", size: 17,
+        text: "5"
+    });
+    _.bottomScala.push(o[_.textScale12])
+
+    return [].concat(_.topScala, _.bottomScala);
+}
+
+function buildTabletInterface(self) {
+    let o = self.objects;
+    let all = []
+
+    _.birnenscannerX = 0
+    _.birnenscannerY = 100
+    _.birnenScanner = "birnenScanner";
+    self.add({
+        id: _.birnenScanner, type: "ImageBox",
+        src: Loader.manifest.birnenscanner,
+        x: _.birnenscannerX, y: _.birnenscannerY, width: 639 / 4, height: 782 / 4,
+    });
+    all.push(o[_.birnenScanner])
+
+    _.birnenScannerText = "birnenScannerText";
+    self.add({
+        id: _.birnenScannerText, type: "TextBox",
+        x: _.birnenscannerX + 17, y: _.birnenscannerY + 75, width: 130, height: 50,
+        align: "center", color: "#aaa", size: 17,
+        text_id: "02_scannerText"
+    });
+    all.push(o[_.birnenScannerText])
+
+    _.birneBig = "birneBig"
+    self.add({
+        id: _.birneBig, type: "ImageBox",
+        src: Loader.manifest.b1,
+        x: 40,
+        y: 130,
+        width: 80,
+        rotation: 0
+    });
+    all.push(o[_.birneBig])
+
+    _.yPosTopBtm = 100;
+    _.yStepToNextBtm = 60;
+    _.fotoBtm = "fotoBtm";
+    let i = 0;
+    self.add({
+        id: _.fotoBtm, type: "Button",
+        size: "long", x: 304, y: _.yPosTopBtm + (i++) * _.yStepToNextBtm,
+        text_id: "02_button_foto_machen", uppercase: false,
+        active: false,
+        onclick: () => publish("slideshow/scratch")
+    });
+    all.push(o[_.fotoBtm])
+
+    _.marmeladeBtm = "marmeladeBtm";
+    self.add({
+        id: _.marmeladeBtm, type: "Button",
+        size: "long", x: 304, y: _.yPosTopBtm + (i++) * _.yStepToNextBtm,
+        text_id: "02_button_birnenmarmelade", uppercase: false,
+        active: false,
+        onclick: () => publish("slideshow/next")
+    });
+    all.push(o[_.marmeladeBtm])
+
+    _.kuchenBtm = "kuchenBtm";
+    self.add({
+        id: _.kuchenBtm, type: "Button",
+        size: "long", x: 304, y: _.yPosTopBtm + (i++) * _.yStepToNextBtm,
+        text_id: "02_button_birnenkuchen", uppercase: false,
+        active: false,
+        onclick: () => publish("slideshow/next")
+    });
+    all.push(o[_.kuchenBtm])
+
+    _.bierBtm = "bierBtm";
+    self.add({
+        id: _.bierBtm, type: "Button",
+        size: "long", x: 304, y: _.yPosTopBtm + (i++) * _.yStepToNextBtm,
+        text_id: "02_button_birnenbier", uppercase: false,
+        active: false,
+        onclick: () => publish("slideshow/next")
+    });
+    all.push(o[_.bierBtm])
+
+    _.birne1 = "birne1"
+    self.add({
+        id: _.birne1, type: "ImageBox",
+        src: _.exampleBirneSrc,
+        x: 40,//+ _.moveX,
+        y: 130,//+ _.moveY,
+        width: 80,//_.birnen_width * _.scale0,
+        rotation: 0
+    });
+    all.push(o[_.birne1])
+
+    _.anchorInput1X = 160;
+    _.anchorInput1Y = 70;
+    _.xPlusInputText = 40;
+    _.yPlusInputText = 30;
+    _.xPlusInputDescription = -47;
+    _.yPlusInputDescription = 35;
+
+    _.input1 = "input1"
+    self.add({
+        id: _.input1, type: "ImageBox",
+        src: "assets/birnen/blau/pfeilrechtsblau.png",
+        x: _.anchorInput1X,
+        y: _.anchorInput1Y,
+    })
+    all.push(o[_.input1])
+
+    _.input1Text = "input1Text"
+    self.add({
+        id: _.input1Text, type: "TextBox",
+        x: _.anchorInput1X + _.xPlusInputText,
+        y: _.anchorInput1Y + _.yPlusInputText,
+        text: "7"
+    });
+    all.push(o[_.input1Text])
+
+    _.input1Description = "input1Description";
+    self.add({
+        id: _.input1Description, type: "TextBox",
+        x: _.anchorInput1X + _.xPlusInputDescription,
+        y: _.anchorInput1Y + _.yPlusInputDescription,
+        width: 130, height: 50,
+        align: "center", color: "blue", size: 17,
+        rotation: 270,
+        text_id: "input1_description"
+    })
+    all.push(o[_.input1Description])
+
+    _.anchorInput2X = _.anchorInput1X + 0;
+    _.anchorInput2Y = _.anchorInput1Y + 170;
+    _.input2 = "input2"
+    self.add({
+        id: _.input2, type: "ImageBox",
+        src: "assets/birnen/blau/pfeilrechtsblau.png",
+        x: _.anchorInput2X,
+        y: _.anchorInput2Y,
+    })
+    all.push(o[_.input2])
+
+
+    _.input2Text = "input2Text"
+    self.add({
+        id: _.input2Text, type: "TextBox",
+        x: _.anchorInput2X + _.xPlusInputText,
+        y: _.anchorInput2Y + _.yPlusInputText,
+        text: "3"
+    });
+    all.push(o[_.input2Text])
+
+
+    _.input2Description = "input2Description";
+    self.add({
+        id: _.input2Description, type: "TextBox",
+        x: _.anchorInput2X + _.xPlusInputDescription,
+        y: _.anchorInput2Y + _.yPlusInputDescription,
+        width: 130, height: 50,
+        align: "center", color: "blue", size: 17,
+        rotation: 270, text_id: "input2_description"
+    })
+    all.push(o[_.input2Description])
+
+    return all
+}
 
 const addSortingSlide = function (self, shiftx = -100, shifty = 0,findingTime = 750, stepTime = 2000) {
     let face0 = JochenFaces.verduzt;
@@ -344,6 +627,65 @@ const addSortingSlide = function (self, shiftx = -100, shifty = 0,findingTime = 
     return all;
 };
 
+const addFotoSlide = function (exampleBirneSrc = Loader.manifest.b1) {
+    return {
+        onstart: function (self) {
+
+            let o = self.objects;
+            o[_.slideCounter].setText("fotoslide");
+
+            // Bild Jochen
+            _.jochenFoto = "jochenFoto";
+            self.add({
+                id: _.jochenFoto, type: "ImageBox",
+                src: JochenFaces.verduzt,
+                x: 200, y: 60, width: 380 / 2, height: 545 / 2,
+            });
+
+            _.tablet2 = "tablet2";
+            self.add({
+                id: _.tablet2, type: "ImageBox",
+                src: Loader.manifest.tablet2,
+                x: 350, y: 170, width: 438 / 4.5, height: 689 / 4.5,
+            });
+
+            _.flashlight = "flashlight";
+            self.add({
+                id: _.flashlight, type: "ImageBox",
+                src: "assets/Jochen/blitzlicht.jpg",
+                x: 350, y: 170, width: 208 / 2.5, height: 222 / 2.5,
+            });
+
+
+            _.birneFoto = "birneFoto"
+            self.add({
+                id: _.birneFoto, type: "ImageBox",
+                src: exampleBirneSrc,
+                x: 554,
+                y: 254,
+                width: 40,
+                rotation: 0
+            });
+
+            _hide(o[_.flashlight]);
+            _show(o[_.jochenFoto]);
+            _show(o[_.tablet2]);
+            _fadeIn(o[_.birneFoto], 1000);
+            _show(o[_.flashlight], 1500);
+            _hide(o[_.flashlight], 2000)
+            setTimeout(() => o[_.jochenFoto].changeImage(JochenFaces.zufrieden), 2000);
+            setTimeout(() => publish("slideshow/scratch"), 3000);
+
+        },
+        onend: function (self) {
+            self.remove(_.jochenFoto);
+            self.remove(_.tablet2);
+            self.remove(_.birneFoto);
+            self.remove(_.flashlight);
+        }
+    }
+};
+
 const addFehlvorstellungSlide = function (self) {
     let o = self.objects;
 
@@ -397,19 +739,21 @@ SLIDES.push(
 
             let o = self.objects;
 
-            _.all = setUpAll(self);
+            let all = setUpAll(self);
             let birnenStuff = addBirnenGrid(self, 220, 50);
             _.sortingSlide = addSortingSlide(self);
             _.fehlvorstellung = addFehlvorstellungSlide(self);
 
-            _.all = [].concat(_.all, _.sortingSlide, birnenStuff, _.fehlvorstellung);
+            all = [].concat(all, _.sortingSlide, birnenStuff, _.fehlvorstellung);
 
-            actionOnAllObjects(_.all, _hide);
+            actionOnAllObjects(all, _hide);
 
             _show(o[_.slideCounter]);
 
             o[_.slideCounter].setText("1-1")
             o[_.btmWords].setTextID("01_text1");
+
+            _moveX(o[_.jochen], 180)
 
             _moveX(o[_.jochenHello], 180)
             actionOnAllObjects([

@@ -6,77 +6,39 @@ SLIDES.push(
         },
         onstart: function (self) {
             let o = self.objects;
-            _.slideCounter = "slideCounter";
-            self.add({
-                id: _.slideCounter, type: "TextBox",
-                x: 0, y: 0, width: 50, height: 50,
-                align: "center", color: "#aaa", size: 17,
-                text: ""
-            });
-            o[_.slideCounter].setText("2-1")
 
-            _.topWords = "topWords";
-            self.add({
-                id: _.topWords, type: "TextBox", text_id: "02_title",
-                x: 130, y: 10, width: 700, height: 100, align: "center"
-            });
+            let all = setUpAll(self);
+            let birnenStuff = addBirnenGrid(self, 220, 50);
+            _.tabletInterface = buildTabletInterface(self)
+            let scalas = addScalas(self)
+            all = [].concat(all, birnenStuff, _.tabletInterface, scalas);
+            actionOnAllObjects(all, _hide);
 
-            _.tablet = "tablet";
-            self.add({
-                id: _.tablet, type: "ImageBox",
-                src: "assets/birnen/tablet1.jpg",
-                x: 600, y: 170, width: 438 / 3, height: 689 / 3,
-            });
+            o[_.slideCounter].setText("2-1");
 
-            _.tochter = "tochterBild";
-            self.add({
-                id: _.tochter, type: "ImageBox",
-                src: "assets/Jochen/Tochter.PNG",
-                x: 600, y: 60, width: 380 / 2.1, height: 545 / 2.1,
-            });
+            o[_.topWords].setTextID("02_title");
+            o[_.btmWords].setTextID("02_text1");
 
-            _.jochen = "jochenBild";
-            self.add({
-                id: _.jochen, type: "ImageBox",
-                src: JochenFaces.erstaunt,
-                x: 200, y: 60, width: 380 / 2, height: 545 / 2,
-            });
+            o[_.jochen].changeImage(JochenFaces.erstaunt)
 
-            _.btmWords = "btmWords";
-            self.add({
-                id: _.btmWords, type: "TextBox", text_id: "02_text1",
-                x: 130, y: 347, width: 700, height: 100, align: "center"
-            })
+            o[_.nextMiddle].changeOnClick(() => publish("slideshow/scratch"))
 
-            _.nextMiddle = "nextMiddle";
-            self.add({
-                id: _.nextMiddle, type: "Button",
-                x: 383, y: 463,
-                text_id: "01_button_next", uppercase: false,
-                onclick: () => publish("slideshow/scratch")
-            });
+            _show(o[_.slideCounter], 0);
 
-            _hide(o[_.tablet]);
-            _hide(o[_.jochen]);
-            _hide(o[_.tochter]);
-            _hide(o[_.btmWords]);
-            _hide(o[_.nextMiddle]);
-            _show(o[_.jochen]);
+            _show(o[_.topWords])
+            _show(o[_.tablet], 1000)
+            _show(o[_.jochen], 0);
             _fadeIn(o[_.tochter], 400);
             _fadeIn(o[_.btmWords], 800)
-            _show(o[_.tablet], 1000)
             _moveX(o[_.tablet], -200, 1200)
             _fadeIn(o[_.nextMiddle], 1600)
         },
         onend: function (self) {
             let o = self.objects;
-            self.remove(_.topWords)
-            _hide(o[_.tablet])
-            _hide(o[_.jochen])
-            _hide(o[_.btmWords])
-            _hide(o[_.nextMiddle])
-            _hide(o[_.tochter])
-
+            actionOnAllObjects([
+                o[_.tablet], o[_.jochen], o[_.topWords], o[_.btmWords],
+                o[_.nextMiddle], o[_.tochter]
+            ], _hide)
         }
     },
     {
@@ -85,150 +47,56 @@ SLIDES.push(
             o[_.slideCounter].setText("2-2")
             o[_.btmWords].setTextID("02_text2")
 
+            actionOnAllObjects([
+                o[_.birnenScanner],
+                o[_.birnenScannerText],
+                o[_.fotoBtm],
+                o[_.marmeladeBtm],
+                o[_.kuchenBtm],
+                o[_.bierBtm],
+                o[_.btmWords]
+            ], _fadeIn, 500, 500)
+            o[_.fotoBtm].activate();
 
-            _.birnenscannerX = 0
-            _.birnenscannerY = 100
-            _.birnenScanner = "birnenScanner";
-            self.add({
-                id: _.birnenScanner, type: "ImageBox",
-                src: "assets/birnen/birnenScanner.jpg",
-                x: _.birnenscannerX, y: _.birnenscannerY, width: 639 / 4, height: 782 / 4,
-            });
-            //Begrüßung Jochen
-            _.birnenScannerText = "birnenScannerText";
-            self.add({
-                id: _.birnenScannerText, type: "TextBox",
-                x: _.birnenscannerX + 17, y: _.birnenscannerY + 75, width: 130, height: 50,
-                align: "center", color: "#aaa", size: 17,
-                text_id: "02_scannerText"
-            });
-
-            _.yPosTopBtm = 100;
-            _.yStepToNextBtm = 60;
-            _.fotoBtm = "fotoBtm";
-            let i = 0;
-            self.add({
-                id: _.fotoBtm, type: "Button",
-                size: "long", x: 304, y: _.yPosTopBtm + (i++) * _.yStepToNextBtm,
-                text_id: "02_button_foto_machen", uppercase: false,
-                //active: false,
-                onclick: () => publish("slideshow/scratch")
-            });
-            _.marmeladeBtm = "marmeladeBtm";
-            self.add({
-                id: _.marmeladeBtm, type: "Button",
-                size: "long", x: 304, y: _.yPosTopBtm + (i++) * _.yStepToNextBtm,
-                text_id: "02_button_birnenmarmelade", uppercase: false,
-                active: false,
-                onclick: () => publish("slideshow/next")
-            });
-            _.kuchenBtm = "kuchenBtm";
-            self.add({
-                id: _.kuchenBtm, type: "Button",
-                size: "long", x: 304, y: _.yPosTopBtm + (i++) * _.yStepToNextBtm,
-                text_id: "02_button_birnenkuchen", uppercase: false,
-                active: false,
-                //onclick: () => publish("slideshow/next")
-            });
-            _.bierBtm = "bierBtm";
-            self.add({
-                id: _.bierBtm, type: "Button",
-                size: "long", x: 304, y: _.yPosTopBtm + (i++) * _.yStepToNextBtm,
-                text_id: "02_button_birnenbier", uppercase: false,
-                active: false,
-                //onclick: () => publish("slideshow/next")
-            });
-
-            _fadeIn(o[_.btmWords], 800)
         },
         onend: function (self) {
             let o = self.objects;
-            _hide(o[_.fotoBtm]);
-            _hide(o[_.marmeladeBtm]);
-            _hide(o[_.kuchenBtm]);
-            _hide(o[_.bierBtm]);
-            _hide(o[_.btmWords]);
-            _hide(o[_.birnenScanner]);
-            _hide(o[_.birnenScannerText]);
+            actionOnAllObjects([
+                o[_.birnenScanner],
+                o[_.birnenScannerText],
+                o[_.fotoBtm],
+                o[_.marmeladeBtm],
+                o[_.kuchenBtm],
+                o[_.bierBtm],
+                o[_.btmWords]
+            ], _hide)
+            o[_.fotoBtm].deactivate();
+
             _moveX(o[_.birnenScanner], 400)
+            _moveX(o[_.birneBig], 400)
         }
     },
-    {
-        onstart: function (self) {
-            let o = self.objects;
-            o[_.slideCounter].setText("2-3");
-
-            _.tablet2 = "tablet2";
-            self.add({
-                id: _.tablet2, type: "ImageBox",
-                src: "assets/birnen/tablet2.jpg",
-                x: 350, y: 170, width: 438 / 4.5, height: 689 / 4.5,
-            });
-
-            _.flashlight = "flashlight";
-            self.add({
-                id: _.flashlight, type: "ImageBox",
-                src: "assets/Jochen/blitzlicht.jpg",
-                x: 350, y: 170, width: 208 / 2.5, height: 222 / 2.5,
-            });
-
-            _.exampleBirneSrc = "assets/birnen/b1.jpg";
-            _.birne0 = "birne0"
-            self.add({
-                id: _.birne0, type: "ImageBox",
-                src: _.exampleBirneSrc,
-                x: 554,//+ _.moveX,
-                y: 254,//+ _.moveY,
-                width: 40,//_.birnen_width * _.scale0,
-                rotation: 0
-            });
-
-            // TODO: Text für Jochen hinzufügen
-            // TODO: Ton bei Kameraklick hinzufügen
-            // TODO: ggf. ein oder zwei Button "Klick" und "Weiter" hinzufügen
-            o[_.jochen].changeImage(JochenFaces.verduzt)
-            _hide(o[_.flashlight])
-            _show(o[_.jochen]);
-            _show(o[_.tablet2]);
-            _fadeIn(o[_.birne0], 1000);
-            _show(o[_.flashlight], 1500);
-            _hide(o[_.flashlight], 2000)
-            setTimeout(() => o[_.jochen].changeImage(JochenFaces.zufrieden), 2000);
-            setTimeout(() => publish("slideshow/scratch"), 3000);
-
-        },
-        onend: function (self) {
-            let o = self.objects;
-            _hide(o[_.jochen]);
-            _hide(o[_.tablet2]);
-            _hide(o[_.birne0]);
-        }
-    },
+    addFotoSlide(),
     {
         onstart: function (self) {
             let o = self.objects;
             o[_.slideCounter].setText("2-4")
             o[_.btmWords].setTextID("02_text4")
-            _.birne1 = "birne1"
-            self.add({
-                id: _.birne1, type: "ImageBox",
-                src: _.exampleBirneSrc,
-                x: 440,//+ _.moveX,
-                y: 130,//+ _.moveY,
-                width: 80,//_.birnen_width * _.scale0,
-                rotation: 0
-            });
 
             o[_.nextMiddle].changeOnClick(() => publish("slideshow/next"));
 
-            _show(o[_.birnenScanner])
+            _show(o[_.birnenScanner], );
+            _show(o[_.birneBig], );
             _fadeIn(o[_.btmWords], 1000);
-            _fadeIn(o[_.nextMiddle], 1500);
+            _fadeIn(o[_.nextMiddle], 2000);
         },
         onend: function (self) {
             let o = self.objects;
-            _hide(o[_.nextMiddle])
-            _hide(o[_.btmWords])
+            _hide(o[_.nextMiddle]);
+            _hide(o[_.btmWords]);
+            [
+                o[_.birneBig], o[_.birnenScanner],
+            ].forEach(obj => _moveX(obj, -400));
         }
     },
     {
@@ -237,42 +105,13 @@ SLIDES.push(
             o[_.slideCounter].setText("2-5")
             o[_.btmWords].setTextID("02_text5")
 
-            _.anchorInput1X = 560;
-            _.anchorInput1Y = 70;
-            _.xPlusInputText = 40;
-            _.yPlusInputText = 30;
-            _.xPlusInputDescription = -47;
-            _.yPlusInputDescription = 35;
+            actionOnAllObjects([
+                o[_.input1], o[_.input1Text], o[_.input1Description]
+            ], _fadeIn,1000, 0)
+            actionOnAllObjects(_.topScala, _fadeIn, 1500)
 
-            _.input1 = "input1"
-            self.add({
-                id: _.input1, type: "ImageBox",
-                src: "assets/birnen/blau/pfeilrechtsblau.png",
-                x: _.anchorInput1X,
-                y: _.anchorInput1Y,
-            })
-            _.input1Text = "input1Text"
-            self.add({
-                id: _.input1Text, type: "TextBox",
-                x: _.anchorInput1X + _.xPlusInputText,
-                y: _.anchorInput1Y + _.yPlusInputText,
-                text: "7"
-            });
-
-            _.input1Description = "input1Description";
-            self.add({
-                id: _.input1Description, type: "TextBox",
-                x: _.anchorInput1X + _.xPlusInputDescription,
-                y: _.anchorInput1Y + _.yPlusInputDescription,
-                width: 130, height: 50,
-                align: "center", color: "blue", size: 17,
-                rotation: 270,
-                text_id: "input1_description"
-            })
-
-
-            _fadeIn(o[_.btmWords], 500);
-            _fadeIn(o[_.nextMiddle], 1000);
+            _fadeIn(o[_.btmWords], 2500);
+            _fadeIn(o[_.nextMiddle], 3000);
         },
         onend: function (self) {
             let o = self.objects;
@@ -286,47 +125,20 @@ SLIDES.push(
             o[_.slideCounter].setText("2-6")
             o[_.btmWords].setTextID("02_text6")
 
-            _.anchorInput2X = _.anchorInput1X + 0;
-            _.anchorInput2Y = _.anchorInput1Y + 170;
+            actionOnAllObjects([
+                o[_.input2], o[_.input2Text], o[_.input2Description]
+            ], _fadeIn,1000, 0)
+            actionOnAllObjects(_.bottomScala, _fadeIn, 1500)
 
-            _.input2 = "input2"
-            self.add({
-                id: _.input2, type: "ImageBox",
-                src: "assets/birnen/blau/pfeilrechtsblau.png",
-                x: _.anchorInput2X,
-                y: _.anchorInput2Y,
-            })
-            _.input2Text = "input2Text"
-            self.add({
-                id: _.input2Text, type: "TextBox",
-                x: _.anchorInput2X + _.xPlusInputText,
-                y: _.anchorInput2Y + _.yPlusInputText,
-                text: "3"
-            });
-
-            _.input2Description = "input2Description";
-            self.add({
-                id: _.input2Description, type: "TextBox",
-                x: _.anchorInput2X + _.xPlusInputDescription,
-                y: _.anchorInput2Y + _.yPlusInputDescription,
-                width: 130, height: 50,
-                align: "center", color: "blue", size: 17,
-                rotation: 270, text_id: "input2_description"
-            })
-
-            _fadeIn(o[_.btmWords], 500);
-            _fadeIn(o[_.nextMiddle], 1000);
+            _fadeIn(o[_.btmWords], 2500);
+            _fadeIn(o[_.nextMiddle], 3000);
         },
         onend: function (self) {
             let o = self.objects;
             _hide(o[_.nextMiddle]);
             _hide(o[_.btmWords]);
-            [
-                o[_.birne1], o[_.birnenScanner],
-                o[_.input1Text], o[_.input1Description],
-                o[_.input2Text], o[_.input2Description],
-                o[_.input1], o[_.input2]
-            ].forEach(obj => _moveX(obj, -400));
+            actionOnAllObjects(_.topScala, _hide)
+            actionOnAllObjects(_.bottomScala, _hide)
         }
     },
     {

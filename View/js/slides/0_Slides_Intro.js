@@ -54,6 +54,7 @@ Loader.addToManifest(Loader.manifest,{
 	network_smallRechts: "assets/birnen/blau/teilrechts.png",
 	network_pfeilRechts: "assets/birnen/blau/pfeilrechtsblau.png",
 	network_explainTall: "assets/birnen/schwarz/explainTall.png",
+	scala: "assets/birnen/scala.png",
 
 
 	// CSS ASSETS
