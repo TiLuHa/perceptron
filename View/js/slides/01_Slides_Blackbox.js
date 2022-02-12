@@ -1,3 +1,113 @@
+const actionOnAllObjects = function (arrayOfObjects, action, startTime = 0, intervall = 0) {
+    arrayOfObjects.reduce((time, obj) => {
+        action(obj, time);
+        return time + intervall;
+    }, startTime);
+}
+
+const setUpAll = function (self, config) {
+    let all = []
+
+    let o = self.objects;
+
+    _.slideCounter = "slideCounter";
+    self.add({
+        id: _.slideCounter, type: "TextBox",
+        x: 0, y: 0, width: 50, height: 50,
+        align: "center", color: "#aaa", size: 17,
+        text: "1-1"
+    });
+    all.push(o[_.slideCounter])
+
+    // Bild Jochen
+    _.jochen = "jochenBild";
+    self.add({
+        id: _.jochen, type: "ImageBox",
+        src: "assets/Jochen/Jochen_kamera.jpg",
+        x: 380, y: 60, width: 380 / 2, height: 545 / 2,
+    });
+    all.push(o[_.jochen])
+
+    //Text an Jochen
+    _.jochenHello = "jochenhello";
+    self.add({
+        id: _.jochenHello, type: "TextBox",
+        x: 210 + 380, y: 85, width: 50, height: 50,
+        align: "center", color: "#aaa", size: 17,
+        text_id: "jochen_hello"
+    });
+    all.push(o[_.jochenHello])
+    _.jochenHelloLeft = "jochenhelloleft";
+    self.add({
+        id: _.jochenHelloLeft, type: "TextBox",
+        x: 210, y: 85, width: 50, height: 50,
+        align: "center", color: "#aaa", size: 17,
+        text_id: "jochen_hello"
+    });
+    all.push(o[_.jochenHelloLeft])
+
+    // Kapitelüberschrift
+    _.topWords = "topWords";
+    self.add({
+        id: _.topWords, type: "TextBox", text_id: "01_title",
+        x: 130, y: 10, width: 700, height: 100, align: "center"
+    });
+    all.push(o[_.topWords])
+
+    //Texte
+    _.btmWords = "btmWords";
+    self.add({
+        id: _.btmWords, type: "TextBox", text_id: "01_text1",
+        x: 130, y: 347, width: 700, height: 100, align: "center"
+    })
+    all.push(o[_.btmWords])
+
+    _.btmLeftWords = "btmLeftWords";
+    self.add({
+        id: _.btmLeftWords, type: "TextBox", text_id: "01_text3",
+        x: 10, y: 450,
+        width: 700, height: 100, align: "center"
+    })
+    all.push(o[_.btmLeftWords])
+
+    // Buttons
+    _.nextMiddle = "nextMiddle";
+    self.add({
+        id: _.nextMiddle, type: "Button",
+        x: 383, y: 463, //normal size
+        //size: "long", x:304, y:466,
+        text_id: "01_button_next", uppercase: false,
+        onclick: () => publish("slideshow/next")
+    });
+    all.push(o[_.nextMiddle])
+
+    _.nextRight = "nextRight";
+    self.add({
+        id: _.nextRight, type: "Button",
+        x: 730, y: 463, //normal size
+        //size: "long", x:304, y:466,
+        text_id: "01_button_next", uppercase: false,
+        onclick: () => publish("slideshow/next")
+    });
+    all.push(o[_.nextRight])
+
+    _.item_x = 750;
+    _.item_y = 100;
+    _.item_scale = 0.3
+    _.item_width = 570 * _.item_scale
+    _.item_height = 554 * _.item_scale
+    _.itemRight = "itemRight";
+    self.add({
+        id: _.itemRight, type: "ImageBox",
+        src: "assets/birnen/Birnenmarmelade.jpg",
+        x: _.item_x, y: _.item_y,
+        width: _.item_width, height: _.item_height,
+    });
+    all.push(o[_.itemRight])
+
+    return all;
+};
+
 SLIDES.push(
     {
         id: "sortieren",
@@ -10,221 +120,85 @@ SLIDES.push(
 
             let o = self.objects;
 
-            _.slideCounter = "slideCounter";
-            self.add({
-                id: _.slideCounter, type: "TextBox",
-                x: 0, y: 0, width: 50, height: 50,
-                align: "center", color: "#aaa", size: 17,
-                text: "1-1"
-            });
+            _.all = setUpAll(self);
+            let birnenStuff = addBirnenGrid(self, 220, 50);
+            _.all = _.all.concat(birnenStuff);
+            actionOnAllObjects(_.all, _hide)
 
-            // Bild Jochen
-            _.jochen = "jochenBild";
-            _.xpush = 380;
+            _show(o[_.slideCounter]);
 
-            self.add({
-                id: _.jochen, type: "ImageBox",
-                src: "assets/Jochen/Jochen_kamera.jpg",
-                x: _.xpush, y: 60, width: 380 / 2, height: 545 / 2,
-            });
-            //Begrüßung Jochen
-            _.jochenHello = "jochenhello";
-            self.add({
-                id: _.jochenHello, type: "TextBox",
-                x: 210 + _.xpush, y: 85, width: 50, height: 50,
-                align: "center", color: "#aaa", size: 17,
-                text_id: "jochen_hello"
-            });
+            o[_.slideCounter].setText("1-1")
+            o[_.btmWords].setTextID("01_text1");
 
-            // Words
-            _.topWords = "topWords";
-            self.add({
-                id: _.topWords, type: "TextBox", text_id: "01_title",
-                x: 130, y: 10, width: 700, height: 100, align: "center"
-            });
-            _.btmWords = "btmWords";
-            self.add({
-                id: _.btmWords, type: "TextBox", text_id: "01_text1",
-                x: 130, y: 347, width: 700, height: 100, align: "center"
-            })
-
-            // Buttons
-            _.nextMiddle = "nextMiddle";
-            self.add({
-                id: _.nextMiddle, type: "Button",
-                x: 383, y: 463, //normal size
-                //size: "long", x:304, y:466,
-                text_id: "01_button_next", uppercase: false,
-                onclick: () => publish("slideshow/next")
-            });
-
-            _hide(o[_.topWords]);
-            _fadeIn(o[_.topWords], 100);
-            _hide(o[_.jochen]);
-            _fadeIn(o[_.jochen], 200);
-            _hide(o[_.jochenHello]);
-            _fadeIn(o[_.jochenHello], 200);
-            _hide(o[_.btmWords]);
-            _fadeIn(o[_.btmWords], 400);
-            _hide(o[_.nextMiddle]);
-            _fadeIn(o[_.nextMiddle], 700);
-
+            actionOnAllObjects([
+                o[_.topWords],
+                o[_.jochen],
+                o[_.jochenHello],
+                o[_.btmWords],
+                o[_.nextMiddle],
+            ], _fadeIn, 500, 500)
 
         },
         onend: function (self) {
-            self.remove(_.topWords);
-
             let o = self.objects;
-            _hide(o[_.jochenHello]);
-            _hide(o[_.btmWords]);
-            _hide(o[_.nextMiddle]);
+            actionOnAllObjects([
+                o[_.topWords],
+                o[_.btmWords],
+                o[_.nextMiddle],
+                o[_.jochenHello],
+
+            ], _hide)
         }
     }, {
         // Slide 2
         onstart: function (self) {
             let o = self.objects;
-            o[_.slideCounter].setText("1-2")
 
+            o[_.slideCounter].setText("1-2")
             o[_.btmWords].setTextID("01_text2");
-            _fadeIn(o[_.btmWords], 100);
-            _fadeIn(o[_.nextMiddle], 300);
+
+            actionOnAllObjects([
+                o[_.btmWords],
+                o[_.nextMiddle],
+            ], _fadeIn, 500, 500)
         },
 
         onend: function (self) {
             let o = self.objects;
-            _hide(o[_.btmWords])
-            _hide(o[_.nextMiddle]);
+            actionOnAllObjects([
+                o[_.btmWords],
+                o[_.nextMiddle],
+            ], _hide)
         }
     },
     {
         //Slide 3
         onstart: function (self) {
             let o = self.objects;
+
             o[_.slideCounter].setText("1-3")
+            o[_.btmLeftWords].setTextID("01_text3")
 
-            //Jochen an den Rand bewegen
-            o[_.jochen].dom.style.left = 0;
-            o[_.jochen].dom.src = "assets/Jochen/Jochen_laecheln.jpg";
-            o[_.jochenHello].dom.style.left = 210;
+            _moveX(o[_.jochen], -380)
+            o[_.jochen].changeImage(JochenFaces.laecheln)
 
-            _.btmLeftWords = "btmLeftWords";
-            self.add({
-                id: _.btmLeftWords, type: "TextBox", text_id: "01_text3",
-                x: 10, y: 450,
-                width: 700, height: 100, align: "center"
-            })
+            actionOnAllObjects([
+                o[_.btmLeftWords],
+                o[_.nextRight],
+            ], _fadeIn, 500, 500)
 
-            _.nextRight = "nextRight";
-            self.add({
-                id: _.nextRight, type: "Button",
-                x: 730, y: 463, //normal size
-                //size: "long", x:304, y:466,
-                text_id: "01_button_next", uppercase: false,
-                onclick: () => publish("slideshow/next")
-            });
+            actionOnAllObjects([
+                o[_.b10], o[_.b11], o[_.b12], o[_.b13],
+                o[_.b14], o[_.b15], o[_.b16], o[_.b17],
+            ], _fadeIn, 1000, 100)
 
-            _.scale0 = 1
-            _.scale1 = 0.9
-            _.scale2 = 0.8
-            _.birnen_shrinkfactor = .15
-            _.birnen_width = 303 * _.birnen_shrinkfactor
-            _.birnen_height = 514 * _.birnen_shrinkfactor
-            _.appart = 20
-            _.start_x = 220
-            _.start_y = 50
-            _.get_x = (pos) => _.start_x + pos * (_.birnen_width + _.appart)
-            _.get_y = (pos) => _.start_y + pos * (_.birnen_height + _.appart)
-
-            _.b11 = "b11"
-            self.add({
-                id: _.b11, type: "ImageBox",
-                src: "assets/birnen/b1.jpg",
-                x: _.get_x(0), y: _.get_y(1),
-                width: _.birnen_width * _.scale1, height: _.birnen_height * _.scale1,
-            });
-
-            _.b12 = "b12"
-            self.add({
-                id: _.b12, type: "ImageBox",
-                src: "assets/birnen/b2.jpg",
-                x: _.get_x(1), y: _.get_y(1),
-                width: _.birnen_width * _.scale1, height: _.birnen_height * _.scale1,
-            });
-
-            _.b13 = "b13"
-            self.add({
-                id: _.b13, type: "ImageBox",
-                src: "assets/birnen/b3.jpg",
-                x: _.get_x(2), y: _.get_y(1),
-                width: _.birnen_width * _.scale1, height: _.birnen_height * _.scale1,
-            });
-
-            _.b14 = "b14"
-            self.add({
-                id: _.b14, type: "ImageBox",
-                src: "assets/birnen/b4.jpg",
-                x: _.get_x(3), y: _.get_y(1),
-                width: _.birnen_width * _.scale1, height: _.birnen_height * _.scale1,
-            });
-
-            _.b15 = "b15"
-            self.add({
-                id: _.b15, type: "ImageBox",
-                src: "assets/birnen/b5.jpg",
-                x: _.get_x(4), y: _.get_y(1),
-                width: _.birnen_width * _.scale1, height: _.birnen_height * _.scale1,
-            });
-
-            _.b16 = "b16"
-            self.add({
-                id: _.b16, type: "ImageBox",
-                src: "assets/birnen/b6.jpg",
-                x: _.get_x(5), y: _.get_y(1),
-                width: _.birnen_width * _.scale1, height: _.birnen_height * _.scale1,
-            });
-
-            _.b17 = "b17"
-            self.add({
-                id: _.b17, type: "ImageBox",
-                src: "assets/birnen/b7.jpg",
-                x: _.get_x(6), y: _.get_y(1),
-                width: _.birnen_width * _.scale1, height: _.birnen_height * _.scale1,
-            });
-
-            _.b18 = "b18"
-            self.add({
-                id: _.b18, type: "ImageBox",
-                src: "assets/birnen/b8.jpg",
-                x: _.get_x(7), y: _.get_y(1),
-                width: _.birnen_width * _.scale1, height: _.birnen_height * _.scale1,
-            });
-
-
-            _hide(o[_.b11]);
-            _fadeIn(o[_.b11], 200);
-            _hide(o[_.b12]);
-            _fadeIn(o[_.b12], 300);
-            _hide(o[_.b13]);
-            _fadeIn(o[_.b13], 400);
-            _hide(o[_.b14]);
-            _fadeIn(o[_.b14], 500);
-            _hide(o[_.b15]);
-            _fadeIn(o[_.b15], 600);
-            _hide(o[_.b16]);
-            _fadeIn(o[_.b16], 700);
-            _hide(o[_.b17]);
-            _fadeIn(o[_.b17], 800);
-            _hide(o[_.b18]);
-            _fadeIn(o[_.b18], 900);
-            _hide(o[_.btmLeftWords]);
-            _fadeIn(o[_.btmLeftWords], 100);
-            _hide(o[_.nextRight]);
-            _fadeIn(o[_.nextRight], 100);
         },
         onend: function (self) {
             let o = self.objects;
-            _hide(o[_.btmLeftWords]);
-            _hide(o[_.nextRight]);
+            actionOnAllObjects([
+                o[_.btmLeftWords],
+                o[_.nextRight],
+            ], _hide)
 
         }
     },
@@ -235,331 +209,131 @@ SLIDES.push(
             o[_.slideCounter].setText("1-4")
             o[_.btmLeftWords].setTextID("01_text4");
 
-            _.b01 = "b01"
-            self.add({
-                id: _.b01, type: "ImageBox",
-                src: "assets/birnen/b1.jpg",
-                x: _.get_x(0), y: _.get_y(0),
-                width: _.birnen_width * _.scale0, height: _.birnen_height * _.scale0,
-            });
+            actionOnAllObjects([
+                o[_.b00], o[_.b01], o[_.b02], o[_.b03],
+                o[_.b04], o[_.b05], o[_.b06], o[_.b07],
+                o[_.b20], o[_.b21], o[_.b22], o[_.b23],
+                o[_.b24], o[_.b25], o[_.b26], o[_.b27],
+            ], _fadeIn, 1000, 100)
 
-            _.b02 = "b02"
-            self.add({
-                id: _.b02, type: "ImageBox",
-                src: "assets/birnen/b2.jpg",
-                x: _.get_x(1), y: _.get_y(0),
-                width: _.birnen_width * _.scale0, height: _.birnen_height * _.scale0,
-            });
-
-            _.b03 = "b03"
-            self.add({
-                id: _.b03, type: "ImageBox",
-                src: "assets/birnen/b3.jpg",
-                x: _.get_x(2), y: _.get_y(0),
-                width: _.birnen_width * _.scale0, height: _.birnen_height * _.scale0,
-            });
-
-            _.b04 = "b04"
-            self.add({
-                id: _.b04, type: "ImageBox",
-                src: "assets/birnen/b4.jpg",
-                x: _.get_x(3), y: _.get_y(0),
-                width: _.birnen_width * _.scale0, height: _.birnen_height * _.scale0,
-            });
-
-            _.b05 = "b05"
-            self.add({
-                id: _.b05, type: "ImageBox",
-                src: "assets/birnen/b5.jpg",
-                x: _.get_x(4), y: _.get_y(0),
-                width: _.birnen_width * _.scale0, height: _.birnen_height * _.scale0,
-            });
-
-            _.b06 = "b06"
-            self.add({
-                id: _.b06, type: "ImageBox",
-                src: "assets/birnen/b6.jpg",
-                x: _.get_x(5), y: _.get_y(0),
-                width: _.birnen_width * _.scale0, height: _.birnen_height * _.scale0,
-            });
-
-            _.b07 = "b07"
-            self.add({
-                id: _.b07, type: "ImageBox",
-                src: "assets/birnen/b7.jpg",
-                x: _.get_x(6), y: _.get_y(0),
-                width: _.birnen_width * _.scale0, height: _.birnen_height * _.scale0,
-            });
-
-            _.b08 = "b08"
-            self.add({
-                id: _.b08, type: "ImageBox",
-                src: "assets/birnen/b8.jpg",
-                x: _.get_x(7), y: _.get_y(0),
-                width: _.birnen_width * _.scale0, height: _.birnen_height * _.scale0,
-            });
-
-            _.b21 = "b21"
-            self.add({
-                id: _.b21, type: "ImageBox",
-                src: "assets/birnen/b1.jpg",
-                x: _.get_x(0), y: _.get_y(2),
-                width: _.birnen_width * _.scale2, height: _.birnen_height * _.scale2,
-            });
-
-            _.b22 = "b22"
-            self.add({
-                id: _.b22, type: "ImageBox",
-                src: "assets/birnen/b2.jpg",
-                x: _.get_x(1), y: _.get_y(2),
-                width: _.birnen_width * _.scale2, height: _.birnen_height * _.scale2,
-            });
-
-            _.b23 = "b23"
-            self.add({
-                id: _.b23, type: "ImageBox",
-                src: "assets/birnen/b3.jpg",
-                x: _.get_x(2), y: _.get_y(2),
-                width: _.birnen_width * _.scale2, height: _.birnen_height * _.scale2,
-            });
-
-            _.b24 = "b24"
-            self.add({
-                id: _.b24, type: "ImageBox",
-                src: "assets/birnen/b4.jpg",
-                x: _.get_x(3), y: _.get_y(2),
-                width: _.birnen_width * _.scale2, height: _.birnen_height * _.scale2,
-            });
-
-            _.b25 = "b25"
-            self.add({
-                id: _.b25, type: "ImageBox",
-                src: "assets/birnen/b5.jpg",
-                x: _.get_x(4), y: _.get_y(2),
-                width: _.birnen_width * _.scale2, height: _.birnen_height * _.scale2,
-            });
-
-            _.b26 = "b26"
-            self.add({
-                id: _.b26, type: "ImageBox",
-                src: "assets/birnen/b6.jpg",
-                x: _.get_x(5), y: _.get_y(2),
-                width: _.birnen_width * _.scale2, height: _.birnen_height * _.scale2,
-            });
-
-            _.b27 = "b27"
-            self.add({
-                id: _.b27, type: "ImageBox",
-                src: "assets/birnen/b7.jpg",
-                x: _.get_x(6), y: _.get_y(2),
-                width: _.birnen_width * _.scale2, height: _.birnen_height * _.scale2,
-            });
-
-            _.b28 = "b28"
-            self.add({
-                id: _.b28, type: "ImageBox",
-                src: "assets/birnen/b8.jpg",
-                x: _.get_x(7), y: _.get_y(2),
-                width: _.birnen_width * _.scale2, height: _.birnen_height * _.scale2,
-            });
-
-
-            _hide(o[_.b01]);
-            _fadeIn(o[_.b01], 200);
-            _hide(o[_.b02]);
-            _fadeIn(o[_.b02], 300);
-            _hide(o[_.b03]);
-            _fadeIn(o[_.b03], 400);
-            _hide(o[_.b04]);
-            _fadeIn(o[_.b04], 500);
-            _hide(o[_.b05]);
-            _fadeIn(o[_.b05], 600);
-            _hide(o[_.b06]);
-            _fadeIn(o[_.b06], 700);
-            _hide(o[_.b07]);
-            _fadeIn(o[_.b07], 800);
-            _hide(o[_.b08]);
-            _fadeIn(o[_.b08], 900);
-            _hide(o[_.b21]);
-            _fadeIn(o[_.b21], 200);
-            _hide(o[_.b22]);
-            _fadeIn(o[_.b22], 300);
-            _hide(o[_.b23]);
-            _fadeIn(o[_.b23], 400);
-            _hide(o[_.b24]);
-            _fadeIn(o[_.b24], 500);
-            _hide(o[_.b25]);
-            _fadeIn(o[_.b25], 600);
-            _hide(o[_.b26]);
-            _fadeIn(o[_.b26], 700);
-            _hide(o[_.b27]);
-            _fadeIn(o[_.b27], 800);
-            _hide(o[_.b28]);
-            _fadeIn(o[_.b28], 900);
-
-            _hide(o[_.btmLeftWords]);
-            _fadeIn(o[_.btmLeftWords], 100);
-            _fadeIn(o[_.nextRight], 100);
+            actionOnAllObjects([
+                o[_.btmLeftWords],
+                o[_.nextRight],
+            ], _fadeIn, 500, 500)
 
         },
         onend: function (self) {
             let o = self.objects;
-            _hide(o[_.btmLeftWords]);
-            _hide(o[_.nextRight]);
-
+            actionOnAllObjects([
+                o[_.btmLeftWords],
+                o[_.nextRight],
+            ], _hide)
+            _.all_birnen.forEach(obj => _fadeOut(obj, 0, 0.2))
         }
     },
     {
         //Slide 5
         onstart: function (self) {
             let o = self.objects;
-            o[_.slideCounter].setText("1-5")
-
-            _.item_x = 750;
-            _.item_y = 100;
-            _.item_scale = 0.3
-            _.item_width = 570 * _.item_scale
-            _.item_height = 554 * _.item_scale
-            _.item = "item";
-            self.add({
-                id: _.item, type: "ImageBox",
-                src: "assets/birnen/Birnenmarmelade.jpg",
-                x: _.item_x, y: _.item_y,
-                width: _.item_width, height: _.item_height,
-            });
-
+            o[_.slideCounter].setText("1-5");
             o[_.btmLeftWords].setTextID("01_text5");
 
-            _.all_birnen = [
-                o[_.b01], o[_.b02], o[_.b03], o[_.b04], o[_.b05], o[_.b06], o[_.b07], o[_.b08],
-                o[_.b11], o[_.b12], o[_.b13], o[_.b14], o[_.b15], o[_.b16], o[_.b17], o[_.b18],
-                o[_.b21], o[_.b22], o[_.b23], o[_.b24], o[_.b25], o[_.b26], o[_.b27], o[_.b28],
+            _.birnenForItem0 = [
+                o[_.b00], o[_.b01], o[_.b02], o[_.b03], o[_.b04], o[_.b05], //o[_.b06],o[_.b07]
+                o[_.b10], o[_.b11], o[_.b12], o[_.b13], o[_.b14], //o[_.b15],o[_.b16],o[_.b17]
+                o[_.b20], o[_.b21], o[_.b22], o[_.b23], //o[_.b24],o[_.b25],o[_.b26],o[_.b27]
             ];
+            actionOnAllObjects(_.birnenForItem0, _fadeIn, 500)
 
-            _.not_item1 = [
-                o[_.b01], o[_.b02], o[_.b03], o[_.b04], o[_.b05], o[_.b06],/*o[_.b07],o[_.b08],*/
-                o[_.b11], o[_.b12], o[_.b13], o[_.b14], o[_.b15],/*o[_.b16],o[_.b17],o[_.b18],*/
-                o[_.b21], o[_.b22], o[_.b23], o[_.b24],/*o[_.b25],o[_.b26],o[_.b27],o[_.b28],*/
-            ];
-            _.not_item1.forEach(b => _fadeOut(b, 200, 0.2))
+            actionOnAllObjects([
+                o[_.itemRight],
+                o[_.btmLeftWords],
+                o[_.nextRight],
+            ], _fadeIn, 500, 500)
 
-            _hide(o[_.item]);
-            _fadeIn(o[_.item], 200);
-            _fadeIn(o[_.btmLeftWords], 100);
-            _fadeIn(o[_.nextRight], 100);
 
         },
         onend: function (self) {
             let o = self.objects;
-            _hide(o[_.btmLeftWords]);
-            _hide(o[_.nextRight]);
-            self.remove(_.item);
+            actionOnAllObjects([
+                o[_.btmLeftWords],
+                o[_.nextRight],
+                o[_.itemRight]
+            ], _hide)
+            _.all_birnen.forEach(obj => _fadeOut(obj, 0, 0.2))
+
         }
     },
     {
-        //Slide 6
         onstart: function (self) {
             let o = self.objects;
             o[_.slideCounter].setText("1-6")
-
-            _.item = "item";
-            self.add({
-                id: _.item, type: "ImageBox",
-                src: "assets/birnen/Birnenkuchen.jpg",
-                x: _.item_x, y: _.item_y,
-                width: _.item_width, height: _.item_height,
-            });
-
             o[_.btmLeftWords].setTextID("01_text6");
+            o[_.itemRight].changeImage("assets/birnen/Birnenkuchen.jpg");
 
-            _.all_birnen.forEach(b => _fadeOut(b, 200, 0.2))
-            _.yes_item2 = [
-                o[_.b01], o[_.b02], o[_.b03], o[_.b04], o[_.b05], o[_.b06], o[_.b07], o[_.b08],
-                //o[_.b11],o[_.b12],o[_.b13],o[_.b14],o[_.b15],o[_.b16],o[_.b17],o[_.b18],
-                o[_.b21], o[_.b22], o[_.b23], o[_.b24], o[_.b25], o[_.b26], o[_.b27], o[_.b28],
+            _.birnenForItem1 = [
+                o[_.b00], o[_.b01], o[_.b02], o[_.b03], o[_.b04], o[_.b05], o[_.b06], o[_.b07],
+                //o[_.b10],o[_.b11],o[_.b12],o[_.b13],o[_.b14],o[_.b15],o[_.b16],o[_.b17],
+                o[_.b20], o[_.b21], o[_.b22], o[_.b23], o[_.b24], o[_.b25], o[_.b26], o[_.b27],
             ];
-            _.yes_item2.forEach(b => _fadeIn(b, 400))
+            actionOnAllObjects(_.birnenForItem1, _fadeIn, 500)
 
-            _hide(o[_.item]);
-            _fadeIn(o[_.item], 400);
-            _fadeIn(o[_.btmLeftWords], 100);
-            _fadeIn(o[_.nextRight], 100);
+            actionOnAllObjects([
+                o[_.itemRight],
+                o[_.btmLeftWords],
+                o[_.nextRight],
+            ], _fadeIn, 500, 500)
+
 
         },
         onend: function (self) {
             let o = self.objects;
-            _hide(o[_.btmLeftWords]);
-            _hide(o[_.nextRight]);
-            self.remove(_.item);
+            actionOnAllObjects([
+                o[_.btmLeftWords],
+                o[_.nextRight],
+                o[_.itemRight]
+            ], _hide)
+            _.all_birnen.forEach(obj => _fadeOut(obj, 0, 0.2))
+
         }
     },
     {
-        //Slide 7
         onstart: function (self) {
             let o = self.objects;
             o[_.slideCounter].setText("1-7")
-
-            _.item = "item";
-            self.add({
-                id: _.item, type: "ImageBox",
-                src: "assets/birnen/Birnensaft.jpg",
-                x: _.item_x, y: _.item_y,
-                width: _.item_width, height: _.item_height,
-            });
-
             o[_.btmLeftWords].setTextID("01_text7");
+            o[_.itemRight].changeImage(Loader.manifest.birnenbier);
 
             _.all_birnen.forEach(b => _fadeOut(b, 200, 0.2))
-            _.yes_item2 = [
-                o[_.b01], o[_.b02], //o[_.b03], o[_.b04], o[_.b05], o[_.b06], o[_.b07], o[_.b08],
-                o[_.b11], o[_.b12], o[_.b13], o[_.b14], o[_.b15], o[_.b16],//o[_.b17],o[_.b18],
-                o[_.b21], o[_.b22], o[_.b23], o[_.b24], //o[_.b25], o[_.b26], o[_.b27], o[_.b28],
+            _.birnenForItem2 = [
+                o[_.b00], o[_.b01], //o[_.b02], o[_.b03], o[_.b04], o[_.b05], o[_.b06], o[_.b07]
+                o[_.b10], o[_.b11], o[_.b12], o[_.b13], o[_.b14], o[_.b15],// o[_.b16],o[_.b17],
+                o[_.b20], o[_.b21], o[_.b22], o[_.b23], //o[_.b24], o[_.b25], o[_.b26], o[_.b27]
             ];
-            _.yes_item2.forEach(b => _fadeIn(b, 400))
+            actionOnAllObjects(_.birnenForItem2, _fadeIn, 500)
 
-            _hide(o[_.item]);
-            _fadeIn(o[_.item], 400);
-            _fadeIn(o[_.btmLeftWords], 100);
-            _fadeIn(o[_.nextRight], 100);
-
+            actionOnAllObjects([
+                o[_.itemRight],
+                o[_.btmLeftWords],
+                o[_.nextRight],
+            ], _fadeIn, 500, 500)
         },
         onend: function (self) {
-            self.remove(_.item);
             let o = self.objects;
-            _hide(o[_.btmLeftWords]);
-            _hide(o[_.nextRight]);
+            actionOnAllObjects([
+                o[_.btmLeftWords],
+                o[_.nextRight],
+                o[_.itemRight]
+            ], _hide);
 
-            self.remove(_.b01);
-            self.remove(_.b02);
-            self.remove(_.b03);
-            self.remove(_.b04);
-            self.remove(_.b05);
-            self.remove(_.b06);
-            self.remove(_.b07);
-            self.remove(_.b08);
-            self.remove(_.b21);
-            self.remove(_.b22);
-            self.remove(_.b23);
-            self.remove(_.b24);
-            self.remove(_.b25);
-            self.remove(_.b26);
-            self.remove(_.b27);
-            self.remove(_.b28);
-            self.remove(_.b11);
-            self.remove(_.b12);
-            self.remove(_.b13);
-            self.remove(_.b14);
-            self.remove(_.b15);
-            self.remove(_.b16);
-            self.remove(_.b17);
-            self.remove(_.b18);
+            actionOnAllObjects(_.all_birnen, _hide);
+
         }
     },
     {
-        //Slide 8
         onstart: function (self) {
             let o = self.objects;
-            o[_.slideCounter].setText("1-8")
+            o[_.slideCounter].setText("1-8");
 
             o[_.nextRight].changeOnClick(() => {
                 publish("startStep0");

@@ -27,7 +27,7 @@ const JochenFaces = {
 	aua: "assets/Jochen/Jochen_aua.jpg",
 	erstaunt: "assets/Jochen/Jochen_erstaunt.jpg",
 	kamera: "assets/Jochen/Jochen_kamera.jpg",
-	laecheln: "assets/Jochen/Jochen_lacheln.jpg",
+	laecheln: "assets/Jochen/Jochen_laecheln.jpg",
 	stars: "assets/Jochen/Jochen_stars.jpg",
 	verduzt: "assets/Jochen/Jochen_verduzt.jpg",
 	wuetend: "assets/Jochen/Jochen_wuetend.jpg",
