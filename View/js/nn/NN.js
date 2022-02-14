@@ -87,7 +87,7 @@ function Node(id) {
     }
 
     this.getResultCalcStringWithBrWithoutFinalResult = function () {
-        return this.inputLinks.reduce((sum, link) => sum + link.getCalcString() + "<br>+ ", "") + this.bias;
+        return this.inputLinks.reduce((sum, link) => sum + link.getCalcString() + "<br>+ ", "").slice(0,-2);
     }
 
     this.getOutputCalcString = function () {
@@ -146,7 +146,7 @@ function Link(source, destination) {
     }
 
     this.getCalcString = function () {
-        return bracketsIfNeg(this.source.output) + "*" + bracketsIfNeg(this.weight);
+        return "<span class=\"inputText\">" + bracketsIfNeg(this.source.output) + "</span>&#183<span class=\"gewichteText\">" + bracketsIfNeg(this.weight) + "</span>";
     }
 }
 

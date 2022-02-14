@@ -819,3 +819,23 @@ s {
     transform: scale(1.1, 1.1);
 }
 
+.gewichteText {
+    color: crimson;
+}
+
+.biasText {
+    color: #f6b24c;
+}
+
+.perceptronText {
+    color: #86C448;
+}
+
+.potenzialText {
+    color: darkorchid;
+}
+
+.inputText {
+    color: #4089DD;
+}
+

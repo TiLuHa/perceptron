@@ -193,7 +193,7 @@ function addBirnenGrid(self,
             _.all_results.push(o[_[resultString]])
             all.push(o[_[resultString]])
 
-            listen(self, "newOutput", function (network) {
+            listen(_, "newOutput", function (network) {
                 let x = inputColMin + j * inputColStep;
                 let y = inputRowMin + i * inputRowStep;
 

@@ -112,7 +112,7 @@ const setUpAll = function (self) {
     return all;
 };
 
-function addScalas(self) {
+function addScalas(self, shiftx = 0, shifty = 0) {
     let o = self.objects;
     _.topScala = []
     _.bottomScala = []
@@ -121,7 +121,7 @@ function addScalas(self) {
     self.add({
         id: _.scalaTop, type: "ImageBox",
         src: Loader.manifest.scalaFarbe,
-        x: 380, y: 100,
+        x: 380 + shiftx, y: 100 + shifty,
     });
     _.topScala.push(o[_.scalaTop])
 
@@ -129,7 +129,7 @@ function addScalas(self) {
     self.add({
         id: _.scalaButtom, type: "ImageBox",
         src: Loader.manifest.scalaSize,
-        x: 380, y: 270,
+        x: 380 + shiftx, y: 270 + shifty,
     });
     _.bottomScala.push(o[_.scalaButtom])
 
@@ -137,7 +137,7 @@ function addScalas(self) {
     self.add({
         id: _.birneTopLeft, type: "ImageBox",
         src: Loader.manifest.b1,
-        x: 330, y: 90,
+        x: 330 + shiftx, y: 90 + shifty,
         width: 570 * 0.075, height: 554 * 0.075,
     });
     _.topScala.push(o[_.birneTopLeft])
@@ -146,7 +146,7 @@ function addScalas(self) {
     self.add({
         id: _.birneTopRight, type: "ImageBox",
         src: Loader.manifest.b8,
-        x: 605, y: 90,
+        x: 605 + shiftx, y: 90 + shifty,
         width: 570 * 0.075, height: 554 * 0.075,
     });
     _.topScala.push(o[_.birneTopRight])
@@ -155,7 +155,7 @@ function addScalas(self) {
     self.add({
         id: _.birneButtomLeft, type: "ImageBox",
         src: Loader.manifest.b1,
-        x: 340, y: 275,
+        x: 340 + shiftx, y: 275 + shifty,
         width: 570 * 0.05, height: 554 * 0.05,
     });
     _.bottomScala.push(o[_.birneButtomLeft])
@@ -164,7 +164,7 @@ function addScalas(self) {
     self.add({
         id: _.birneButtomRight, type: "ImageBox",
         src: Loader.manifest.b1,
-        x: 605, y: 235,
+        x: 605 + shiftx, y: 235 + shifty,
         width: 570 * 0.1, height: 554 * 0.1,
     });
     _.bottomScala.push(o[_.birneButtomRight])
@@ -172,7 +172,7 @@ function addScalas(self) {
     _.textScale00 = "textScale00";
     self.add({
         id: _.textScale00, type: "TextBox",
-        x: 362, y: 146, width: 50, height: 50,
+        x: 362 + shiftx, y: 146 + shifty, width: 50, height: 50,
         align: "center", color: "#484848", size: 17,
         text: "-5"
     });
@@ -181,7 +181,7 @@ function addScalas(self) {
     _.textScale01 = "textScale01";
     self.add({
         id: _.textScale01, type: "TextBox",
-        x: 464, y: 146, width: 50, height: 50,
+        x: 464 + shiftx, y: 146 + shifty, width: 50, height: 50,
         align: "center", color: "#484848", size: 17,
         text: "0"
     });
@@ -190,7 +190,7 @@ function addScalas(self) {
     _.textScale02 = "textScale02";
     self.add({
         id: _.textScale02, type: "TextBox",
-        x: 568, y: 146, width: 50, height: 50,
+        x: 568 + shiftx, y: 146 + shifty, width: 50, height: 50,
         align: "center", color: "#484848", size: 17,
         text: "5"
     });
@@ -199,7 +199,7 @@ function addScalas(self) {
     _.textScale10 = "textScale10";
     self.add({
         id: _.textScale10, type: "TextBox",
-        x: 362, y: 316, width: 50, height: 50,
+        x: 362 + shiftx, y: 316 + shifty, width: 50, height: 50,
         align: "center", color: "#484848", size: 17,
         text: "-5"
     });
@@ -208,7 +208,7 @@ function addScalas(self) {
     _.textScale11 = "textScale11";
     self.add({
         id: _.textScale11, type: "TextBox",
-        x: 464, y: 316, width: 50, height: 50,
+        x: 464 + shiftx, y: 316 + shifty, width: 50, height: 50,
         align: "center", color: "#484848", size: 17,
         text: "0"
     });
@@ -217,7 +217,7 @@ function addScalas(self) {
     _.textScale12 = "textScale12";
     self.add({
         id: _.textScale12, type: "TextBox",
-        x: 568, y: 316, width: 50, height: 50,
+        x: 568 + shiftx, y: 316 + shifty, width: 50, height: 50,
         align: "center", color: "#484848", size: 17,
         text: "5"
     });
@@ -226,7 +226,7 @@ function addScalas(self) {
     return [].concat(_.topScala, _.bottomScala);
 }
 
-function addInputs(self, shiftx = 0, shifty = 0) {
+function addInputs(self, shiftx = 0, shifty = 0, input1Value = 0, input2Value = 0) {
     let o = self.objects;
     let all = []
 
@@ -252,7 +252,8 @@ function addInputs(self, shiftx = 0, shifty = 0) {
         id: _.input1Text, type: "TextBox",
         x: anchorInput1X + xPlusInputText,
         y: anchorInput1Y + yPlusInputText,
-        text: "7"
+        text: "" + input1Value,
+        class: "inputText"
     });
     all.push(o[_.input1Text])
 
@@ -286,7 +287,8 @@ function addInputs(self, shiftx = 0, shifty = 0) {
         id: _.input2Text, type: "TextBox",
         x: anchorInput2X + xPlusInputText,
         y: anchorInput2Y + yPlusInputText,
-        text: "3"
+        text: "" + input2Value,
+        class: "inputText"
     });
     all.push(o[_.input2Text])
 
@@ -318,10 +320,10 @@ function addSinglePerceptron(self, shiftx = 0, shifty = 0) {
         activationFunOutput: Activations.SIGMOID,
         activationFunInput: Activations.LINEAR,
         params: {
-            "0": 7, //Input1
+            "0": -5, //Input1
             "1": 3,  //Input2
             "2": (-3), //Bias
-            "0-2": (-7),
+            "0-2": 6,
             "1-2": (-5),
         }
     });
@@ -425,7 +427,8 @@ function addSinglePerceptron(self, shiftx = 0, shifty = 0) {
         id: _.sumText, type: "TextBox",
         x: 456 + shiftx,
         y: 197 + shifty,
-        text: "3"
+        text: "-67",
+        class: "potenzialText"
     });
     all.push(o[_.sumText])
 
@@ -433,8 +436,9 @@ function addSinglePerceptron(self, shiftx = 0, shifty = 0) {
     self.add({
         id: _.sumExplainText, type: "TextBox",
         x: 424 + shiftx,
-        y: 71 + shifty,
+        y: 80 + shifty,
         width: 80, align: "center",
+        size:18,
         text: "(-3)*4<br>+(-2)*8<br>+10"
     });
     all.push(o[_.sumExplainText])
@@ -443,8 +447,9 @@ function addSinglePerceptron(self, shiftx = 0, shifty = 0) {
     self.add({
         id: _.resultExplainText, type: "TextBox",
         x: 506 + shiftx,
-        y: 71 + shifty,
+        y: 80 + shifty,
         width: 80, align: "center",
+        size:18,
         text: "14 > 0 ?"
     });
     all.push(o[_.resultExplainText])
@@ -455,9 +460,67 @@ function addSinglePerceptron(self, shiftx = 0, shifty = 0) {
         x: 496 + shiftx,
         y: 71 + shifty,
         width: 100, align: "center",
-        text: "Gür Marmelade geeignet:"
+        text_id: "02_geeigentText"
     });
     all.push(o[_.geeignetText])
+
+    let textcolor = "#3c7dea"
+    _.biasLabel = "biasLabel";
+    self.add({
+        id: _.biasLabel, type: "TextBox",
+        x: 413 + shiftx, y: 317 + shifty, width: 120, height: 50,
+        align: "center", color: textcolor, size: 17,
+        text_id: "02_biaslabel"
+    });
+    all.push(o[_.biasLabel])
+
+    _.perceptronLabel = "perceptronLabel";
+    self.add({
+        id: _.perceptronLabel, type: "TextBox",
+        x: 600 + shiftx, y: 200 + shifty, width: 100, height: 50,
+        align: "center", color: textcolor, size: 17,
+        text_id: "02_perceptronlabel"
+    });
+    all.push(o[_.perceptronLabel])
+
+    _.potenzialLabel = "potenzialLabel";
+    self.add({
+        id: _.potenzialLabel, type: "TextBox",
+        x: 427 + shiftx, y: 39 + shifty, width: 80, height: 50,
+        align: "center", color: textcolor, size: 17,
+        text_id: "02_potenziallabel"
+    });
+    all.push(o[_.potenzialLabel])
+
+    _.gewichteLabelTop = "gewichteLabelTop";
+    self.add({
+        id: _.gewichteLabelTop, type: "TextBox",
+        x: 288 + shiftx, y: 96 + shifty, width: 80, height: 50,
+        align: "center", color: textcolor, size: 17,
+        text_id: "02_gewichtelabel",
+        rotation: 25,
+    });
+    all.push(o[_.gewichteLabelTop])
+
+    _.gewichteLabelButtom = "gewichteLabelButtom";
+    self.add({
+        id: _.gewichteLabelButtom, type: "TextBox",
+        x: 252 + shiftx, y: 218 + shifty, width: 80, height: 50,
+        align: "center", color: textcolor, size: 17,
+        text_id: "02_gewichtelabel",
+        rotation: 340,
+    });
+    all.push(o[_.gewichteLabelButtom])
+
+    _.ergebnisLabel = "ergebnisLabel";
+    self.add({
+        id: _.ergebnisLabel, type: "TextBox",
+        x: 506 + shiftx, y: 39 + shifty, width: 80, height: 50,
+        align: "center", color: textcolor, size: 17,
+        text_id: "02_Ergebnislabel"
+    });
+    all.push(o[_.ergebnisLabel])
+
 
     return all;
 
@@ -846,21 +909,21 @@ const addSortingSlide = function (self, shiftx = -100, shifty = 0, findingTime =
 
     _.step1 = function () {
         o[_.jochenHelloLeft].setTextID("01_ehm");
-        o[_.jochen2].changeImage(_.face0);
+        o[_.jochen2].changeImage(face0);
         _fadeIn(o[_.birne1], 0);
         _hide(o[_.birne0])
         _hide(o[_.birne2])
         _hide(o[_.hacken0])
         _hide(o[_.hacken1])
         _hide(o[_.hacken2])
-        _fadeOut(o[_.item0], 0, _.itemOpacity)
-        _fadeOut(o[_.item1], 0, _.itemOpacity)
-        _fadeOut(o[_.item2], 0, _.itemOpacity)
+        _fadeOut(o[_.item0], 0, itemOpacity)
+        _fadeOut(o[_.item1], 0, itemOpacity)
+        _fadeOut(o[_.item2], 0, itemOpacity)
 
 
         setTimeout(function () {
             o[_.jochenHelloLeft].setTextID("01_step1");
-            o[_.jochen2].changeImage(_.face1);
+            o[_.jochen2].changeImage(face1);
             _fadeIn(o[_.hacken1], 0);
             _fadeIn(o[_.hacken2], 0);
             _fadeIn(o[_.item1], 0);
@@ -873,7 +936,6 @@ const addSortingSlide = function (self, shiftx = -100, shifty = 0, findingTime =
     };
 
     _.step2 = function () {
-        console.log("start Step 1");
         o[_.jochenHelloLeft].setTextID("01_ehm");
         o[_.jochen2].changeImage(face0);
         _fadeIn(o[_.birne2], 0);

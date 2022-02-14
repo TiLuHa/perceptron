@@ -6,6 +6,7 @@ function TextBox(config){
 	self.dom = document.createElement("div");
 	self.dom.className = "object";
 	self.dom.classList.add("textbox");
+	if(config.class !== undefined) self.dom.classList.add(config.class);
 	self.dom.id = self.id;
 
 	// Customize
