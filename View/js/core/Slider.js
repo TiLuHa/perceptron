@@ -14,6 +14,7 @@ function Slider(config) {
     // Create DOM
     var dom = document.createElement("div");
     dom.className = "slider";
+    dom.classList.add("object");
     dom.style.left = config.x + "px";
     dom.style.top = config.y + "px";
     dom.style.width = config.width + "px";
