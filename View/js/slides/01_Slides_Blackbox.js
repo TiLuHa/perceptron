@@ -5,7 +5,7 @@ const actionOnAllObjects = function (arrayOfObjects, action, startTime = 0, inte
     }, startTime);
 }
 
-const setUpAll = function (self) {
+const addJochenStage = function (self) {
     let all = []
 
     let o = self.objects;
@@ -1075,7 +1075,7 @@ SLIDES.push(
 
             let o = self.objects;
 
-            let all = setUpAll(self);
+            let all = addJochenStage(self);
             let birnenStuff = addBirnenGrid(self, 220, 50);
             _.sortingSlide = addSortingSlide(self);
             _.fehlvorstellung = addFehlvorstellung(self);
@@ -1200,11 +1200,6 @@ SLIDES.push(
             o[_.slideCounter].setText("1-5");
             o[_.btmLeftWords].setTextID("01_text5");
 
-            _.birnenForItem0 = [
-                /*o[_.b00], o[_.b01], o[_.b02], o[_.b03], o[_.b04], o[_.b05],*/ o[_.b06], o[_.b07],
-                /*o[_.b10], o[_.b11], o[_.b12], o[_.b13], o[_.b14],*/ o[_.b15], o[_.b16], o[_.b17],
-                /*o[_.b20], o[_.b21], o[_.b22], o[_.b23],*/o[_.b24], o[_.b25], o[_.b26], o[_.b27],
-            ];
             actionOnAllObjects(_.birnenForItem0, _fadeIn, 500)
 
             _show(o[_.itemRight], 0)
@@ -1233,11 +1228,6 @@ SLIDES.push(
             o[_.btmLeftWords].setTextID("01_text6");
             o[_.itemRight].changeImage(Loader.manifest.birnenkuchen);
 
-            _.birnenForItem1 = [
-                o[_.b00], o[_.b01], o[_.b02], o[_.b03], o[_.b04], o[_.b05], o[_.b06], o[_.b07],
-                //o[_.b10],o[_.b11],o[_.b12],o[_.b13],o[_.b14],o[_.b15],o[_.b16],o[_.b17],
-                o[_.b20], o[_.b21], o[_.b22], o[_.b23], o[_.b24], o[_.b25], o[_.b26], o[_.b27],
-            ];
             actionOnAllObjects(_.birnenForItem1, _fadeIn, 500)
 
             _show(o[_.itemRight], 0)
@@ -1267,11 +1257,6 @@ SLIDES.push(
             o[_.itemRight].changeImage(Loader.manifest.birnenbier);
 
             _.all_birnen.forEach(b => _fadeOut(b, 200, 0.2))
-            _.birnenForItem2 = [
-                o[_.b00], o[_.b01], //o[_.b02], o[_.b03], o[_.b04], o[_.b05], o[_.b06], o[_.b07],
-                o[_.b10], o[_.b11], o[_.b12], o[_.b13], o[_.b14], o[_.b15],// o[_.b16],o[_.b17],
-                o[_.b20], o[_.b21], o[_.b22], o[_.b23], //o[_.b24], o[_.b25], o[_.b26], o[_.b27],
-            ];
             actionOnAllObjects(_.birnenForItem2, _fadeIn, 500)
 
             _show(o[_.itemRight], 0)

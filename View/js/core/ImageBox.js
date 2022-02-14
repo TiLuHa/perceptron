@@ -9,6 +9,7 @@ function ImageBox(config){
 	self.dom.className = "object";
 	self.dom.src = config.src;
 	self.dom.id = self.id;
+	if(config.class !== undefined) self.dom.classList.add(config.class);
 
 	if(config.onclick) self.dom.onclick = config.onclick;
 	// Customize

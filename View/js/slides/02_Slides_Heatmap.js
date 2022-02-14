@@ -7,7 +7,7 @@ SLIDES.push(
         onstart: function (self) {
             let o = self.objects;
 
-            let all = setUpAll(self);
+            let all = addJochenStage(self);
             //let birnenStuff = addBirnenGrid(self, 220, 50);
 
             _.inputStuff = addInputs(self, 180, 0, -5, 3)

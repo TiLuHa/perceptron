@@ -22,7 +22,7 @@ function Heatmap(config) {
             pixel.className = "object";
             pixel.classList.add("heatmap_pixel");
             pixel.setAttribute("output", false);
-            listen(self, "newOutput", function (network) {
+            listen(_, "newOutput", function (network) {
                 let nnoutput = network.getOutputFast([x,y])[0];
                 pixel.setAttribute("output", nnoutput > 0.5);
                 pixel.setAttribute("outputvalue", nnoutput);
