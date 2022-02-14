@@ -181,9 +181,9 @@ function addBirnenGrid(self,
                            Loader.manifest.b8,
                        ],
                        inputColMin = -5,
-                       inputColStep = 10 / 3,
+                       inputColStep = 10 / 2,
                        inputRowMin = -5,
-                       inputRowStep = 10 / 8,
+                       inputRowStep = 10 / 7,
                        heatmapGitterX = 1,//10,
                        heatmapGitterY = 1//16,
 ) {
@@ -210,8 +210,8 @@ function addBirnenGrid(self,
     _.heatmap = "heatmap"
     self.add({
         id: _.heatmap, type: "Heatmap",
-        x: _.start_x - (_.birnen_width + _.appart) / 5,
-        y: _.start_y - (_.birnen_height + _.appart) / 5,
+        x: _.start_x - (_.birnen_width + _.appart) / heatmapGitterX,
+        y: _.start_y - (_.birnen_height + _.appart) / heatmapGitterY,
 
         xfirst: inputColMin,//- inputColStep,
         xstepsize: inputColStep / heatmapGitterX,
@@ -445,6 +445,16 @@ function addNetwork21small(self, shiftx = 0, shifty = 0) {
         y: 171 + shifty,
     })
     all.push(o[_.perceptronRechts]);
+
+    _.itemPicture = "itemPicture"
+    self.add({
+        id: _.itemPicture, type: "ImageBox",
+        src: Loader.manifest.birnenmarmelade,
+        x: 122 + shiftx,
+        y: 0 + shifty,
+        width: 150
+    })
+    all.push(o[_.itemPicture]);
 
 
     publish("update/0-2", [_.network.links[0].weight]);
