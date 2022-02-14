@@ -58,6 +58,7 @@ Loader.addToManifest(Loader.manifest,{
 	scala: "assets/birnen/scala.png",
 	scalaFarbe: "assets/birnen/scalaFarbe.png",
 	scalaSize: "assets/birnen/scalaSize2.png",
+	pencils: "assets/birnen/pencils.png",
 
 
 	// CSS ASSETS

@@ -158,10 +158,6 @@ SLIDES.push(
                 o[_.btmWords],
                 o[_.nextMiddle],
             ], _hide)
-
-            self.clear()
-            unlisten(_)
-            unlisten(_.network)
         }
     },
 );

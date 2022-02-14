@@ -109,6 +109,15 @@ const addJochenStage = function (self) {
     });
     all.push(o[_.itemRight])
 
+    _.pencils = "pencils";
+    self.add({
+        id: _.pencils, type: "ImageBox",
+        src: Loader.manifest.pencils,
+        x: 388, y: 75,
+        width: 200
+    });
+    all.push(o[_.pencils])
+
     return all;
 };
 
