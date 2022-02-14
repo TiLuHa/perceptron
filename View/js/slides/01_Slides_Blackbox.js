@@ -120,7 +120,7 @@ function addScalas(self) {
     _.scalaTop = "scalaTop";
     self.add({
         id: _.scalaTop, type: "ImageBox",
-        src: Loader.manifest.scala,
+        src: Loader.manifest.scalaFarbe,
         x: 380, y: 100,
     });
     _.topScala.push(o[_.scalaTop])
@@ -128,7 +128,7 @@ function addScalas(self) {
     _.scalaButtom = "scalaButtom";
     self.add({
         id: _.scalaButtom, type: "ImageBox",
-        src: Loader.manifest.scala,
+        src: Loader.manifest.scalaSize,
         x: 380, y: 270,
     });
     _.bottomScala.push(o[_.scalaButtom])
