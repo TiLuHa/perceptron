@@ -2,9 +2,19 @@ SLIDES.push(
     {
         id: "komplex",
         onjump: function (self) {
-
         },
         onstart: function (self) {
+            addInputs(self, 180, 0)
+            addScanner(self, 180, 0)
+            addSinglePerceptron(self, 180, 0)
+        },
+        onend: function (self) {
+
+        }
+    },
+    {
+        onstart: function (self) {
+            let o = self.objects;
             _.allBirnen = addBirnenGrid(self)
             _.allNetwork = addNetwork221small(self)
 

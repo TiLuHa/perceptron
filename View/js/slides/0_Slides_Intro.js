@@ -29,6 +29,7 @@ Loader.addToManifest(Loader.manifest,{
 	birnenbier: "assets/birnen/birnensaft.png",
 	right: "assets/birnen/Right.png",
 	wrong: "assets/birnen/Wrong.png",
+	questionmark: "assets/birnen/Questionmark.png",
 	tablet1: "assets/birnen/tablet1.jpg",
 	tablet2: "assets/birnen/tablet2.jpg",
 	birnenscanner: "assets/birnen/birnenScanner.jpg",

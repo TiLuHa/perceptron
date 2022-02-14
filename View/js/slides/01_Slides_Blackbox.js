@@ -226,6 +226,280 @@ function addScalas(self) {
     return [].concat(_.topScala, _.bottomScala);
 }
 
+function addInputs(self, shiftx = 0, shifty = 0) {
+    let o = self.objects;
+    let all = []
+
+    let anchorInput1X = 160 + shiftx
+    let anchorInput1Y = 70 + shifty;
+
+    let xPlusInputText = 40;
+    let yPlusInputText = 30;
+    let xPlusInputDescription = -47;
+    let yPlusInputDescription = 35;
+
+    _.input1 = "input1"
+    self.add({
+        id: _.input1, type: "ImageBox",
+        src: "assets/birnen/blau/pfeilrechtsblau.png",
+        x: anchorInput1X,
+        y: anchorInput1Y,
+    })
+    all.push(o[_.input1])
+
+    _.input1Text = "input1Text"
+    self.add({
+        id: _.input1Text, type: "TextBox",
+        x: anchorInput1X + xPlusInputText,
+        y: anchorInput1Y + yPlusInputText,
+        text: "7"
+    });
+    all.push(o[_.input1Text])
+
+    _.input1Description = "input1Description";
+    self.add({
+        id: _.input1Description, type: "TextBox",
+        x: anchorInput1X + xPlusInputDescription,
+        y: anchorInput1Y + yPlusInputDescription,
+        width: 130, height: 50,
+        align: "center", color: "blue", size: 17,
+        rotation: 270,
+        text_id: "input1_description"
+    })
+    all.push(o[_.input1Description])
+
+    let anchorInput2X = anchorInput1X + 0;
+    let anchorInput2Y = anchorInput1Y + 170;
+
+    _.input2 = "input2"
+    self.add({
+        id: _.input2, type: "ImageBox",
+        src: "assets/birnen/blau/pfeilrechtsblau.png",
+        x: anchorInput2X,
+        y: anchorInput2Y,
+    })
+    all.push(o[_.input2])
+
+
+    _.input2Text = "input2Text"
+    self.add({
+        id: _.input2Text, type: "TextBox",
+        x: anchorInput2X + xPlusInputText,
+        y: anchorInput2Y + yPlusInputText,
+        text: "3"
+    });
+    all.push(o[_.input2Text])
+
+
+    _.input2Description = "input2Description";
+    self.add({
+        id: _.input2Description, type: "TextBox",
+        x: anchorInput2X + xPlusInputDescription,
+        y: anchorInput2Y + yPlusInputDescription,
+        width: 130, height: 50,
+        align: "center", color: "blue", size: 17,
+        rotation: 270, text_id: "input2_description"
+    })
+    all.push(o[_.input2Description])
+
+    return all
+
+}
+
+function addSinglePerceptron(self, shiftx = 0, shifty = 0) {
+    let o = self.objects;
+    let all = [];
+
+    _.perceptron = "perceptron"
+    self.add({
+        id: _.perceptron, type: "Perceptron",
+        size: [2, 1],
+        activationFun: Activations.RELU,
+        activationFunOutput: Activations.SIGMOID,
+        activationFunInput: Activations.LINEAR,
+        params: {
+            "0": 7, //Input1
+            "1": 3,  //Input2
+            "2": (-3), //Bias
+            "0-2": (-7),
+            "1-2": (-5),
+        }
+    });
+    all.push(o[_.perceptron])
+
+    _.network = o[_.perceptron].network;
+
+
+    _.explainLinks = "explainLinks"
+    self.add({
+        id: _.explainLinks, type: "ImageBox",
+        src: "assets/birnen/schwarz/explainTall.png",
+        x: 420 + shiftx,
+        y: 60 + shifty,
+    })
+    all.push(o[_.explainLinks])
+
+
+    _.explainRechts = "explainRechts"
+    self.add({
+        id: _.explainRechts, type: "ImageBox",
+        src: "assets/birnen/schwarz/explainTall.png",
+        x: 499 + shiftx,
+        y: 60 + shifty,
+    })
+    all.push(o[_.explainRechts])
+
+
+    _.sliderWeight1 = "sliderWeight1"
+    self.add({
+        id: _.sliderWeight1, type: "Slider",
+        x: 258 + shiftx, y: 93 + shifty,
+        width: 200, rotation: 25,
+        min: -10, max: 10, step: 1,
+        message: "update/0-2"
+    });
+    all.push(o[_.sliderWeight1])
+
+
+    _.sliderWeight2 = "sliderWeight2"
+    self.add({
+        id: _.sliderWeight2, type: "Slider",
+        x: 238 + shiftx, y: 260 + shifty,
+        width: 200, rotation: 340,
+        min: -10, max: 10, step: 1,
+        message: "update/1-2"
+    });
+    all.push(o[_.sliderWeight2])
+
+
+    _.biasDot = "biasDot"
+    self.add({
+        id: _.biasDot, type: "ImageBox",
+        src: "assets/birnen/blau/bias.png",
+        x: 413 + shiftx,
+        y: 235 + shifty,
+    })
+    all.push(o[_.biasDot])
+
+    _.sliderBias = "slider_bias";
+    self.add({
+        id: _.sliderBias, type: "Slider",
+        x: 422 + shiftx, y: 264 + shifty,
+        width: 100,
+        min: -10, max: 10, step: 1,
+        message: "update/2"
+    });
+    all.push(o[_.sliderBias])
+
+
+    _.perceptronLinks = "perceptronLinks"
+    self.add({
+        id: _.perceptronLinks, type: "ImageBox",
+        src: "assets/birnen/blau/dingslinks.png",
+        x: 420 + shiftx,
+        y: 178 + shifty,
+    })
+    all.push(o[_.perceptronLinks])
+
+    _.perceptronRechts = "perceptronRechts"
+    self.add({
+        id: _.perceptronRechts, type: "ImageBox",
+        src: "assets/birnen/blau/dingsrechts.png",
+        x: 499 + shiftx,
+        y: 179 + shifty,
+    })
+    all.push(o[_.perceptronRechts])
+
+
+    _.resultPerceptron = "resultPerceptron"
+    self.add({
+        id: _.resultPerceptron, type: "ImageBox",
+        x: 505 + shiftx, y: 170 + shifty, width: 80, height: 80,
+        src: "assets/birnen/Wrong.png"
+    });
+    all.push(o[_.resultPerceptron])
+
+
+    _.sumText = "sumText"
+    self.add({
+        id: _.sumText, type: "TextBox",
+        x: 456 + shiftx,
+        y: 197 + shifty,
+        text: "3"
+    });
+    all.push(o[_.sumText])
+
+    _.sumExplainText = "sumExplainText"
+    self.add({
+        id: _.sumExplainText, type: "TextBox",
+        x: 424 + shiftx,
+        y: 71 + shifty,
+        width: 80, align: "center",
+        text: "(-3)*4<br>+(-2)*8<br>+10"
+    });
+    all.push(o[_.sumExplainText])
+
+    _.resultExplainText = "resultExplainText"
+    self.add({
+        id: _.resultExplainText, type: "TextBox",
+        x: 506 + shiftx,
+        y: 71 + shifty,
+        width: 80, align: "center",
+        text: "14 > 0 ?"
+    });
+    all.push(o[_.resultExplainText])
+
+    _.geeignetText = "geeignetText"
+    self.add({
+        id: _.geeignetText, type: "TextBox",
+        x: 496 + shiftx,
+        y: 71 + shifty,
+        width: 100, align: "center",
+        text: "Gür Marmelade geeignet:"
+    });
+    all.push(o[_.geeignetText])
+
+    return all;
+
+}
+
+function addScanner(self, shiftx = 0, shifty = 0) {
+    let o = self.objects;
+    let all = []
+
+    let scannerX = 0 + shiftx;
+    let scannerY = 100 + shifty
+
+    _.birnenScanner = "birnenScanner";
+    self.add({
+        id: _.birnenScanner, type: "ImageBox",
+        src: Loader.manifest.birnenscanner,
+        x: scannerX, y: scannerY, width: 639 / 4, height: 782 / 4,
+    });
+    all.push(o[_.birnenScanner])
+
+    _.birnenScannerText = "birnenScannerText";
+    self.add({
+        id: _.birnenScannerText, type: "TextBox",
+        x: scannerX + 17, y: scannerY + 75, width: 130, height: 50,
+        align: "center", color: "#aaa", size: 17,
+        text_id: "02_scannerText"
+    });
+    all.push(o[_.birnenScannerText])
+
+    _.birneBig = "birneBig"
+    self.add({
+        id: _.birneBig, type: "ImageBox",
+        src: Loader.manifest.b1,
+        x: scannerX + 40,
+        y: scannerY + 30,
+        width: 80,
+        rotation: 0
+    });
+    all.push(o[_.birneBig])
+    return all;
+}
+
 function buildTabletInterface(self) {
     let o = self.objects;
     let all = []
@@ -387,7 +661,7 @@ function buildTabletInterface(self) {
     return all
 }
 
-const addSortingSlide = function (self, shiftx = -100, shifty = 0,findingTime = 750, stepTime = 2000) {
+const addSortingSlide = function (self, shiftx = -100, shifty = 0, findingTime = 750, stepTime = 2000) {
     let face0 = JochenFaces.verduzt;
     let face1 = JochenFaces.erstaunt;
 
@@ -686,7 +960,7 @@ const addFotoSlide = function (exampleBirneSrc = Loader.manifest.b1) {
     }
 };
 
-const addFehlvorstellungSlide = function (self) {
+const addFehlvorstellung = function (self) {
     let o = self.objects;
 
     let all = [];
@@ -742,7 +1016,7 @@ SLIDES.push(
             let all = setUpAll(self);
             let birnenStuff = addBirnenGrid(self, 220, 50);
             _.sortingSlide = addSortingSlide(self);
-            _.fehlvorstellung = addFehlvorstellungSlide(self);
+            _.fehlvorstellung = addFehlvorstellung(self);
 
             all = [].concat(all, _.sortingSlide, birnenStuff, _.fehlvorstellung);
 
