@@ -255,7 +255,7 @@ function addBirnenGrid(self,
                 src: src[j],
                 x: _.get_x(j), y: _.get_y(i),
                 width: _.birnen_width * scale[i], height: _.birnen_height * scale[i],
-                class: clickable ? "zoom": "",
+                class: clickable ? "zoom" : "nonzoom",
                 onclick: () => {
                     if(!clickable) return;
 

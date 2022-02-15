@@ -819,6 +819,7 @@ s {
     pointer-events: all;
     transform-origin: 50% 50%;
     transform: scale(1.1, 1.1);
+    cursor: pointer
 }
 
 .gewichteText {
