@@ -217,6 +217,8 @@ SLIDES.push(
                 o[_.biasDot],
                 o[_.sumText],
                 o[_.perceptronLabel],
+                o[_.btmWords],
+                o[_.nextMiddle],
             ], _fadeIn, 1000, 0)
 
             listen(_, "newOutput", function (network) {
@@ -241,8 +243,8 @@ SLIDES.push(
             publish("update/2", [_.network.getNodes()[2].bias]);
 
 
-            _fadeIn(o[_.btmWords], 2000);
-            _fadeIn(o[_.nextMiddle], 2500);
+            //_fadeIn(o[_.btmWords], 2000);
+            //_fadeIn(o[_.nextMiddle], 2500);
         },
         onend: function (self) {
             let o = self.objects;

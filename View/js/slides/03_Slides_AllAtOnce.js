@@ -256,19 +256,22 @@ function addBirnenGrid(self,
             all.push(o[_[resultString]])
 
             listen(_.network, "newOutput", function (network) {
-                let x = inputColMin + j * inputColStep;
-                let y = inputRowMin + i * inputRowStep;
+                if(o[_[resultString]] !== undefined) {
+                    let x = inputColMin + j * inputColStep;
+                    let y = inputRowMin + i * inputRowStep;
 
-                let nnoutput = network.getOutputFast([x, y])[0];
+                    let nnoutput = network.getOutputFast([x, y])[0];
 
-                if (nnoutput > 0.5) {
-                    _show(o[_[resultString]]);
-                    _.okList[i][j] = true;
-                } else {
-                    _hide(o[_[resultString]]);
-                    _.okList[i][j] = false;
+
+                    if (nnoutput > 0.5) {
+                        _show(o[_[resultString]]);
+                        _.okList[i][j] = true;
+                    } else {
+                        _hide(o[_[resultString]]);
+                        _.okList[i][j] = false;
+                    }
+                    publish("OutputFinished")
                 }
-                publish("OutputFinished")
             });
         }
     }

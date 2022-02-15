@@ -81,7 +81,7 @@ SLIDES.push(
             let o = self.objects;
 
             o[_.slideCounter].setText("5-3")
-            o[_.btmWords].setTextID("05_text3")
+            o[_.btmLeftWords].setTextID("05_text3")
             o[_.nextRight].changeOnClick(() => publish("slideshow/scratch"))
 
             actionOnAllObjects([
@@ -128,7 +128,7 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
     self.add({
         id: _.perceptron, type: "Perceptron",
         size: [2, 2, 1],
-        activationFun: Activations.SIGMOID,
+        activationFun: Activations.RELU,
         activationFunOutput: Activations.SIGMOID,
         activationFunInput: Activations.SIGMOID,
         params: {
