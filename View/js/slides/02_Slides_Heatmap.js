@@ -282,8 +282,8 @@ SLIDES.push(
 
 
             listen(_, "newOutput", function (network) {
-                let sum = network.getNodes()[2].result;
-                if (sum > 0) {
+                let potenzial = network.getNodes()[2].result;
+                if (potenzial > 0) {
                     o[_.nextMiddle].activate()
                 } else {
                     o[_.nextMiddle].deactivate();

@@ -135,6 +135,7 @@ SLIDES.push(
         },
         onend: function (self) {
             let o = self.objects;
+            unlisten(_)
             actionOnAllObjects([
                 o[_.btmWords],
                 o[_.nextMiddle],
@@ -251,12 +252,10 @@ function addBirnenGrid(self,
                 src: "assets/birnen/Right.png",
                 class: (inputColMin + j * inputColStep) + "/" + (inputRowMin + i * inputRowStep)
             });
-            //_[resultString].setAttribute("x",(inputColMin + j * inputColStep))
-            //_[resultString].setAttribute("y",(inputColMin + j * inputColStep))
             _.all_results.push(o[_[resultString]])
             all.push(o[_[resultString]])
 
-            listen(_, "newOutput", function (network) {
+            listen(_.network, "newOutput", function (network) {
                 let x = inputColMin + j * inputColStep;
                 let y = inputRowMin + i * inputRowStep;
 

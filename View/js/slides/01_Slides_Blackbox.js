@@ -1085,7 +1085,7 @@ SLIDES.push(
             let o = self.objects;
 
             let all = addJochenStage(self);
-            let birnenStuff = addBirnenGrid(self, 220, 50);
+            let birnenStuff = addBirnenGrid(self, -170, 20);
             _.sortingSlide = addSortingSlide(self);
             _.fehlvorstellung = addFehlvorstellung(self);
 
