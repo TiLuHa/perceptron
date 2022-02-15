@@ -113,7 +113,7 @@ SLIDES.push(
         onend: function (self) {
             unlisten(_)
             unlisten(_.network)
-            actionOnAllObjects(_.all, _hide);
+            self.clear()
         }
     },
 );

@@ -25,10 +25,8 @@ SLIDES.push(
                 o[_.jochen],
                 o[_.nextMiddle],
                 o[_.btmWords],
-                o[_.tablet],
+                //o[_.tablet],
             ], _fadeIn, 500, 500);
-
-            _moveX(o[_.tablet], -200, 4000)
             o[_.jochen].changeImage(JochenFaces.aua)
 
         },
@@ -50,9 +48,9 @@ SLIDES.push(
             o[_.slideCounter].setText("5-2")
             o[_.btmLeftWords].setTextID("05_text2")
 
-            actionOnAllObjects(_.allNetwork, _fadeIn)
+            //actionOnAllObjects(_.allNetwork, _fadeIn)
 
-            o[_.jochen].changeImage(JochenFaces.aua)
+            o[_.jochen].changeImage(JochenFaces.fragend)
 
             actionOnAllObjects([
                 o[_.btmLeftWords],

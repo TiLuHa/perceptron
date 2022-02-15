@@ -18,6 +18,6 @@ window.addEventListener("load",function(){
 						'<a href="mailto:?subject='+title+'&body='+text+" "+link+'" target="_blank" title="Send email"><img alt="Send email" src="social/email.png"></a>';
 
 	// Replace it in the dom
-	sharingDOM.parentNode.replaceChild(sharing, sharingDOM);
+	//sharingDOM.parentNode.replaceChild(sharing, sharingDOM);
 
 });
