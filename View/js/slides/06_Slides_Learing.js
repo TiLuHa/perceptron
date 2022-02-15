@@ -12,7 +12,7 @@ SLIDES.push(
             _.all = [].concat(stage, birnenGrid, _.allNetwork)
             actionOnAllObjects(_.all, _hide)
 
-            _.allNetwork.forEach(obj => _moveX(obj, 300));
+            //_.allNetwork.forEach(obj => _moveX(obj, 300));
             _show(o[_.slideCounter])
 
             o[_.slideCounter].setText("6-1")
@@ -41,21 +41,76 @@ SLIDES.push(
             ], _hide)
 
         }
+    },{
+        onstart: function (self) {
+            let o = self.objects;
+
+            o[_.slideCounter].setText("6-2")
+            o[_.btmWords].setTextID("06_text2")
+            o[_.jochen].changeImage(JochenFaces.verduzt)
+
+
+            actionOnAllObjects([
+                o[_.nextMiddle],
+                o[_.btmWords],
+            ], _fadeIn, 500, 500);
+        },
+        onend: function (self) {
+            let o = self.objects;
+
+            actionOnAllObjects([
+                o[_.nextMiddle],
+                o[_.btmWords],
+            ], _hide);
+        }
     }, {
         onstart: function (self) {
             let o = self.objects;
 
-            o[_.slideCounter].setText("5-2")
-            o[_.btmLeftWords].setTextID("05_text2")
-
-            //actionOnAllObjects(_.allNetwork, _fadeIn)
-
+            o[_.slideCounter].setText("6-3")
+            o[_.btmWords].setTextID("06_text3")
             o[_.jochen].changeImage(JochenFaces.fragend)
+            o[_.nextMiddle].changeOnClick(() => publish("slideshow/scratch"));
+
+            actionOnAllObjects([
+                o[_.nextMiddle],
+                o[_.btmWords],
+            ], _fadeIn, 500, 500);
+        },
+        onend: function (self) {
+            let o = self.objects;
+
+            actionOnAllObjects([
+                o[_.jochen],
+                o[_.tochter],
+                o[_.nextMiddle],
+                o[_.btmWords],
+            ], _hide);
+
+            actionOnAllObjects(_.allNetwork, _fadeIn)
+
+            actionOnAllObjects(_.all_birnen,
+                (b) => {
+                    if (_.birnenForItem2.includes(b)) _fadeIn(b)
+                    else _fadeOut(b, 0, 0.2)
+                }, 500, 200)
+        }
+    },
+    {
+        onstart: function (self) {
+            let o = self.objects;
+
+            o[_.slideCounter].setText("6-4")
+            o[_.btmLeftWords].setTextID("06_text4")
+
+
 
             actionOnAllObjects([
                 o[_.btmLeftWords],
                 o[_.nextRight],
             ], _fadeIn, 500, 500)
+
+            publish("newOutput", [_.network]);
         },
         onend: function (self) {
             let o = self.objects;
@@ -66,77 +121,16 @@ SLIDES.push(
                 o[_.nextRight],
                 o[_.btmLeftWords]
             ], _hide)
-
-            _moveX(o[_.jochen], 100)
-            _moveX(o[_.tochter], -100)
-
-            _.allNetwork.forEach(obj => _moveX(obj, -300));
         }
     }, {
         onstart: function (self) {
             let o = self.objects;
 
-            o[_.slideCounter].setText("5-3")
-            o[_.btmWords].setTextID("05_text3")
 
-            actionOnAllObjects([
-                o[_.btmLeftWords],
-                o[_.nextRight],
-            ], _fadeIn, 1000, 1000);
-
-            actionOnAllObjects(_.all_birnen,
-                (b) => {
-                    if (_.birnenForItem1.includes(b)) _fadeIn(b)
-                    else _fadeOut(b, 0, 0.2)
-                }, 500, 200)
-
-            _.countIterations = 0;
-            o[_.nextRight].deactivate();
-            listen(_, "OutputFinished", () => {
-                _.countIterations = _.countIterations + 1;
-                if (equal2dBooleanArray(_.birnenForItem1okList, _.okList) || _.countIterations > 1000) {
-                    o[_.nextRight].activate();
-                    o[_.jochen].changeImage(JochenFaces.stars)
-                } else {
-                    o[_.nextRight].deactivate();
-                    o[_.jochen].changeImage(JochenFaces.fragend)
-                }
-            });
-            publish("OutputFinished")
 
         },
         onend: function (self) {
-            actionOnAllObjects(_.all, _hide);
-        }
-    }, {
-        onstart: function (self) {
-            let o = self.objects;
 
-            o[_.slideCounter].setText("5-4")
-            o[_.btmWords].setTextID("05_text4")
-
-            o[_.jochen].changeImage(JochenFaces.aua)
-
-
-            actionOnAllObjects([
-                o[_.topWords],
-                o[_.tochter],
-                o[_.jochen],
-                o[_.nextMiddle],
-                o[_.btmWords],
-                o[_.tablet],
-            ], _fadeIn, 500, 500);
-
-            _moveX(o[_.tablet], -200, 4000)
-            o[_.jochen].changeImage(JochenFaces.laecheln)
-        },
-        onend: function (self) {
-            let o = self.objects;
-
-            actionOnAllObjects([
-                o[_.nextMiddle],
-                o[_.btmWords],
-            ], _hide)
         }
     },
     {

@@ -178,9 +178,9 @@ function addBirnenGrid(self,
                            Loader.manifest.b8,
                        ],
                        inputColMin = -5,
-                       inputColStep = 10 / 2,
+                       inputColStep = 10 / 7,
                        inputRowMin = -5,
-                       inputRowStep = 10 / 7,
+                       inputRowStep = 10 / 2,
                        heatmapGitterX = 1,//10,
                        heatmapGitterY = 1//16,
 ) {
@@ -227,6 +227,9 @@ function addBirnenGrid(self,
     for (let i = 0; i < rows; i++) {
         for (let j = 0; j < columns; j++) {
 
+            let x = inputRowMin + i * inputRowStep;
+            let y = inputColMin + j * inputColStep;
+
             let birnenString = ("b" + i) + j
             _[birnenString] = birnenString;
 
@@ -236,8 +239,12 @@ function addBirnenGrid(self,
                 x: _.get_x(j), y: _.get_y(i),
                 width: _.birnen_width * scale[i], height: _.birnen_height * scale[i],
                 onclick: () => {
-                    publish("change/0", [inputColMin + j * inputColStep]);
-                    publish("update/1", [inputRowMin + i * inputRowStep]);
+
+                    console.log("new Input: " + x + "/" + y);
+                    o[_.input1Text].setText(x)
+                    o[_.input2Text].setText(y)
+                    publish("change/0", [x]);
+                    publish("update/1", [y]);
                 },
             });
             _.all_birnen.push(o[_[birnenString]])
@@ -257,11 +264,8 @@ function addBirnenGrid(self,
 
             listen(_.network, "newOutput", function (network) {
                 if(o[_[resultString]] !== undefined) {
-                    let x = inputColMin + j * inputColStep;
-                    let y = inputRowMin + i * inputRowStep;
 
                     let nnoutput = network.getOutputFast([x, y])[0];
-
 
                     if (nnoutput > 0.5) {
                         _show(o[_[resultString]]);

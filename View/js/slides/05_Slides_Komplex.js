@@ -284,6 +284,16 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
     })
     all.push(o[_.input1]);
 
+    _.input1Text = "input1Text"
+    self.add({
+        id: _.input1Text, type: "TextBox",
+        x: _.anchorInput1X + _.xPlusInputText,
+        y: _.anchorInput1Y + _.yPlusInputText,
+        text: "",
+        class: "inputText"
+    });
+    all.push(o[_.input1Text])
+
     _.input1Description = "input1Description";
     self.add({
         id: _.input1Description, type: "TextBox",
@@ -318,6 +328,16 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
         rotation: 270, text_id: "input2_description"
     })
     all.push(o[_.input2Description]);
+
+    _.input2Text = "input2Text"
+    self.add({
+        id: _.input2Text, type: "TextBox",
+        x: _.anchorInput2X + _.xPlusInputText,
+        y: _.anchorInput2Y + _.yPlusInputText,
+        text: "",
+        class: "inputText"
+    });
+    all.push(o[_.input2Text])
 
     _.perceptron2Links = "perceptron2Links"
     self.add({
