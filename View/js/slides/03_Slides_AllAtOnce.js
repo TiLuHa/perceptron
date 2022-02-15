@@ -95,6 +95,7 @@ SLIDES.push(
             o[_.slideCounter].setText("3-4");
             o[_.btmWords].setTextID("03_text4");
 
+
             //_fadeIn(o[_.heatmap]);
             publish("newOutput", [_.network])
 
@@ -166,6 +167,7 @@ SLIDES.push(
 function addBirnenGrid(self,
                        shiftx = 0,
                        shifty = 0,
+                       clickable = false,
                        scale = [1, 0.9, 0.8],
                        src = [
                            Loader.manifest.b1,
@@ -179,8 +181,8 @@ function addBirnenGrid(self,
                        ],
                        inputColMin = -5,
                        inputColStep = 10 / 7,
-                       inputRowMin = -5,
-                       inputRowStep = 10 / 2,
+                       inputRowMin = -3,
+                       inputRowStep = 6 / 2,
                        heatmapGitterX = 1,//10,
                        heatmapGitterY = 1//16,
 ) {
@@ -222,10 +224,25 @@ function addBirnenGrid(self,
     });
     all.push(o[_.heatmap])
 
+    _.all_scanner = []
     _.all_birnen = []
     _.all_results = []
     for (let i = 0; i < rows; i++) {
         for (let j = 0; j < columns; j++) {
+
+            let scannerString = ("s" + i) + j
+            if (clickable) {
+                _[scannerString] = scannerString;
+                self.add({
+                    id: scannerString, type: "ImageBox",
+                    x: _.get_x(j) - _.appart/2, y: _.get_y(i)- _.appart/2,
+                    width: (_.birnen_width + _.appart) * scale[i], height: (_.birnen_height + _.appart) * scale[i],
+                    src: Loader.manifest.birnenscanner,
+                    class: "miniscanner"
+                });
+                _.all_scanner.push(o[_[scannerString]])
+                all.push(o[_[scannerString]])
+            }
 
             let x = inputRowMin + i * inputRowStep;
             let y = inputColMin + j * inputColStep;
@@ -238,25 +255,40 @@ function addBirnenGrid(self,
                 src: src[j],
                 x: _.get_x(j), y: _.get_y(i),
                 width: _.birnen_width * scale[i], height: _.birnen_height * scale[i],
+                class: clickable ? "zoom": "",
                 onclick: () => {
+                    if(!clickable) return;
 
                     console.log("new Input: " + x + "/" + y);
-                    o[_.input1Text].setText(x)
-                    o[_.input2Text].setText(y)
                     publish("change/0", [x]);
                     publish("update/1", [y]);
+                    o[_.input1Text].setText(x.toFixed(1))
+                    o[_.input2Text].setText(y.toFixed(1))
+
+                    let result = _.network.getOutputFast([x,y])[0]
+                    if (result > 0.5) {
+                        o[_.resultPerceptron].changeImage(Loader.manifest.right);
+                    } else {
+                        o[_.resultPerceptron].changeImage(Loader.manifest.wrong);
+                    }
+                    _.all_scanner.forEach(sc => {
+                        if(sc.dom.id === scannerString) _show(sc);
+                        else _hide(sc);
+                    });
                 },
             });
             _.all_birnen.push(o[_[birnenString]])
             all.push(o[_[birnenString]])
 
-            let resultString = ("r" + i) + j
+
+
+            let resultString = ("r" + i) + j;
 
             _[resultString] = resultString;
             self.add({
                 id: resultString, type: "ImageBox",
                 x: _.get_x(j), y: _.get_y(i), width: 30, height: 30,
-                src: "assets/birnen/Right.png",
+                src: Loader.manifest.right,
                 class: (inputColMin + j * inputColStep) + "/" + (inputRowMin + i * inputRowStep)
             });
             _.all_results.push(o[_[resultString]])

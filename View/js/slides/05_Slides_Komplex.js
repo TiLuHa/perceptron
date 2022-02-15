@@ -270,7 +270,7 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
 
     _.anchorInput1X = 0 + shiftx;
     _.anchorInput1Y = 70 + shifty;
-    _.xPlusInputText = 40;
+    _.xPlusInputText = 29;
     _.yPlusInputText = 30;
     _.xPlusInputDescription = -47;
     _.yPlusInputDescription = 35;
@@ -392,6 +392,14 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
         y: 171 + shifty,
     })
     all.push(o[_.perceptron4Rechts]);
+
+    _.resultPerceptron = "resultPerceptron"
+    self.add({
+        id: _.resultPerceptron, type: "ImageBox",
+        x: 325 + shiftx, y: 170 + shifty, width: 60, height: 60,
+        src: "assets/birnen/Wrong.png"
+    });
+    all.push(o[_.resultPerceptron])
 
 
     publish("update/0-2", [_.network.links[0].weight]);

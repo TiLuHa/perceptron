@@ -815,7 +815,9 @@ s {
     /*background-color: rgba(178, 188, 192, 0.2);*/
 }
 
-[zoom=true]:hover {
+[zoom=true]:hover, .zoom:hover {
+    pointer-events: all;
+    transform-origin: 50% 50%;
     transform: scale(1.1, 1.1);
 }
 

@@ -7,7 +7,7 @@ SLIDES.push(
             let o = self.objects;
 
             let stage = addJochenStage(self)
-            let birnenGrid = addBirnenGrid(self)
+            let birnenGrid = addBirnenGrid(self,0,0,true)
             _.allNetwork = addNetwork221small(self)
             _.all = [].concat(stage, birnenGrid, _.allNetwork)
             actionOnAllObjects(_.all, _hide)
@@ -88,6 +88,7 @@ SLIDES.push(
             ], _hide);
 
             actionOnAllObjects(_.allNetwork, _fadeIn)
+            actionOnAllObjects(_.all_scanner, _fadeIn)
 
             actionOnAllObjects(_.all_birnen,
                 (b) => {
@@ -102,8 +103,6 @@ SLIDES.push(
 
             o[_.slideCounter].setText("6-4")
             o[_.btmLeftWords].setTextID("06_text4")
-
-
 
             actionOnAllObjects([
                 o[_.btmLeftWords],
