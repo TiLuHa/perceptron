@@ -37,8 +37,8 @@ SLIDES.push(
                 o[_.topWords],
                 o[_.tochter],
                 o[_.jochen],
-                o[_.nextMiddle],
                 o[_.btmWords],
+                o[_.nextMiddle],
                 //o[_.tablet],
             ], _fadeIn, 500, 500);
             o[_.jochen].changeImage(JochenFaces.aua)
@@ -65,8 +65,8 @@ SLIDES.push(
 
 
             actionOnAllObjects([
-                o[_.nextMiddle],
                 o[_.btmWords],
+                o[_.nextMiddle],
             ], _fadeIn, 500, 500);
         },
         onend: function (self) {
@@ -87,8 +87,8 @@ SLIDES.push(
             o[_.nextMiddle].changeOnClick(() => publish("slideshow/scratch"));
 
             actionOnAllObjects([
-                o[_.nextMiddle],
                 o[_.btmWords],
+                o[_.nextMiddle],
             ], _fadeIn, 500, 500);
         },
         onend: function (self) {
