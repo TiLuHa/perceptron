@@ -7,9 +7,9 @@ SLIDES.push(
             let o = self.objects;
 
             let stage = addJochenStage(self)
-            let birnenGrid = addBirnenGrid(self)
+
             _.allNetwork = addNetwork221small(self)
-            _.all = [].concat(stage, birnenGrid, _.allNetwork)
+            _.all = [].concat(stage, _.allNetwork)
             actionOnAllObjects(_.all, _hide)
 
             _.allNetwork.forEach(obj => _moveX(obj, 300));
@@ -53,8 +53,10 @@ SLIDES.push(
             o[_.btmLeftWords].setTextID("05_text2")
 
             actionOnAllObjects(_.allNetwork, _fadeIn)
+            _hide(o[_.resultPerceptron])
+            _hide(o[_.itemPicture])
 
-            o[_.jochen].changeImage(Loader.manifest.jochen_aua)
+            o[_.jochen].changeImage(Loader.manifest.jochen_erschrocken)
 
             actionOnAllObjects([
                 o[_.btmLeftWords],
@@ -84,7 +86,12 @@ SLIDES.push(
             o[_.btmLeftWords].setTextID("05_text3")
             o[_.nextRight].changeOnClick(() => publish("slideshow/scratch"))
 
+            let birnenGrid = addBirnenGrid(self)
+            actionOnAllObjects(birnenGrid, _hide)
+
+
             actionOnAllObjects([
+                o[_.itemPicture],
                 o[_.btmLeftWords],
                 o[_.nextRight],
             ], _fadeIn, 1000, 1000);
@@ -128,12 +135,12 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
                                 "2": (-3), //Hidden Bias
                                 "3": (-2), //Hidden Bias
                                 "4": (-4), //Output Bias
-                                "0-2": -4,
-                                "1-2": 2,
-                                "0-3": -4,
-                                "1-3": 2,
+                                "0-2": -5,
+                                "1-2": -7,
+                                "0-3": -6,
+                                "1-3": -2,
                                 "2-4": -4,
-                                "3-4": 2,
+                                "3-4":7,
 
                             }) {
     let o = self.objects;
@@ -150,6 +157,16 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
     });
     _.network = o[_.perceptron].network;
     //all.push(o[_.perceptron])
+
+    _.itemPicture = "itemPicture"
+    self.add({
+        id: _.itemPicture, type: "ImageBox",
+        src: Loader.manifest.birnenkuchen,
+        x: 270 + shiftx,
+        y: 12 + shifty,
+        width: 150
+    })
+    all.push(o[_.itemPicture]);
 
     _.bias2Dot = "bias2Dot"
     self.add({
@@ -414,15 +431,7 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
     });
     all.push(o[_.resultPerceptron])
 
-    _.itemPicture = "itemPicture"
-    self.add({
-        id: _.itemPicture, type: "ImageBox",
-        src: Loader.manifest.birnenkuchen,
-        x: 270 + shiftx,
-        y: 12 + shifty,
-        width: 150
-    })
-    all.push(o[_.itemPicture]);
+
 
 
     publish("update/0-2", [_.network.links[0].weight]);

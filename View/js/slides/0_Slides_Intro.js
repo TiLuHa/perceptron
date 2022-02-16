@@ -35,8 +35,11 @@ Loader.addToManifest(Loader.manifest,{
 	birnenscanner: "assets/birnen/birnenScanner.jpg",
 	arrow: "assets/Jochen/arrow.PNG",
 	jochen_aua: "assets/Jochen/Jochen_aua.jpg",
+	jochen_erschoepft: "assets/Jochen/Jochen_erschoepft.png",
+	jochen_erschrocken: "assets/Jochen/Jochen_erschrocken.png",
 	jochen_erstaunt: "assets/Jochen/Jochen_erstaunt.jpg",
 	jochen_fragend: "assets/Jochen/Jochen_fragend.jpg",
+	jochen_grusel: "assets/Jochen/Jochen_grusel.png",
 	jochen_kamera: "assets/Jochen/Jochen_kamera.jpg",
 	jochen_laecheln: "assets/Jochen/Jochen_laecheln.jpg",
 	jochen_leer: "assets/Jochen/Jochen_leer.jpg",
@@ -139,7 +142,7 @@ SLIDES.push({
 });
 
 SLIDES.push({
-	id: "intro",
+	id: "welcome",
 	onjump: function(self){
 		// Splash in background
 		self.add({ id:"splash", type:"Splash" });
