@@ -54,25 +54,6 @@ s {
     text-decoration: line-through;
 }
 
-#translations {
-    margin: 10px auto;
-    font-size: 10.5px;
-    line-height: 19px;
-    color: #fff;
-    text-align: center;
-    width: 960px;
-    letter-spacing: -0.5px;
-}
-
-#translations a {
-    color: #dd4040;
-}
-
-#translations a:hover {
-    color: #ee5151;
-}
-
-
 /*************************/
 /******* SOUND *******/
 /*************************/

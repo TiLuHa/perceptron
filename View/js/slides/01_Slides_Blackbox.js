@@ -1017,7 +1017,7 @@ const addFotoSlide = function (exampleBirneSrc = Loader.manifest.b1) {
             _.flashlight = "flashlight";
             self.add({
                 id: _.flashlight, type: "ImageBox",
-                src: "assets/Jochen/blitzlicht.jpg",
+                src: "assets/Jochen/blitzlicht2.png",
                 x: 350, y: 170, width: 208 / 2.5, height: 222 / 2.5,
             });
 
