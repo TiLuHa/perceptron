@@ -19,6 +19,7 @@ function Slideshow(config){
 			if(self.currentSlide.onend) self.currentSlide.onend(self);
 			unlisten(_); // hax
 			if(_.network !== undefined) unlisten(_.network);
+			if(_.misc !== undefined) unlisten(_.misc);
 		}
 
 		// CLEAR

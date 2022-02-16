@@ -24,11 +24,11 @@ SLIDES.push(
                 o[_.tochter],
                 o[_.jochen],
                 o[_.nextMiddle],
-                o[_.btmWords],
                 o[_.tablet],
+                o[_.btmWords],
             ], _fadeIn, 500, 500);
 
-            _moveX(o[_.tablet], -200, 4000)
+            _moveX(o[_.tablet], -200, 2500)
             o[_.jochen].changeImage(JochenFaces.laecheln)
 
         },
@@ -120,7 +120,22 @@ SLIDES.push(
 
 
 function addNetwork221small(self, shiftx = 0, shifty = 0,
-                            slidermin = -10, slidermax = 10, sliderstep = 1) {
+                            slidermin = -10, slidermax = 10, sliderstep = 1,
+                            factor = 1,
+                            params = {
+                                "0": 1, //Input1
+                                "1": 1,  //Input2
+                                "2": (-3), //Hidden Bias
+                                "3": (-2), //Hidden Bias
+                                "4": (-4), //Output Bias
+                                "0-2": -4,
+                                "1-2": 2,
+                                "0-3": -4,
+                                "1-3": 2,
+                                "2-4": -4,
+                                "3-4": 2,
+
+                            }) {
     let o = self.objects;
     all = []
 
@@ -128,23 +143,10 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
     self.add({
         id: _.perceptron, type: "Perceptron",
         size: [2, 2, 1],
-        activationFun: Activations.RELU,
+        activationFun: Activations.SIGMOID,
         activationFunOutput: Activations.SIGMOID,
-        activationFunInput: Activations.SIGMOID,
-        params: {
-            "0": 1, //Input1
-            "1": 1,  //Input2
-            "2": (-3), //Hidden Bias
-            "3": (-2), //Hidden Bias
-            "4": (-4), //Output Bias
-            "0-2": -4,
-            "1-2": 2,
-            "0-3": -4,
-            "1-3": 2,
-            "2-4": -4,
-            "3-4": 2,
-
-        }
+        activationFunInput: Activations.LINEAR,
+        params: params,
     });
     _.network = o[_.perceptron].network;
     //all.push(o[_.perceptron])
@@ -183,7 +185,8 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
         x: 71 + shiftx, y: 80 + shifty,
         width: 100, rotation: 0,
         min: slidermin, max: slidermax, step: sliderstep,
-        message: "update/0-2"
+        message: "update/0-2",
+        factor: factor,
     });
     all.push(o[_.sliderWeight02]);
 
@@ -193,7 +196,9 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
         x: 54 + shiftx, y: 265 + shifty,
         width: 165, rotation: 300,
         min: slidermin, max: slidermax, step: sliderstep,
-        message: "update/1-2"
+        message: "update/1-2",
+        factor: factor,
+
     });
     all.push(o[_.sliderWeight12]);
 
@@ -203,7 +208,8 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
         x: 100 + shiftx, y: 100 + shifty,
         width: 165, rotation: 60,
         min: slidermin, max: slidermax, step: sliderstep,
-        message: "update/0-3"
+        message: "update/0-3",
+        factor: factor,
     });
     all.push(o[_.sliderWeight03]);
 
@@ -213,7 +219,8 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
         x: 71 + shiftx, y: 265 + shifty,
         width: 100, rotation: 0,
         min: slidermin, max: slidermax, step: sliderstep,
-        message: "update/1-3"
+        message: "update/1-3",
+        factor: factor,
     });
     all.push(o[_.sliderWeight13]);
 
@@ -223,7 +230,8 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
         x: 245 + shiftx, y: 93 + shifty,
         width: 100, rotation: 40,
         min: slidermin, max: slidermax, step: sliderstep,
-        message: "update/2-4"
+        message: "update/2-4",
+        factor: factor,
     });
     all.push(o[_.sliderWeight24]);
 
@@ -233,7 +241,8 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
         x: 213 + shiftx, y: 265 + shifty,
         width: 100, rotation: 324,
         min: slidermin, max: slidermax, step: sliderstep,
-        message: "update/3-4"
+        message: "update/3-4",
+        factor: factor,
     });
     all.push(o[_.sliderWeight34]);
 
@@ -243,7 +252,8 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
         x: 140 + shiftx, y: 13 + shifty,
         width: 100,
         min: slidermin, max: slidermax, step: sliderstep,
-        message: "update/2"
+        message: "update/2",
+        factor: factor,
     });
     all.push(o[_.sliderBias2]);
 
@@ -253,7 +263,8 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
         x: 140 + shiftx, y: 329 + shifty,
         width: 100,
         min: slidermin, max: slidermax, step: sliderstep,
-        message: "update/3"
+        message: "update/3",
+        factor: factor,
     });
     all.push(o[_.sliderBias3]);
 
@@ -263,7 +274,8 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
         x: 289 + shiftx, y: 255 + shifty,
         width: 100,
         min: slidermin, max: slidermax, step: sliderstep,
-        message: "update/4"
+        message: "update/4",
+        factor: factor,
     });
     all.push(o[_.sliderBias4]);
 
@@ -400,6 +412,16 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
         src: "assets/birnen/Wrong.png"
     });
     all.push(o[_.resultPerceptron])
+
+    _.itemPicture = "itemPicture"
+    self.add({
+        id: _.itemPicture, type: "ImageBox",
+        src: Loader.manifest.birnenkuchen,
+        x: 270 + shiftx,
+        y: 12 + shifty,
+        width: 150
+    })
+    all.push(o[_.itemPicture]);
 
 
     publish("update/0-2", [_.network.links[0].weight]);

@@ -168,6 +168,12 @@ function addBirnenGrid(self,
                        shiftx = 0,
                        shifty = 0,
                        clickable = false,
+                       inputColMin = -3,
+                       inputColStep = 6/2,
+                       inputRowMin = -5,
+                       inputRowStep = 10/7,
+                       heatmapGitterX = 1,//10,
+                       heatmapGitterY = 1,//16,
                        scale = [1, 0.9, 0.8],
                        src = [
                            Loader.manifest.b1,
@@ -179,12 +185,6 @@ function addBirnenGrid(self,
                            Loader.manifest.b7,
                            Loader.manifest.b8,
                        ],
-                       inputColMin = -5,
-                       inputColStep = 10 / 7,
-                       inputRowMin = -3,
-                       inputRowStep = 6 / 2,
-                       heatmapGitterX = 1,//10,
-                       heatmapGitterY = 1//16,
 ) {
     let o = self.objects;
     let all = [];
@@ -235,8 +235,8 @@ function addBirnenGrid(self,
                 _[scannerString] = scannerString;
                 self.add({
                     id: scannerString, type: "ImageBox",
-                    x: _.get_x(j) - _.appart/2, y: _.get_y(i)- _.appart/2,
-                    width: (_.birnen_width + _.appart) * scale[i], height: (_.birnen_height + _.appart) * scale[i],
+                    x: _.get_x(j) - _.appart/2 - 5, y: _.get_y(i)- _.appart/2,
+                    width: (_.birnen_width + _.appart*2) * scale[i], height: (_.birnen_height + _.appart*2) * scale[i],
                     src: Loader.manifest.birnenscanner,
                     class: "miniscanner"
                 });
@@ -244,8 +244,8 @@ function addBirnenGrid(self,
                 all.push(o[_[scannerString]])
             }
 
-            let x = inputRowMin + i * inputRowStep;
-            let y = inputColMin + j * inputColStep;
+            let x = inputRowMin + j * inputRowStep;
+            let y = inputColMin + i * inputColStep;
 
             let birnenString = ("b" + i) + j
             _[birnenString] = birnenString;
@@ -258,6 +258,7 @@ function addBirnenGrid(self,
                 class: clickable ? "zoom" : "nonzoom",
                 onclick: () => {
                     if(!clickable) return;
+                    publish("BirneClicked",[x,y])
 
                     console.log("new Input: " + x + "/" + y);
                     publish("change/0", [x]);
@@ -277,6 +278,7 @@ function addBirnenGrid(self,
                     });
                 },
             });
+
             _.all_birnen.push(o[_[birnenString]])
             all.push(o[_[birnenString]])
 
@@ -289,7 +291,7 @@ function addBirnenGrid(self,
                 id: resultString, type: "ImageBox",
                 x: _.get_x(j), y: _.get_y(i), width: 30, height: 30,
                 src: Loader.manifest.right,
-                class: (inputColMin + j * inputColStep) + "/" + (inputRowMin + i * inputRowStep)
+                class: x+ "/" + y
             });
             _.all_results.push(o[_[resultString]])
             all.push(o[_[resultString]])
@@ -335,13 +337,13 @@ function addBirnenGrid(self,
     ];
 
     _.birnenForItem2 = [
-        o[_.b00], o[_.b01], //o[_.b02], o[_.b03], o[_.b04], o[_.b05], o[_.b06], o[_.b07],
-        o[_.b10], o[_.b11], o[_.b12], o[_.b13], o[_.b14], o[_.b15],// o[_.b16],o[_.b17],
+        //o[_.b00], o[_.b01], //o[_.b02], o[_.b03], o[_.b04], o[_.b05], o[_.b06], o[_.b07],
+        o[_.b10], o[_.b11], o[_.b12], o[_.b13], //o[_.b14], o[_.b15],// o[_.b16],o[_.b17],
         o[_.b20], o[_.b21], o[_.b22], o[_.b23], //o[_.b24], o[_.b25], o[_.b26], o[_.b27],
     ];
     _.birnenForItem2okList = [
-        [true, true, false, false, false, false, false, false],
-        [true, true, true, true, true, true, false, false],
+        [false, false, false, false, false, false, false, false],
+        [true, true, true, true, false, false, false, false],
         [true, true, true, true, false, false, false, false],
     ];
 

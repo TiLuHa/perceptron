@@ -213,5 +213,5 @@ function _shuffleArray(array) {
 }
 
 function equal2dBooleanArray(array1, array2) {
-    return array1.reduce((acc, cur, i) => acc && cur.reduce((ac, _, j) => ac && (array1[i][j] === array2[i][j]), true),true)
+    return array1.reduce((acc, cur, i) => acc && cur.reduce((ac, _, j) => ac && (array1[i][j] === array2[i][j]), true), true)
 }

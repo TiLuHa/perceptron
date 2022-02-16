@@ -7,10 +7,24 @@ SLIDES.push(
             let o = self.objects;
 
             let stage = addJochenStage(self)
-            let birnenGrid = addBirnenGrid(self,0,0,true)
-            _.allNetwork = addNetwork221small(self)
+            let birnenGrid = addBirnenGrid(self, 0, 0, true)//,-1,1,-1,2/7)
+            _.allNetwork = addNetwork221small(self, 0, 0, -2, 2, .2, 10,
+                params = {
+                    "0": 0, //Input1
+                    "1": 0,  //Input2
+                    "2": 0.2, //Hidden Bias
+                    "3": 0.3, //Hidden Bias
+                    "4": -0.5, //Output Bias
+                    "0-2": -0.0,
+                    "1-2": 0.9,
+                    "0-3": 1,
+                    "1-3": 0.4,
+                    "2-4": 0.5,
+                    "3-4": 0.6,
+                })
             _.all = [].concat(stage, birnenGrid, _.allNetwork)
             actionOnAllObjects(_.all, _hide)
+            o[_.itemPicture].changeImage(Loader.manifest.birnenbier)
 
             //_.allNetwork.forEach(obj => _moveX(obj, 300));
             _show(o[_.slideCounter])
@@ -41,7 +55,7 @@ SLIDES.push(
             ], _hide)
 
         }
-    },{
+    }, {
         onstart: function (self) {
             let o = self.objects;
 
@@ -88,12 +102,14 @@ SLIDES.push(
             ], _hide);
 
             actionOnAllObjects(_.allNetwork, _fadeIn)
-            actionOnAllObjects(_.all_scanner, _fadeIn)
 
             actionOnAllObjects(_.all_birnen,
                 (b) => {
                     if (_.birnenForItem2.includes(b)) _fadeIn(b)
-                    else _fadeOut(b, 0, 0.2)
+                    else {
+                        _fadeOut(b, 0, 0.2, false);
+                        b.dom.classList.remove("unclickable");
+                    }
                 }, 500, 200)
         }
     },
@@ -102,10 +118,16 @@ SLIDES.push(
             let o = self.objects;
 
             o[_.slideCounter].setText("6-4")
-            o[_.btmLeftWords].setTextID("06_text4")
+            _.rigthWords = "rigthWords";
+            self.add({
+                id: _.rigthWords, type: "TextBox", text_id: "06_text5",
+                x: 264, y: 337, width: 700, height: 100, align: "center"
+            });
+            o[_.rigthWords].setTextID("06_text4")
+            _.all.push(o[_.rigthWords]);
 
             actionOnAllObjects([
-                o[_.btmLeftWords],
+                //o[_.rigthWords],
                 o[_.nextRight],
             ], _fadeIn, 500, 500)
 
@@ -125,278 +147,170 @@ SLIDES.push(
         onstart: function (self) {
             let o = self.objects;
 
+            o[_.slideCounter].setText("6-5")
+            o[_.rigthWords].setTextID("06_text5")
 
-
-        },
-        onend: function (self) {
-
-        }
-    },
-    {
-        onstart: function (self) {
-            let o = self.objects;
-            _.allBirnen = addBirnenGrid(self)
-            _.allNetwork = addNetwork221small(self)
-
-            _.nextMiddle = "nextMiddle";
-            self.add({
-                id: _.nextMiddle, type: "Button",
-                x: 383, y: 463,
-                text_id: "01_button_next", uppercase: false,
-                onclick: () => publish("slides^how/scratch")
-            });
-
-            _.learningRate = 1;
+            _.learningRate = 0.7;
 
             _.wrong = "wrong";
             self.add({
                 id: _.wrong, type: "Button",
-                x: 100, y: 463,
-                text: "falsch", uppercase: false,
+                x: 10, y: 463,
+                text_id: "06_wrongButton", uppercase: false,
+                size: "long",
                 onclick: () => {
-                    let network = _.network
-                    let firstOutput = network.getFirstOutput();
-                    let target = firstOutput > 0.5 ? 0.01 : 0.99;
+                    let network = _.network;
                     let input = network.getInput();
-                    let simpleNN = network.asSimpleNN();
-                    backProp(simpleNN, input, [target], Loss.errorL2, _.learningRate)
-                    network.updateFromSimpleNN(simpleNN);
+                    let i = 0;
+                    let firstOutput = network.getFirstOutput();
+                    let firstIsPositive = firstOutput > 0.5;
+                    let target = firstIsPositive ? 0.01 : 0.99;
 
-                    publish("update/0-2", [_.network.links[0].weight]);
-                    publish("update/0-3", [_.network.links[1].weight]);
-                    publish("update/1-2", [_.network.links[2].weight]);
-                    publish("update/1-3", [_.network.links[3].weight]);
-                    publish("update/2-4", [_.network.links[4].weight]);
-                    publish("update/3-4", [_.network.links[5].weight]);
-                    publish("update/2", [_.network.getNodes()[2].bias]);
-                    publish("update/3", [_.network.getNodes()[3].bias]);
-                    publish("update/4", [_.network.getNodes()[4].bias]);
+                    while ((firstIsPositive === (firstOutput > 0.5)) && i < 1) {
+                        publish("clickMade")
+                        i++;
+
+                        let simpleNN = network.asSimpleNN();
+                        backProp(simpleNN, input, [target], Loss.errorL2, _.learningRate)
+                        network.updateFromSimpleNN(simpleNN);
+
+                        publish("update/0-2", [_.network.links[0].weight]);
+                        publish("update/0-3", [_.network.links[1].weight]);
+                        publish("update/1-2", [_.network.links[2].weight]);
+                        publish("update/1-3", [_.network.links[3].weight]);
+                        publish("update/2-4", [_.network.links[4].weight]);
+                        publish("update/3-4", [_.network.links[5].weight]);
+                        publish("update/2", [_.network.getNodes()[2].bias]);
+                        publish("update/3", [_.network.getNodes()[3].bias]);
+                        publish("update/4", [_.network.getNodes()[4].bias]);
+
+                        firstOutput = network.getFirstOutput();
+                    }
                 }
             });
-        },
-        onstart2: function (self) {
-            let o = self.objects;
-            _.slideCounter = "slideCounter";
-            self.add({
-                id: _.slideCounter, type: "TextBox",
-                x: 0, y: 0, width: 50, height: 50,
-                align: "center", color: "#aaa", size: 17,
-                text: ""
-            });
-            o[_.slideCounter].setText("5-1")
+            _.all.push(o[_.wrong]);
 
-            _.topWords = "topWords";
+
+            let inputColMin = -3,
+                inputColStep = 6 / 2,
+                inputRowMin = -5,
+                inputRowStep = 10 / 7;
+
+            _.autoTrainOn = false
+            _.autoTrain = "autoTrain";
             self.add({
-                id: _.topWords, type: "TextBox", text_id: "05_title",
-                x: 130, y: 10, width: 700, height: 100, align: "center"
+                id: _.autoTrain, type: "Button",
+                x: 372, y: 463,
+                text_id: "06_autoLearnOFF", uppercase: false,
+                size: "long",
+                onclick: () => {
+                    _.autoTrainOn = !_.autoTrainOn
+                    if (_.autoTrainOn) {
+                        o[_.autoTrain].setText("06_autoLearnON");
+                        publish("startNextTraining");
+                    } else {
+                        o[_.autoTrain].setText("06_autoLearnOFF");
+                    }
+                }
+            });
+            _.all.push(o[_.autoTrain]);
+
+            _.learningPaste = 100;
+            listen(_, "startNextTraining", () => {
+                if (equal2dBooleanArray(_.birnenForItem2okList, _.okList)) {
+                    _.autoTrainOn = false
+                    o[_.autoTrain].setText("06_autoLearnOFF");
+                    return;
+                }
+
+                let network = _.network;
+
+                let i = Math.floor(Math.random() * 3);
+                let j = Math.floor(Math.random() * 8);
+
+                let scannerString = ("s" + i) + j
+                _.all_scanner.forEach(sc => {
+                    if (sc.dom.id === scannerString) _show(sc);
+                    else _hide(sc);
+                });
+
+                let x = inputRowMin + j * inputRowStep;
+                let y = inputColMin + i * inputColStep;
+                let input = [x, y];
+                let target = _.birnenForItem2okList[i][j] ? 0.99 : 0.01;
+
+                let simpleNN = network.asSimpleNN();
+                backProp(simpleNN, input, [target], Loss.errorL2, _.learningRate)
+                network.updateFromSimpleNN(simpleNN);
+
+                publish("update/0-2", [_.network.links[0].weight]);
+                publish("update/0-3", [_.network.links[1].weight]);
+                publish("update/1-2", [_.network.links[2].weight]);
+                publish("update/1-3", [_.network.links[3].weight]);
+                publish("update/2-4", [_.network.links[4].weight]);
+                publish("update/3-4", [_.network.links[5].weight]);
+                publish("update/2", [_.network.getNodes()[2].bias]);
+                publish("update/3", [_.network.getNodes()[3].bias]);
+                publish("update/4", [_.network.getNodes()[4].bias]);
+
+                let result = _.network.getOutputFast([x, y])[0]
+                if (result > 0.5) {
+                    o[_.resultPerceptron].changeImage(Loader.manifest.right);
+                } else {
+                    o[_.resultPerceptron].changeImage(Loader.manifest.wrong);
+                }
+                o[_.input1Text].setText(x.toFixed(1))
+                o[_.input2Text].setText(y.toFixed(1))
+
+                if (_.autoTrainOn) setTimeout(() => publish("startNextTraining"), _.learningPaste);
             });
 
-            _.jochen = "jochenBild";
-            self.add({
-                id: _.jochen, type: "ImageBox",
-                src: JochenFaces.erstaunt,
-                x: 200, y: 60, width: 380 / 2, height: 545 / 2,
-            });
+            [
+                o[_.wrong], o[_.nextRight], o[_.autoTrain],
+            ].forEach(button => button.deactivate());
 
-            _.tablet = "tablet";
-            self.add({
-                id: _.tablet, type: "ImageBox",
-                src: "assets/birnen/tablet1.jpg",
-                x: 600, y: 170, width: 438 / 3, height: 689 / 3,
-            });
+            _fadeIn(o[_.nextRight])
 
-            _.tochter = "tochterBild";
-            self.add({
-                id: _.tochter, type: "ImageBox",
-                src: "assets/Jochen/Tochter.PNG",
-                x: 600, y: 60, width: 380 / 2.1, height: 545 / 2.1,
-            });
-
-            _.btmWords = "btmWords";
-            self.add({
-                id: _.btmWords, type: "TextBox", text_id: "05_text1",
-                x: 130, y: 347, width: 700, height: 100, align: "center"
+            _.misc = {}
+            listen(_.misc, "BirneClicked", () => {
+                o[_.wrong].activate();
+            })
+            listen(_.misc, "clickMade", () => {
+                o[_.nextRight].activate()
             })
 
-            _.nextMiddle = "nextMiddle";
-            self.add({
-                id: _.nextMiddle, type: "Button",
-                x: 383, y: 463,
-                text_id: "01_button_next", uppercase: false,
-                onclick: () => publish("slideshow/scratch")
+        },
+        onend: function (self) {
+            let o = self.objects;
+
+            unlisten(_.misc)
+            o[_.nextRight].deactivate()
+        }
+    },
+    {
+        onstart: function (self) {
+            let o = self.objects;
+
+            _fadeIn(o[_.nextRight])
+            o[_.nextRight].deactivate();
+            o[_.nextRight].changeOnClick(() => publish("slideshow/scratch"));
+            listen(_, "OutputFinished", () => {
+                if (equal2dBooleanArray(_.birnenForItem2okList, _.okList)) {
+                    o[_.nextRight].activate();
+                } else {
+                    o[_.nextRight].deactivate();
+                }
             });
-
-            _moveX(o[_.tablet], -200, 1200)
-
-        },
-        onend: function (self) {
-            let o = self.objects;
-            self.remove(_.topWords)
-            _hide(o[_.jochen])
-            _hide(o[_.btmWords])
-            _hide(o[_.nextMiddle])
-            _hide(o[_.tochter])
-            _hide(o[_.tablet])
-        }
-    },
-    {
-        onstart: function (self) {
-            let o = self.objects;
-            o[_.slideCounter].setText("5-2")
-            o[_.btmWords].setTextID("05_text2")
-
-            let allInterface = buildTabletInterface(self)
-
-            _fadeIn(o[_.btmWords], 500);
-            _fadeIn(o[_.nextMiddle], 1000);
-        },
-        onend: function (self) {
-            let o = self.objects;
-            _hide(o[_.fotoBtm]);
-            _hide(o[_.marmeladeBtm]);
-            _hide(o[_.kuchenBtm]);
-            _hide(o[_.bierBtm]);
-            _hide(o[_.btmWords]);
-            _hide(o[_.birnenScanner]);
-            _hide(o[_.birnenScannerText]);
-
-        }
-    },
-    {
-        onstart: function (self) {
-            let o = self.objects;
-            o[_.slideCounter].setText("5-3");
-
-            _.tablet2 = "tablet2";
-            self.add({
-                id: _.tablet2, type: "ImageBox",
-                src: "assets/birnen/tablet2.jpg",
-                x: 350, y: 170, width: 438 / 4.5, height: 689 / 4.5,
-            });
-
-            _.flashlight = "flashlight";
-            self.add({
-                id: _.flashlight, type: "ImageBox",
-                src: "assets/Jochen/blitzlicht.jpg",
-                x: 350, y: 170, width: 208 / 2.5, height: 222 / 2.5,
-            });
-
-            _.exampleBirneSrc = "assets/birnen/b1.jpg";
-            _.birne0 = "birne0"
-            self.add({
-                id: _.birne0, type: "ImageBox",
-                src: _.exampleBirneSrc,
-                x: 554,//+ _.moveX,
-                y: 254,//+ _.moveY,
-                width: 40,//_.birnen_width * _.scale0,
-                rotation: 0
-            });
-
-            o[_.jochen].changeImage(JochenFaces.verduzt)
-            _hide(o[_.flashlight])
-            _show(o[_.jochen]);
-            _show(o[_.tablet2]);
-            _fadeIn(o[_.birne0], 1000);
-            _show(o[_.flashlight], 1500);
-            _hide(o[_.flashlight], 2000)
-            setTimeout(() => o[_.jochen].changeImage(JochenFaces.zufrieden), 2000);
-            setTimeout(() => publish("slideshow/scratch"), 3000);
+            publish("OutputFinished");
+            o[_.slideCounter].setText("6-6")
+            o[_.rigthWords].setTextID("06_text6")
+            o[_.autoTrain].activate()
 
         },
         onend: function (self) {
             let o = self.objects;
-            _hide(o[_.jochen]);
-            _hide(o[_.tablet2]);
-            _hide(o[_.birne0]);
-        }
-    },
-    {
-        onstart: function (self) {
-            let o = self.objects;
-            o[_.slideCounter].setText("5-4")
-            o[_.btmWords].setTextID("05_text4")
-
-            o[_.nextMiddle].changeOnClick(() => publish("slideshow/next"));
-
-            [o[_.fotoBtm], o[_.marmeladeBtm], o[_.kuchenBtm], o[_.bierBtm],
-                o[_.btmWords],]
-                .reduce((time, obj) => {
-                    _fadeIn(obj, time)
-                    return time + 300;
-                }, 500)
-
-            _show(o[_.birnenScanner])
-            _fadeIn(o[_.btmWords], 1000);
-            _fadeIn(o[_.nextMiddle], 1500);
-        },
-        onend: function (self) {
-            let o = self.objects;
-            _hide(o[_.nextMiddle])
-            _hide(o[_.btmWords])
-        }
-    },
-    {
-        onstart: function (self) {
-            let o = self.objects;
-            o[_.slideCounter].setText("4-3")
-            o[_.btmWords].setTextID("04_text3")
-
-            _fadeIn(o[_.btmWords], 500);
-            _fadeIn(o[_.nextMiddle], 1000);
-        },
-        onend: function (self) {
-            let o = self.objects;
-            _hide(o[_.btmWords])
-            _hide(o[_.nextMiddle])
-
-            _.allBirnen.concat(_.allNetwork).forEach(obj => _hide(obj))
-
-        }
-    },
-    {
-        onstart: function (self) {
-            let o = self.objects;
-            o[_.slideCounter].setText("4-4")
-            o[_.btmWords].setTextID("04_text4")
-
-            _fadeIn(o[_.jochen], 0);
-            _fadeIn(o[_.btmWords], 500);
-            _fadeIn(o[_.nextMiddle], 1000);
-        },
-        onend: function (self) {
-            let o = self.objects;
-            _hide(o[_.btmWords])
-            _hide(o[_.nextMiddle])
-        }
-    },
-    {
-        onstart: function (self) {
-            let o = self.objects;
-            o[_.slideCounter].setText("4-5")
-            o[_.btmWords].setTextID("04_text5")
-
-            _fadeIn(o[_.btmWords], 500);
-            _fadeIn(o[_.nextMiddle], 1000);
-        },
-        onend: function (self) {
-            let o = self.objects;
-            _hide(o[_.btmWords])
-            _hide(o[_.nextMiddle])
-        }
-    },
-    {
-        onstart: function (self) {
-            let o = self.objects;
-            o[_.slideCounter].setText("4-6")
-            o[_.btmWords].setTextID("04_text6")
-
-            _fadeIn(o[_.btmWords], 500);
-            _fadeIn(o[_.nextMiddle], 1000);
-        },
-        onend: function (self) {
-            let o = self.objects;
-            _hide(o[_.btmWords])
-            _hide(o[_.nextMiddle])
+            unlisten(_)
+            unlisten(_.network)
             self.clear()
         }
     },

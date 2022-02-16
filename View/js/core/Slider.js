@@ -34,9 +34,11 @@ function Slider(config) {
     dom.appendChild(knob);
 
     // Text
+    self.factor = config.factor !== undefined ? config.factor : 1;
+
     var text = document.createElement("div")
     text.className = "slider_text"
-    self.setText = newText => text.innerHTML = newText
+    self.setText = newText => text.innerHTML = newText  !== "" ? (newText * self.factor).toFixed(0) : newText;
     self.setText("")
     knob.appendChild(text)
 
@@ -75,16 +77,6 @@ function Slider(config) {
     };
     if (config.message) listen(self, config.message, self.setValue);
 
-    if (config.alwaysOn === undefined) {
-        listen(self, "activeNWP", (friends) => {
-            if (friends.includes(self.id)) {
-                self.dom.removeAttribute("hide");
-            } else {
-                self.dom.setAttribute("hide", "true")
-            }
-        });
-    }
-
     // Mouse events
     var _isDragging = false;
     var _offsetX = 0;
@@ -121,7 +113,7 @@ function Slider(config) {
         _isDragging = false;
     };
     var _onDomMouseWheel = function (event) {
-        let direction = event.deltaY > 0 ? -1 : 1;
+        let direction = (event.deltaY > 0 ? -1 : 1) * config.step;
         let newValue = self.value + direction;
 
         if (newValue < config.min || newValue > config.max)
