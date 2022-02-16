@@ -23,7 +23,7 @@ const addJochenStage = function (self) {
     _.jochen = "jochenBild";
     self.add({
         id: _.jochen, type: "ImageBox",
-        src: JochenFaces.kamera,
+        src: Loader.manifest.jochen_kamera,
         x: 200, y: 60, width: 380 / 2, height: 545 / 2,
     });
     all.push(o[_.jochen])
@@ -754,8 +754,8 @@ function buildTabletInterface(self) {
 }
 
 const addSortingSlide = function (self, shiftx = -100, shifty = 0, findingTime = 750, stepTime = 2000) {
-    let face0 = JochenFaces.verduzt;
-    let face1 = JochenFaces.erstaunt;
+    let face0 = Loader.manifest.jochen_verduzt;
+    let face1 = Loader.manifest.jochen_erstaunt;
 
     let o = self.objects;
     let all = [];
@@ -1003,7 +1003,7 @@ const addFotoSlide = function (exampleBirneSrc = Loader.manifest.b1) {
             _.jochenFoto = "jochenFoto";
             self.add({
                 id: _.jochenFoto, type: "ImageBox",
-                src: JochenFaces.verduzt,
+                src: Loader.manifest.jochen_verduzt,
                 x: 200, y: 60, width: 380 / 2, height: 545 / 2,
             });
 
@@ -1038,7 +1038,7 @@ const addFotoSlide = function (exampleBirneSrc = Loader.manifest.b1) {
             _fadeIn(o[_.birneFoto], 1000);
             _show(o[_.flashlight], 1500);
             _hide(o[_.flashlight], 2000)
-            setTimeout(() => o[_.jochenFoto].changeImage(JochenFaces.zufrieden), 2000);
+            setTimeout(() => o[_.jochenFoto].changeImage(Loader.manifest.jochen_zufrieden), 2000);
             setTimeout(() => publish("slideshow/scratch"), 3000);
 
         },
@@ -1171,7 +1171,7 @@ SLIDES.push(
             o[_.btmLeftWords].setTextID("01_text3")
 
             _moveX(o[_.jochen], -380)
-            o[_.jochen].changeImage(JochenFaces.laecheln)
+            o[_.jochen].changeImage(Loader.manifest.jochen_laecheln)
 
             actionOnAllObjects([
                 o[_.btmLeftWords],
@@ -1353,7 +1353,7 @@ SLIDES.push(
             ], (obj) => self.remove(obj.id));
 
             _show(o[_.jochen])
-            o[_.jochen].changeImage(JochenFaces.aua);
+            o[_.jochen].changeImage(Loader.manifest.jochen_aua);
         }
     },
     {
@@ -1406,7 +1406,7 @@ SLIDES.push(
             o[_.slideCounter].setText("1-11")
             o[_.btmWords].setTextID("01_text11");
 
-            o[_.jochen].changeImage(JochenFaces.fragend);
+            o[_.jochen].changeImage(Loader.manifest.jochen_fragend);
 
             actionOnAllObjects([
                 o[_.btmWords], o[_.nextMiddle]
@@ -1426,7 +1426,7 @@ SLIDES.push(
             o[_.slideCounter].setText("1-12")
             o[_.btmWords].setTextID("01_text12");
             o[_.jochenHello].setTextID("01_tschau")
-            o[_.jochen].changeImage(JochenFaces.zufrieden);
+            o[_.jochen].changeImage(Loader.manifest.jochen_zufrieden);
 
             _fadeOut(o[_.tochter], 2000);
             actionOnAllObjects([
@@ -1452,7 +1452,7 @@ SLIDES.push(
             listen(self, "nextWrong", _.showNextWrong)
             setTimeout(() => publish("nextWrong"), 500);
 
-            o[_.jochen].changeImage(JochenFaces.verduzt);
+            o[_.jochen].changeImage(Loader.manifest.jochen_verduzt);
 
             actionOnAllObjects([
                 o[_.btmWords], o[_.nextMiddle],
@@ -1473,7 +1473,7 @@ SLIDES.push(
             let o = self.objects;
             o[_.slideCounter].setText("1-14")
             o[_.btmWords].setTextID("01_text14");
-            o[_.jochen].changeImage(JochenFaces.zufrieden);
+            o[_.jochen].changeImage(Loader.manifest.jochen_zufrieden);
 
 
             o[_.nextMiddle].changeOnClick(() => publish("slideshow/scratch"))

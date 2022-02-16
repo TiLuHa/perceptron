@@ -19,7 +19,7 @@ SLIDES.push(
 
             _show(o[_.slideCounter])
 
-            o[_.jochen].changeImage(JochenFaces.fragend);
+            o[_.jochen].changeImage(Loader.manifest.jochen_fragend);
             actionOnAllObjects([
                 o[_.topWords],
                 o[_.jochen],
@@ -41,7 +41,7 @@ SLIDES.push(
             o[_.slideCounter].setText("3-2");
             o[_.btmWords].setTextID("03_text2");
 
-            o[_.jochen].changeImage(JochenFaces.laecheln);
+            o[_.jochen].changeImage(Loader.manifest.jochen_laecheln);
 
 
             actionOnAllObjects(_.all_birnen,
@@ -121,10 +121,10 @@ SLIDES.push(
             listen(_, "OutputFinished", () => {
                 if (equal2dBooleanArray(_.birnenForItem0okList, _.okList)) {
                     o[_.nextMiddle].activate();
-                    o[_.jochen].changeImage(JochenFaces.stars)
+                    o[_.jochen].changeImage(Loader.manifest.jochen_stars)
                 } else {
                     o[_.nextMiddle].deactivate();
-                    o[_.jochen].changeImage(JochenFaces.fragend)
+                    o[_.jochen].changeImage(Loader.manifest.jochen_fragend)
                 }
             });
             publish("OutputFinished")

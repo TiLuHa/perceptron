@@ -389,7 +389,7 @@ let simpleNN = network.asSimpleNN();
 
 backProp(simpleNN, [.05, .1], [.01, .99], Loss.errorL2, .5)
 network.updateFromSimpleNN(simpleNN)
-console.log(network)
+//console.log(network)
 
 let nn3 = {
     "weights": [[[-7, -5, -3]]],

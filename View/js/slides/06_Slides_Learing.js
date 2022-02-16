@@ -41,7 +41,7 @@ SLIDES.push(
                 o[_.nextMiddle],
                 //o[_.tablet],
             ], _fadeIn, 500, 500);
-            o[_.jochen].changeImage(JochenFaces.aua)
+            o[_.jochen].changeImage(Loader.manifest.jochen_aua)
 
         },
         onend: function (self) {
@@ -61,7 +61,7 @@ SLIDES.push(
 
             o[_.slideCounter].setText("6-2")
             o[_.btmWords].setTextID("06_text2")
-            o[_.jochen].changeImage(JochenFaces.verduzt)
+            o[_.jochen].changeImage(Loader.manifest.jochen_verduzt)
 
 
             actionOnAllObjects([
@@ -83,7 +83,7 @@ SLIDES.push(
 
             o[_.slideCounter].setText("6-3")
             o[_.btmWords].setTextID("06_text3")
-            o[_.jochen].changeImage(JochenFaces.fragend)
+            o[_.jochen].changeImage(Loader.manifest.jochen_fragend)
             o[_.nextMiddle].changeOnClick(() => publish("slideshow/scratch"));
 
             actionOnAllObjects([

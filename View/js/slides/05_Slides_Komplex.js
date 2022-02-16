@@ -29,7 +29,7 @@ SLIDES.push(
             ], _fadeIn, 500, 500);
 
             _moveX(o[_.tablet], -200, 2500)
-            o[_.jochen].changeImage(JochenFaces.laecheln)
+            o[_.jochen].changeImage(Loader.manifest.jochen_laecheln)
 
         },
         onend: function (self) {
@@ -54,7 +54,7 @@ SLIDES.push(
 
             actionOnAllObjects(_.allNetwork, _fadeIn)
 
-            o[_.jochen].changeImage(JochenFaces.aua)
+            o[_.jochen].changeImage(Loader.manifest.jochen_aua)
 
             actionOnAllObjects([
                 o[_.btmLeftWords],
@@ -101,10 +101,10 @@ SLIDES.push(
                 _.countIterations = _.countIterations + 1;
                 if (equal2dBooleanArray(_.birnenForItem1okList, _.okList) || _.countIterations > 1000) {
                     o[_.nextRight].activate();
-                    o[_.jochen].changeImage(JochenFaces.stars)
+                    o[_.jochen].changeImage(Loader.manifest.jochen_stars)
                 } else {
                     o[_.nextRight].deactivate();
-                    o[_.jochen].changeImage(JochenFaces.fragend)
+                    o[_.jochen].changeImage(Loader.manifest.jochen_fragend)
                 }
             });
             publish("OutputFinished")

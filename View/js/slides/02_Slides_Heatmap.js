@@ -23,7 +23,7 @@ SLIDES.push(
             o[_.topWords].setTextID("02_title");
             o[_.btmWords].setTextID("02_text1");
 
-            o[_.jochen].changeImage(JochenFaces.erstaunt)
+            o[_.jochen].changeImage(Loader.manifest.jochen_erstaunt)
 
             o[_.nextMiddle].changeOnClick(() => publish("slideshow/scratch"))
 
