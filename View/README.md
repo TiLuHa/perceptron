@@ -19,6 +19,9 @@
 * [Thump](https://freesound.org/people/Brokenphono/sounds/344149/) by Brokenphono (CC Zero)
 * [Fart](https://freesound.org/people/DSISStudios/sounds/241000/) by DSISStudios (CC Zero)
 
+**Images:**
+* [Pear](https://iconarchive.com/show/fresh-fruit-icons-by-alex-t/pear-icon.html) by Alex T. ([CC BY 3.0](https://creativecommons.org/licenses/by/3.0/))
+
 **Open Source Libraries:**
 
 * [PIXI.js](http://www.pixijs.com/) for rendering graphics

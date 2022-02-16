@@ -1,3 +1,0 @@
-SLIDES.push({
-
-})
