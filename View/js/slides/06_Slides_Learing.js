@@ -208,8 +208,10 @@ SLIDES.push(
                     if (_.autoTrainOn) {
                         o[_.autoTrain].setText("06_autoLearnON");
                         publish("startNextTraining");
+                        o[_.wrong].deactivate()
                     } else {
                         o[_.autoTrain].setText("06_autoLearnOFF");
+                        o[_.wrong].activate()
                     }
                 }
             });
@@ -220,6 +222,7 @@ SLIDES.push(
                 if (equal2dBooleanArray(_.birnenForItem2okList, _.okList)) {
                     _.autoTrainOn = false
                     o[_.autoTrain].setText("06_autoLearnOFF");
+                    o[_.wrong].activate()
                     return;
                 }
 

@@ -408,7 +408,8 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
     _.resultPerceptron = "resultPerceptron"
     self.add({
         id: _.resultPerceptron, type: "ImageBox",
-        x: 325 + shiftx, y: 170 + shifty, width: 60, height: 60,
+        x: 332 + shiftx, y: 182 + shifty, width: 57, height: 57,
+        //x: 325 + shiftx, y: 170 + shifty, width: 60, height: 60,
         src: "assets/birnen/Wrong.png"
     });
     all.push(o[_.resultPerceptron])

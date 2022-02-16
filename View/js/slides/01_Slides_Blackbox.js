@@ -445,7 +445,7 @@ function addSinglePerceptron(self, shiftx = 0, shifty = 0) {
     _.resultPerceptron = "resultPerceptron"
     self.add({
         id: _.resultPerceptron, type: "ImageBox",
-        x: 505 + shiftx, y: 170 + shifty, width: 80, height: 80,
+        x: 512 + shiftx, y: 182 + shifty, width: 57, height: 57,
         src: "assets/birnen/Wrong.png"
     });
     all.push(o[_.resultPerceptron])
