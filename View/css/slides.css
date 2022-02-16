@@ -4,10 +4,6 @@
     src: url('FuturaHandwritten.ttf') format('truetype');
 }
 
-:root {
-    --NWP-src: "assets/birnen/mitte.png"
-}
-
 html, body {
     width: 100%;
     height: 100%;
@@ -284,6 +280,9 @@ s {
     height: 55px;
     cursor: pointer;
 }
+.button #hitbox [style="opacity:1"]{
+    cursor: pointer;
+}
 
 .button[hover=yes] {
     z-index: 100;
@@ -368,88 +367,8 @@ s {
 
 
 /*************************/
-/****** SANDBOX UI *******/
+/****** SLIDER *******/
 /*************************/
-
-#sandbox_tabs {
-    position: absolute;
-    left: 460px;
-    top: -10px;
-    background: url(../assets/ui/sandbox_tabs.png);
-    width: 500px;
-    height: 470px;
-    background-size: auto 100%;
-
-    -webkit-user-select: none; /* Chrome all / Safari all */
-    -moz-user-select: none; /* Firefox all */
-    -ms-user-select: none; /* IE 10+ */
-    user-select: none;
-    cursor: default;
-}
-
-#sandbox_tabs > div {
-    position: absolute;
-}
-
-#sandbox_tabs .hitbox {
-    cursor: pointer;
-    font-size: 25px;
-    top: 22px;
-}
-
-#sandbox_tabs .sandbox_page {
-    width: 433px;
-    height: 385px;
-    left: 33px;
-    top: 80px;
-}
-
-.incdec {
-    width: 0;
-    height: 0;
-    position: absolute;
-}
-
-.incdec > div {
-    position: absolute;
-}
-
-.incdec > .incdec_num {
-    width: 50px;
-    height: 50px;
-    font-size: 25px;
-    text-align: center;
-    top: -16px;
-    left: -25px;
-    cursor: default;
-}
-
-.incdec > .incdec_control {
-    left: -10px;
-    width: 20px;
-    height: 20px;
-    background: url(../assets/ui/sandbox_incdec.png);
-    background-size: auto 100%;
-    cursor: pointer;
-}
-
-.incdec > .incdec_control[arrow=up] {
-    top: -35px;
-    background-position: 0px 0px;
-}
-
-.incdec > .incdec_control[arrow=up]:hover {
-    background-position: -20px 0px;
-}
-
-.incdec > .incdec_control[arrow=down] {
-    bottom: -35px;
-    background-position: -40px 0px;
-}
-
-.incdec > .incdec_control[arrow=down]:hover {
-    background-position: -60px 0px;
-}
 
 .slider {
     position: absolute;
@@ -496,29 +415,6 @@ s {
     pointer-events: none
 }
 
-
-.sandbox_pop {
-    position: absolute;
-}
-
-.sandbox_pop > div {
-    position: absolute;
-}
-
-.sandbox_pop_icon {
-    width: 40px;
-    height: 40px;
-    background: url(../assets/ui/sandbox_hats.png);
-    background-size: auto 100%;
-}
-
-.sandbox_pop_label {
-    font-size: 18px;
-    width: 150px;
-    top: 8px;
-    left: 50px;
-}
-
 /*************************/
 /******* SCRATCHER *******/
 /*************************/
@@ -535,128 +431,6 @@ s {
 
     z-index: 200;
 }
-
-/*************************/
-/******* SCOREBOARD *******/
-/*************************/
-
-#scoreboard {
-    position: absolute;
-    width: 200px;
-    height: 100px;
-    background: url(../assets/iterated/iterated_scoreboard.png);
-    background-size: 100% 100%;
-}
-
-#scoreboard > div {
-    position: absolute;
-    width: 60px;
-    height: 60px;
-    text-align: center;
-    font-size: 50px;
-    color: #666666;
-}
-
-#scoreboard > div:nth-child(1) {
-    left: 20px;
-    top: 21px;
-}
-
-#scoreboard > div:nth-child(2) {
-    right: 15px;
-    top: 21px;
-}
-
-/*************************/
-/******* CHARACTERS *******/
-/*************************/
-
-.character {
-    position: absolute;
-    height: 114px;
-}
-
-.character #peep {
-    background: url(../assets/tournament/peep_characters.png);
-    background-size: auto 100%;
-    width: 105px;
-    height: 114px;
-    top: -5px;
-    left: -10px;
-}
-
-.character #desc {
-    width: calc(100% - 100px);
-    font-size: 18px;
-    height: 114px;
-    right: 0;
-    line-height: 1.2em;
-}
-
-.character #peep[char=tft] {
-    background-position: 0 0;
-}
-
-.character #peep[char=all_d] {
-    background-position: -105px 0;
-}
-
-.character #peep[char=all_c] {
-    background-position: -210px 0;
-}
-
-.character #peep[char=grudge] {
-    background-position: -315px 0;
-}
-
-.character #peep[char=prober] {
-    background-position: -420px 0;
-}
-
-.character #peep[char=tf2t] {
-    background-position: -525px 0;
-}
-
-.character #peep[char=pavlov] {
-    background-position: -630px 0;
-}
-
-.character #peep[char=random] {
-    background-position: -735px 0;
-}
-
-.tft {
-    color: #4089DD;
-}
-
-.all_d {
-    color: #52537F;
-}
-
-.all_c {
-    color: #FF75FF;
-}
-
-.grudge {
-    color: #efc701;
-}
-
-.prober {
-    color: #f6b24c;
-}
-
-.tf2t {
-    color: #88A8CE;
-}
-
-.pavlov {
-    color: #86C448;
-}
-
-.random {
-    color: #FF5E5E;
-}
-
 .blue {
     color: #4089DD
 }
@@ -671,83 +445,6 @@ s {
 
 .green {
     color: #86C448
-}
-
-.icon {
-    width: 25px;
-    height: 25px;
-    background: url(../assets/ui/sandbox_hats.png);
-    background-size: auto 100%;
-    display: inline-block;
-    position: relative;
-    top: 1px;
-}
-
-.icon_label {
-    display: inline-block;
-    font-size: 20px;
-    position: relative;
-    top: -3px;
-}
-
-.tft .icon {
-    background-position: 0 0;
-}
-
-.all_d .icon {
-    background-position: -25px 0;
-}
-
-.all_c .icon {
-    background-position: -50px 0;
-}
-
-.grudge .icon {
-    background-position: -75px 0;
-}
-
-.prober .icon {
-    background-position: -100px 0;
-}
-
-.tf2t .icon {
-    background-position: -125px 0;
-}
-
-.pavlov .icon {
-    background-position: -150px 0;
-}
-
-.random .icon {
-    background-position: -175px 0;
-}
-
-/*************************/
-/******* MISC STUFF *******/
-/*************************/
-
-.score_small {
-    width: 40px;
-    height: 40px;
-    background: url(../assets/tournament/score_small.png);
-    background-size: auto 100%;
-    display: inline-block;
-}
-
-.score_small[payoff=R] {
-    background-position: 0 0;
-}
-
-.score_small[payoff=T] {
-    background-position: -40px 0;
-}
-
-.score_small[payoff=S] {
-    background-position: -80px 0;
-}
-
-.score_small[payoff=P] {
-    background-position: -120px 0;
 }
 
 /*************************/
@@ -807,6 +504,10 @@ s {
     border: 0px solid #4089DD;
 }
 
+/*************************/
+/***** Heatmap ******/
+/*************************/
+
 .heatmap_pixel[output=true] {
     background-color: rgba(191, 227, 165, 0.3);
 }
@@ -815,12 +516,20 @@ s {
     /*background-color: rgba(178, 188, 192, 0.2);*/
 }
 
+/*************************/
+/***** Birnenauswahl ******/
+/*************************/
+
 .zoom:hover {
     pointer-events: all;
     transform-origin: 50% 50%;
     transform: scale(1.1, 1.1);
     cursor: pointer
 }
+
+/*************************/
+/***** Farben von Texten ******/
+/*************************/
 
 .gewichteText {
     color: crimson;
