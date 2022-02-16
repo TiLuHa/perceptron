@@ -132,7 +132,17 @@ function addScalas(self, shiftx = 0, shifty = 0) {
         src: Loader.manifest.scalaFarbe,
         x: 380 + shiftx, y: 100 + shifty,
     });
-    _.topScala.push(o[_.scalaTop])
+    _.topScala.push(o[_.scalaTop]);
+
+    _.pfeilTop = "pfeilTop";
+    self.add({
+        id: _.pfeilTop, type: "ImageBox",
+        src: Loader.manifest.network_pfeilRechts,
+        x: 371 + shiftx, y: 66 + shifty,
+        width:40,
+        rotation: 90,
+    });
+    _.topScala.push(o[_.pfeilTop])
 
     _.scalaButtom = "scalaButtom";
     self.add({
@@ -141,6 +151,16 @@ function addScalas(self, shiftx = 0, shifty = 0) {
         x: 380 + shiftx, y: 270 + shifty,
     });
     _.bottomScala.push(o[_.scalaButtom])
+
+    _.pfeilButtom = "pfeilButtom";
+    self.add({
+        id: _.pfeilButtom, type: "ImageBox",
+        src: Loader.manifest.network_pfeilRechts,
+        x: 512 + shiftx, y: 247 + shifty,
+        width:40,
+        rotation: 90,
+    });
+    _.bottomScala.push(o[_.pfeilButtom])
 
     _.birneTopLeft = "birneTopLeft";
     self.add({
