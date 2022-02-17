@@ -212,7 +212,7 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
         x: 71 + shiftx, y: 80 + shifty,
         width: 100, rotation: 0,
         min: slidermin, max: slidermax, step: sliderstep,
-        message: "update/0-2",
+        message: "0-2",
         factor: factor,
     });
     all.push(o[_.sliderWeight02]);
@@ -223,7 +223,7 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
         x: 54 + shiftx, y: 265 + shifty,
         width: 165, rotation: 300,
         min: slidermin, max: slidermax, step: sliderstep,
-        message: "update/1-2",
+        message: "1-2",
         factor: factor,
 
     });
@@ -235,7 +235,7 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
         x: 100 + shiftx, y: 100 + shifty,
         width: 165, rotation: 60,
         min: slidermin, max: slidermax, step: sliderstep,
-        message: "update/0-3",
+        message: "0-3",
         factor: factor,
     });
     all.push(o[_.sliderWeight03]);
@@ -246,7 +246,7 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
         x: 71 + shiftx, y: 265 + shifty,
         width: 100, rotation: 0,
         min: slidermin, max: slidermax, step: sliderstep,
-        message: "update/1-3",
+        message: "1-3",
         factor: factor,
     });
     all.push(o[_.sliderWeight13]);
@@ -257,7 +257,7 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
         x: 245 + shiftx, y: 93 + shifty,
         width: 100, rotation: 40,
         min: slidermin, max: slidermax, step: sliderstep,
-        message: "update/2-4",
+        message: "2-4",
         factor: factor,
     });
     all.push(o[_.sliderWeight24]);
@@ -268,7 +268,7 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
         x: 213 + shiftx, y: 265 + shifty,
         width: 100, rotation: 324,
         min: slidermin, max: slidermax, step: sliderstep,
-        message: "update/3-4",
+        message: "3-4",
         factor: factor,
     });
     all.push(o[_.sliderWeight34]);
@@ -279,7 +279,7 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
         x: 140 + shiftx, y: 13 + shifty,
         width: 100,
         min: slidermin, max: slidermax, step: sliderstep,
-        message: "update/2",
+        message: "2",
         factor: factor,
     });
     all.push(o[_.sliderBias2]);
@@ -290,7 +290,7 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
         x: 140 + shiftx, y: 329 + shifty,
         width: 100,
         min: slidermin, max: slidermax, step: sliderstep,
-        message: "update/3",
+        message: "3",
         factor: factor,
     });
     all.push(o[_.sliderBias3]);
@@ -301,7 +301,7 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
         x: 289 + shiftx, y: 255 + shifty,
         width: 100,
         min: slidermin, max: slidermax, step: sliderstep,
-        message: "update/4",
+        message: "4",
         factor: factor,
     });
     all.push(o[_.sliderBias4]);

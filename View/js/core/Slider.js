@@ -75,7 +75,8 @@ function Slider(config) {
         knob.style.left = param * (config.width - sliderSize);
 
     };
-    if (config.message) listen(self, config.message, self.setValue);
+    if (config.message) listen(self, "update/"+config.message, self.setValue);
+    if (config.message) listen(self, "change/"+config.message, self.setValue);
 
     // Mouse events
     var _isDragging = false;
@@ -90,7 +91,7 @@ function Slider(config) {
 
         // Publish these changes! (only if ACTUALLY changed)
         if (self.value !== value) {
-            if (config.message) publish(config.message, [value]);
+            if (config.message) publish("update/"+config.message, [value]);
             if (config.onchange) config.onchange(value);
         }
 
@@ -120,7 +121,7 @@ function Slider(config) {
             return;
 
         if (config.onselect) config.onselect();
-        if (config.message) publish(config.message, [newValue]);
+        if (config.message) publish("update/"+config.message, [newValue]);
         if (config.onchange) config.onchange(newValue);
     }
 

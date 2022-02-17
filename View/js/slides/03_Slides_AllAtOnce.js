@@ -381,7 +381,7 @@ function addNetwork21small(self, shiftx = 0, shifty = 0) {
         x: 100 + shiftx, y: 93 + shifty,
         width: 100, rotation: 40,
         min: -10, max: 10, step: 1,
-        message: "update/0-2"
+        message: "0-2"
     });
     all.push(o[_.sliderWeight1]);
 
@@ -391,7 +391,7 @@ function addNetwork21small(self, shiftx = 0, shifty = 0) {
         x: 71 + shiftx, y: 265 + shifty,
         width: 100, rotation: 324,
         min: -10, max: 10, step: 1,
-        message: "update/1-2"
+        message: "1-2"
     });
     all.push(o[_.sliderWeight2]);
 
@@ -401,7 +401,7 @@ function addNetwork21small(self, shiftx = 0, shifty = 0) {
         x: 140 + shiftx, y: 255 + shifty,
         width: 100,
         min: -10, max: 10, step: 1,
-        message: "update/2"
+        message: "2"
     });
     all.push(o[_.sliderBias]);
 

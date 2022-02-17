@@ -66,7 +66,7 @@ function Button(config){
 	// On click...
 	hitbox.onclick = function(){
 
-		if(parseFloat(getComputedStyle(self.dom).opacity)<1) return; // DON'T CLICK INVISIBLE BUTTONS
+		if(parseFloat(getComputedStyle(self.dom).opacity)<0.5) return; // DON'T CLICK INVISIBLE BUTTONS
 
 		if(self.active){
 

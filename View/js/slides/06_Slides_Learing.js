@@ -174,14 +174,14 @@ SLIDES.push(
                         backProp(simpleNN, input, [target], Loss.errorL2, _.learningRate)
                         network.updateFromSimpleNN(simpleNN);
 
-                        publish("update/0-2", [_.network.links[0].weight]);
-                        publish("update/0-3", [_.network.links[1].weight]);
-                        publish("update/1-2", [_.network.links[2].weight]);
-                        publish("update/1-3", [_.network.links[3].weight]);
-                        publish("update/2-4", [_.network.links[4].weight]);
-                        publish("update/3-4", [_.network.links[5].weight]);
-                        publish("update/2", [_.network.getNodes()[2].bias]);
-                        publish("update/3", [_.network.getNodes()[3].bias]);
+                        publish("change/0-2", [_.network.links[0].weight]);
+                        publish("change/0-3", [_.network.links[1].weight]);
+                        publish("change/1-2", [_.network.links[2].weight]);
+                        publish("change/1-3", [_.network.links[3].weight]);
+                        publish("change/2-4", [_.network.links[4].weight]);
+                        publish("change/3-4", [_.network.links[5].weight]);
+                        publish("change/2", [_.network.getNodes()[2].bias]);
+                        publish("change/3", [_.network.getNodes()[3].bias]);
                         publish("update/4", [_.network.getNodes()[4].bias]);
 
                         firstOutput = network.getFirstOutput();
@@ -246,14 +246,14 @@ SLIDES.push(
                 backProp(simpleNN, input, [target], Loss.errorL2, _.learningRate)
                 network.updateFromSimpleNN(simpleNN);
 
-                publish("update/0-2", [_.network.links[0].weight]);
-                publish("update/0-3", [_.network.links[1].weight]);
-                publish("update/1-2", [_.network.links[2].weight]);
-                publish("update/1-3", [_.network.links[3].weight]);
-                publish("update/2-4", [_.network.links[4].weight]);
-                publish("update/3-4", [_.network.links[5].weight]);
-                publish("update/2", [_.network.getNodes()[2].bias]);
-                publish("update/3", [_.network.getNodes()[3].bias]);
+                publish("change/0-2", [_.network.links[0].weight]);
+                publish("change/0-3", [_.network.links[1].weight]);
+                publish("change/1-2", [_.network.links[2].weight]);
+                publish("change/1-3", [_.network.links[3].weight]);
+                publish("change/2-4", [_.network.links[4].weight]);
+                publish("change/3-4", [_.network.links[5].weight]);
+                publish("change/2", [_.network.getNodes()[2].bias]);
+                publish("change/3", [_.network.getNodes()[3].bias]);
                 publish("update/4", [_.network.getNodes()[4].bias]);
 
                 let result = _.network.getOutputFast([x, y])[0]

@@ -396,7 +396,7 @@ function addSinglePerceptron(self, shiftx = 0, shifty = 0, input1 = 2, input2 = 
         x: 258 + shiftx, y: 93 + shifty,
         width: 200, rotation: 25,
         min: -10, max: 10, step: 1,
-        message: "update/0-2"
+        message: "0-2"
     });
     all.push(o[_.sliderWeight1])
 
@@ -407,7 +407,7 @@ function addSinglePerceptron(self, shiftx = 0, shifty = 0, input1 = 2, input2 = 
         x: 238 + shiftx, y: 260 + shifty,
         width: 200, rotation: 340,
         min: -10, max: 10, step: 1,
-        message: "update/1-2"
+        message: "1-2"
     });
     all.push(o[_.sliderWeight2])
 
@@ -419,7 +419,7 @@ function addSinglePerceptron(self, shiftx = 0, shifty = 0, input1 = 2, input2 = 
         width: 100,
         min: 10, max: -10, step: -1,
         factor: -1,
-        message: "update/2"
+        message: "2"
     });
     all.push(o[_.sliderBias])
 
