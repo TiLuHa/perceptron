@@ -1059,7 +1059,7 @@ const addFehlvorstellung = function (self) {
     _.wrongImg0 = "wrong0"
     self.add({
         id: _.wrongImg0, type: "ImageBox",
-        src: "assets/Jochen/wrong1.PNG",
+        src: Loader.manifest.wrongImg0,
         x: 497, y: 60, width: 520 / 3, height: 810 / 3,
     });
     all.push(o[_.wrongImg0]);
@@ -1067,14 +1067,14 @@ const addFehlvorstellung = function (self) {
 
     self.add({
         id: _.wrongImg1, type: "ImageBox",
-        src: "assets/Jochen/wrong2.PNG",
+        src: Loader.manifest.wrongImg1,
         x: 493, y: 60, width: 714 / 3.4, height: 862 / 3.4,
     });
     all.push(o[_.wrongImg1]);
     _.wrongImg2 = "wrong2"
     self.add({
         id: _.wrongImg2, type: "ImageBox",
-        src: "assets/Jochen/wrong3.PNG",
+        src: Loader.manifest.wrongImg2,
         x: 436, y: 102, width: 701 / 2.1, height: 459 / 2.1,
     });
     all.push(o[_.wrongImg2]);

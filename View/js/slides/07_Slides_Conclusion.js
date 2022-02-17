@@ -6,10 +6,26 @@ SLIDES.push(
         onstart: function (self) {
             let o = self.objects;
 
-            let stage = addJochenStage(self)
 
-            _.all = [].concat(stage)
+            _.sortierer = "sortierer"
+            self.add({
+                id: _.sortierer, type: "ImageBox",
+                src: Loader.manifest.birnensortierer,
+                x: 367, y: 137, width: 250
+            });
+            let stage = addJochenStage(self)
+            _.nextProducts = [Loader.manifest.birnencreme, Loader.manifest.birnenschuhe, Loader.manifest.birnensaft];
+            _.nextProduct = "nextProduct"
+            self.add({
+                id: _.nextProduct, type: "ImageBox",
+                src: _.nextProducts[0],
+                x: 436, y: 102, width: 150, height: 150,
+            });
+
+            _.all = [].concat(stage, [o[_.nextProduct], o[_.sortierer]])
             actionOnAllObjects(_.all, _hide)
+
+
 
             if(SHOW_SLIDE_NUMBER) _show(o[_.slideCounter])
 
@@ -44,15 +60,32 @@ SLIDES.push(
             o[_.slideCounter].setText("7-2")
             o[_.btmWords].setTextID("07_text2")
 
-            o[_.jochen].changeImage(Loader.manifest.jochen_fragend)
+            o[_.jochen].changeImage(Loader.manifest.jochen_stars)
+
+
+
+            const showNextProduct = function () {
+                let nextImg = _.nextProducts.pop()
+                _fadeIn(o[_.nextProduct], 0);
+                _fadeOut(o[_.nextProduct], 1500);
+                setTimeout(() => o[_.nextProduct].changeImage(nextImg), 2000)
+                setTimeout(() => publish("nextProduct"), 2500);
+                _.nextProducts.unshift(nextImg);
+            }
+
 
             actionOnAllObjects([
                 o[_.btmWords],
                 o[_.nextMiddle],
             ], _fadeIn, 500, 500)
+
+            listen(_,"nextProduct", showNextProduct);
+            publish("nextProduct");
         },
         onend: function (self) {
             let o = self.objects;
+            self.remove(_.nextProduct);
+            unlisten(_)
 
             actionOnAllObjects([
                 o[_.nextMiddle],
@@ -92,6 +125,7 @@ SLIDES.push(
             o[_.nextMiddle].changeOnClick(() => publish("slideshow/scratch"))
 
             actionOnAllObjects([
+                o[_.sortierer],
                 o[_.btmWords],
                 o[_.nextMiddle],
             ], _fadeIn, 500, 500)
@@ -111,32 +145,32 @@ SLIDES.push(
             });
             self.add({
                 id: "text2", type: "TextBox",
-                x: 176, y: 65 - 10, width: 760, size: 30, color: "#4089DD",
+                x: 30, y: 65 - 10, width: 760, size: 30, color: "#4089DD",
                 text_id: "conclusion_1_a"
             });
             self.add({
                 id: "text3", type: "TextBox",
-                x: 176, y: 115 - 10, width: 760,
+                x: 50, y: 115 - 10, width: 760,
                 text_id: "conclusion_1_a2"
             });
             self.add({
                 id: "text4", type: "TextBox",
-                x: 176, y: 192 - 10, width: 760, size: 30, color: "#efc701",
+                x: 80, y: 187, width: 760, size: 30, color: "#efc701",
                 text_id: "conclusion_2_a"
             });
             self.add({
                 id: "text5", type: "TextBox",
-                x: 176, y: 242 - 10, width: 760,
+                x: 100, y: 242 - 10, width: 760,
                 text_id: "conclusion_2_a2"
             });
             self.add({
                 id: "text6", type: "TextBox",
-                x: 176, y: 316 - 10, width: 760, size: 30, color: "#DD4040",
+                x: 130, y: 316, width: 760, size: 30, color: "#DD4040",
                 text_id: "conclusion_3_a"
             });
             self.add({
                 id: "text7", type: "TextBox",
-                x: 176, y: 366 - 10, width: 760,
+                x: 150, y: 366 - 10, width: 760,
                 text_id: "conclusion_3_a2"
             });
             self.add({
@@ -146,12 +180,12 @@ SLIDES.push(
             });
 
             // IMAGE
-            self.add({
+            /*self.add({
                 id: "img", type: "ImageBox",
                 src: "assets/conclusion/summary.png",
                 x: 10, y: 60, width: 140, height: 350
             });
-
+*/
             // Button
             self.add({
                 id: "button", type: "Button", x: 615, y: 481,
