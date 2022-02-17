@@ -373,6 +373,16 @@ function addNetwork21small(self, shiftx = 0, shifty = 0) {
     _.network = o[_.perceptron].network;
     all.push(o[_.perceptron])
 
+    _.itemPicture = "itemPicture"
+    self.add({
+        id: _.itemPicture, type: "ImageBox",
+        src: Loader.manifest.birnenmarmelade,
+        x: 325 + shiftx,
+        y: 57 + shifty,
+        width: 100
+    })
+    all.push(o[_.itemPicture]);
+
     _.biasDot = "biasDot"
     self.add({
         id: _.biasDot, type: "ImageBox",
@@ -482,15 +492,7 @@ function addNetwork21small(self, shiftx = 0, shifty = 0) {
     })
     all.push(o[_.perceptronRechts]);
 
-    _.itemPicture = "itemPicture"
-    self.add({
-        id: _.itemPicture, type: "ImageBox",
-        src: Loader.manifest.birnenmarmelade,
-        x: 122 + shiftx,
-        y: 0 + shifty,
-        width: 150
-    })
-    all.push(o[_.itemPicture]);
+
 
 
     publish("update/0-2", [_.network.links[0].weight]);

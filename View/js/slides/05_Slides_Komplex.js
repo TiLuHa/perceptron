@@ -12,6 +12,8 @@ SLIDES.push(
             _.all = [].concat(stage, _.allNetwork)
             actionOnAllObjects(_.all, _hide)
 
+            publish("newOutput",_.network)
+
             _.allNetwork.forEach(obj => _moveX(obj, 300));
             _show(o[_.slideCounter])
 
@@ -21,12 +23,12 @@ SLIDES.push(
 
             actionOnAllObjects([
                 o[_.topWords],
-                o[_.tochter],
                 o[_.jochen],
-                o[_.nextMiddle],
-                o[_.tablet],
+                o[_.tochter],
                 o[_.btmWords],
-            ], _fadeIn, 500, 500);
+                o[_.tablet],
+                o[_.nextMiddle],
+            ], _fadeIn, 500, 700);
 
             _moveX(o[_.tablet], -200, 2500)
             o[_.jochen].changeImage(Loader.manifest.jochen_laecheln)
@@ -133,14 +135,14 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
                                 "0": 1, //Input1
                                 "1": 1,  //Input2
                                 "2": (-3), //Hidden Bias
-                                "3": (-2), //Hidden Bias
-                                "4": (-4), //Output Bias
+                                "3": (10), //Hidden Bias
+                                "4": (-3), //Output Bias
                                 "0-2": -5,
                                 "1-2": -7,
                                 "0-3": -6,
                                 "1-3": -2,
                                 "2-4": -4,
-                                "3-4":7,
+                                "3-4":6,
 
                             }) {
     let o = self.objects;
@@ -162,9 +164,9 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
     self.add({
         id: _.itemPicture, type: "ImageBox",
         src: Loader.manifest.birnenkuchen,
-        x: 270 + shiftx,
-        y: 12 + shifty,
-        width: 150
+        x: 293 + shiftx,
+        y: 53 + shifty,
+        width: 100
     })
     all.push(o[_.itemPicture]);
 
@@ -425,7 +427,7 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
     _.resultPerceptron = "resultPerceptron"
     self.add({
         id: _.resultPerceptron, type: "ImageBox",
-        x: 332 + shiftx, y: 182 + shifty, width: 57, height: 57,
+        x: 332 + shiftx, y: 182 + shifty, width: 42, height: 42,
         //x: 325 + shiftx, y: 170 + shifty, width: 60, height: 60,
         src: "assets/birnen/Wrong.png"
     });
