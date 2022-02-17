@@ -27,7 +27,7 @@ SLIDES.push(
 
             o[_.nextMiddle].changeOnClick(() => publish("slideshow/scratch"))
 
-            _show(o[_.slideCounter], 0);
+            if(SHOW_SLIDE_NUMBER) _show(o[_.slideCounter], 0);
 
             _show(o[_.topWords])
             _show(o[_.tablet], 1000)

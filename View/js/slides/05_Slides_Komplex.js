@@ -15,7 +15,7 @@ SLIDES.push(
             publish("newOutput",_.network)
 
             //_.allNetwork.forEach(obj => _moveX(obj, 300));
-            _show(o[_.slideCounter])
+            if(SHOW_SLIDE_NUMBER) _show(o[_.slideCounter]);
 
             o[_.slideCounter].setText("5-1")
             o[_.btmWords].setTextID("05_text1")

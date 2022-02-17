@@ -17,7 +17,7 @@ SLIDES.push(
             o[_.btmWords].setTextID("03_text1")
             o[_.topWords].setTextID("03_title")
 
-            _show(o[_.slideCounter])
+            if(SHOW_SLIDE_NUMBER) _show(o[_.slideCounter])
 
             o[_.jochen].changeImage(Loader.manifest.jochen_fragend);
             actionOnAllObjects([
@@ -98,7 +98,7 @@ SLIDES.push(
             o[_.btmWords].setTextID("03_text5")
 
             o[_.nextMiddle].deactivate();
-            _show(o[_.heatmap])
+            //_show(o[_.heatmap])
 
             listen(_, "OutputFinished", () => {
                 if (equal2dBooleanArray(_.birnenForItem0okList, _.okList)) {
@@ -406,27 +406,27 @@ function addNetwork21small(self, shiftx = 0, shifty = 0) {
     all.push(o[_.sliderBias]);
 
 
-    _.anchorInput1X = 0 + shiftx;
-    _.anchorInput1Y = 70 + shifty;
-    _.xPlusInputText = 40;
-    _.yPlusInputText = 30;
-    _.xPlusInputDescription = -47;
-    _.yPlusInputDescription = 35;
+    let anchorInput1X = 0 + shiftx,
+        anchorInput1Y = 70 + shifty,
+        xPlusInputText = 40,
+        yPlusInputText = 30,
+        xPlusInputDescription = -47,
+        yPlusInputDescription = 35;
 
-    _.input1 = "input1"
+    _.input1 = "input1";
     self.add({
         id: _.input1, type: "ImageBox",
         src: "assets/birnen/blau/pfeilrechtsblau.png",
-        x: _.anchorInput1X,
-        y: _.anchorInput1Y,
+        x: anchorInput1X,
+        y: anchorInput1Y,
     })
     all.push(o[_.input1]);
 
     _.input1Description = "input1Description";
     self.add({
         id: _.input1Description, type: "TextBox",
-        x: _.anchorInput1X + _.xPlusInputDescription,
-        y: _.anchorInput1Y + _.yPlusInputDescription,
+        x: anchorInput1X + xPlusInputDescription,
+        y: anchorInput1Y + yPlusInputDescription,
         width: 130, height: 50,
         align: "center", color: "blue", size: 17,
         rotation: 270,
@@ -435,22 +435,22 @@ function addNetwork21small(self, shiftx = 0, shifty = 0) {
     all.push(o[_.input1Description]);
 
 
-    _.anchorInput2X = _.anchorInput1X + 0;
-    _.anchorInput2Y = _.anchorInput1Y + 170;
+    let anchorInput2X = anchorInput1X + 0;
+    let anchorInput2Y = anchorInput1Y + 170;
     _.input2 = "input2"
     self.add({
         id: _.input2, type: "ImageBox",
         src: "assets/birnen/blau/pfeilrechtsblau.png",
-        x: _.anchorInput2X,
-        y: _.anchorInput2Y,
+        x: anchorInput2X,
+        y: anchorInput2Y,
     })
     all.push(o[_.input2]);
 
     _.input2Description = "input2Description";
     self.add({
         id: _.input2Description, type: "TextBox",
-        x: _.anchorInput2X + _.xPlusInputDescription,
-        y: _.anchorInput2Y + _.yPlusInputDescription,
+        x: anchorInput2X + xPlusInputDescription,
+        y: anchorInput2Y + yPlusInputDescription,
         width: 130, height: 50,
         align: "center", color: "blue", size: 17,
         rotation: 270, text_id: "input2_description"
@@ -476,8 +476,8 @@ function addNetwork21small(self, shiftx = 0, shifty = 0) {
     all.push(o[_.perceptronRechts]);
 
 
-    publish("update/0-2", [_.network.links[0].weight]);
-    publish("update/1-2", [_.network.links[1].weight]);
+    publish("change/0-2", [_.network.links[0].weight]);
+    publish("change/1-2", [_.network.links[1].weight]);
     publish("update/2", [_.network.getNodes()[2].bias]);
 
     return all

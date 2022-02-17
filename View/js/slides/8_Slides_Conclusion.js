@@ -1,5 +1,5 @@
 SLIDES.push({
-	id: "conclusion",
+	//id: "conclusion",
 	onstart: function(self){
 
 		// WORDS

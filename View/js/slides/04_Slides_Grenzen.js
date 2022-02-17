@@ -12,8 +12,9 @@ SLIDES.push(
             actionOnAllObjects(all, _hide);
             actionOnAllObjects([
                 o[_.jochen],
-                o[_.slideCounter]
             ],_show, 100, 0)
+
+            if(SHOW_SLIDE_NUMBER) _show(o[_.slideCounter]);
 
             _moveX(o[_.jochen], -210);
 

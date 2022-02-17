@@ -22,12 +22,58 @@ SLIDES.push(
                     "2-4": 0.5,
                     "3-4": 0.6,
                 })
-            _.all = [].concat(stage, birnenGrid, _.allNetwork)
+
+            _.learningRate = 0.7;
+
+            _.wrong = "wrong";
+            self.add({
+                id: _.wrong, type: "Button",
+                x: 10, y: 463,
+                text_id: "06_wrongButton", uppercase: false,
+                size: "long",
+                onclick: () => {
+                    let network = _.network;
+                    let input = network.getInput();
+                    let i = 0;
+                    let firstOutput = network.getFirstOutput();
+                    let firstIsPositive = firstOutput > 0.5;
+                    let target = firstIsPositive ? 0.01 : 0.99;
+
+                    while ((firstIsPositive === (firstOutput > 0.5)) && i < 1) {
+                        publish("clickMade")
+                        i++;
+
+                        let simpleNN = network.asSimpleNN();
+                        backProp(simpleNN, input, [target], Loss.errorL2, _.learningRate)
+                        network.updateFromSimpleNN(simpleNN);
+
+                        publish("change/0-2", [_.network.links[0].weight]);
+                        publish("change/0-3", [_.network.links[1].weight]);
+                        publish("change/1-2", [_.network.links[2].weight]);
+                        publish("change/1-3", [_.network.links[3].weight]);
+                        publish("change/2-4", [_.network.links[4].weight]);
+                        publish("change/3-4", [_.network.links[5].weight]);
+                        publish("change/2", [_.network.getNodes()[2].bias]);
+                        publish("change/3", [_.network.getNodes()[3].bias]);
+                        publish("update/4", [_.network.getNodes()[4].bias]);
+
+                        firstOutput = network.getFirstOutput();
+                    }
+                }
+            });
+            _.all = [].concat(stage, birnenGrid, _.allNetwork,[o[_.wrong]])
             actionOnAllObjects(_.all, _hide)
             o[_.itemPicture].changeImage(Loader.manifest.birnenbier)
 
+            _.birneWasClicked = false;
+
+            _.misc = {}
+            listen(_.misc, "BirneClicked", () => {
+                _.birneWasClicked = true;
+            })
+
             //_.allNetwork.forEach(obj => _moveX(obj, 300));
-            _show(o[_.slideCounter])
+            if(SHOW_SLIDE_NUMBER) _show(o[_.slideCounter]);
 
             o[_.slideCounter].setText("6-1")
             o[_.btmWords].setTextID("06_text1")
@@ -150,46 +196,6 @@ SLIDES.push(
             o[_.slideCounter].setText("6-5")
             o[_.rigthWords].setTextID("06_text5")
 
-            _.learningRate = 0.7;
-
-            _.wrong = "wrong";
-            self.add({
-                id: _.wrong, type: "Button",
-                x: 10, y: 463,
-                text_id: "06_wrongButton", uppercase: false,
-                size: "long",
-                onclick: () => {
-                    let network = _.network;
-                    let input = network.getInput();
-                    let i = 0;
-                    let firstOutput = network.getFirstOutput();
-                    let firstIsPositive = firstOutput > 0.5;
-                    let target = firstIsPositive ? 0.01 : 0.99;
-
-                    while ((firstIsPositive === (firstOutput > 0.5)) && i < 1) {
-                        publish("clickMade")
-                        i++;
-
-                        let simpleNN = network.asSimpleNN();
-                        backProp(simpleNN, input, [target], Loss.errorL2, _.learningRate)
-                        network.updateFromSimpleNN(simpleNN);
-
-                        publish("change/0-2", [_.network.links[0].weight]);
-                        publish("change/0-3", [_.network.links[1].weight]);
-                        publish("change/1-2", [_.network.links[2].weight]);
-                        publish("change/1-3", [_.network.links[3].weight]);
-                        publish("change/2-4", [_.network.links[4].weight]);
-                        publish("change/3-4", [_.network.links[5].weight]);
-                        publish("change/2", [_.network.getNodes()[2].bias]);
-                        publish("change/3", [_.network.getNodes()[3].bias]);
-                        publish("update/4", [_.network.getNodes()[4].bias]);
-
-                        firstOutput = network.getFirstOutput();
-                    }
-                }
-            });
-            _.all.push(o[_.wrong]);
-
 
             let inputColMin = -3,
                 inputColStep = 6 / 2,
@@ -207,8 +213,8 @@ SLIDES.push(
                     _.autoTrainOn = !_.autoTrainOn
                     if (_.autoTrainOn) {
                         o[_.autoTrain].setText("06_autoLearnON");
-                        publish("startNextTraining");
                         o[_.wrong].deactivate()
+                        publish("startNextTraining");
                     } else {
                         o[_.autoTrain].setText("06_autoLearnOFF");
                         o[_.wrong].activate()
@@ -269,15 +275,17 @@ SLIDES.push(
             });
 
             [
-                o[_.wrong], o[_.nextRight], o[_.autoTrain],
+                o[_.nextRight], o[_.autoTrain],
             ].forEach(button => button.deactivate());
 
             _fadeIn(o[_.nextRight])
+            _fadeIn(o[_.wrong])
 
-            _.misc = {}
+            if(! _.birneWasClicked) o[_.wrong].deactivate();
             listen(_.misc, "BirneClicked", () => {
                 o[_.wrong].activate();
             })
+
             listen(_.misc, "clickMade", () => {
                 o[_.nextRight].activate()
             })

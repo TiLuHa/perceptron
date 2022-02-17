@@ -1114,7 +1114,7 @@ SLIDES.push(
 
             actionOnAllObjects(all, _hide);
 
-            _show(o[_.slideCounter]);
+            if(SHOW_SLIDE_NUMBER) _show(o[_.slideCounter]);
 
             o[_.slideCounter].setText("1-1")
             o[_.btmWords].setTextID("01_text1");

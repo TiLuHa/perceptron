@@ -14,6 +14,8 @@ Labels should be in the en.html folder
 
 *********************/
 
+const SHOW_SLIDE_NUMBER = true;
+
 Loader.addToManifest(Loader.manifest,{
 	//Birnenassets
 	b1: "assets/birnen/b1.png",
