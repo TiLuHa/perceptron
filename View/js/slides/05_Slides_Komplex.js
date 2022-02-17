@@ -30,7 +30,7 @@ SLIDES.push(
                 o[_.nextMiddle],
             ], _fadeIn, 500, 700);
 
-            _moveX(o[_.tablet], -200, 2500)
+            _moveX(o[_.tablet], -200, 4000)
             o[_.jochen].changeImage(Loader.manifest.jochen_laecheln)
 
         },

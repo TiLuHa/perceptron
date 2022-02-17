@@ -1353,7 +1353,7 @@ SLIDES.push(
             ], (obj) => self.remove(obj.id));
 
             _show(o[_.jochen])
-            o[_.jochen].changeImage(Loader.manifest.jochen_aua);
+            o[_.jochen].changeImage(Loader.manifest.jochen_erschoepft);
         }
     },
     {

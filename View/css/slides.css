@@ -261,9 +261,6 @@ s {
     height: 55px;
     cursor: pointer;
 }
-.button #hitbox [style="opacity:1"]{
-    cursor: pointer;
-}
 
 .button[hover=yes] {
     z-index: 100;
