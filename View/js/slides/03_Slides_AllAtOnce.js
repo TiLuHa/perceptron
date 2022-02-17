@@ -7,7 +7,7 @@ SLIDES.push(
         onstart: function (self) {
             let o = self.objects;
             let stage = addJochenStage(self);
-            _.allBirnenGrid = addBirnenGrid(self,20,0);
+            _.allBirnenGrid = addBirnenGrid(self, 20, 0);
             _.allNetwork = addNetwork21small(self, 180, 0);
 
             let all = [].concat(stage, _.allBirnenGrid, _.allNetwork);
@@ -98,6 +98,7 @@ SLIDES.push(
             o[_.btmWords].setTextID("03_text5")
 
             o[_.nextMiddle].deactivate();
+            _show(o[_.heatmap])
 
             listen(_, "OutputFinished", () => {
                 if (equal2dBooleanArray(_.birnenForItem0okList, _.okList)) {
@@ -150,9 +151,9 @@ function addBirnenGrid(self,
                        shifty = 0,
                        clickable = false,
                        inputColMin = -3,
-                       inputColStep = 6/2,
+                       inputColStep = 6 / 2,
                        inputRowMin = -5,
-                       inputRowStep = 10/7,
+                       inputRowStep = 10 / 7,
                        heatmapGitterX = 1,//10,
                        heatmapGitterY = 1,//16,
                        scale = [1, 0.9, 0.8],
@@ -235,11 +236,13 @@ function addBirnenGrid(self,
                 id: birnenString, type: "ImageBox",
                 src: src[j],
                 x: _.get_x(j), y: _.get_y(i),
+                //                x: _.get_x(j) + (_.birnen_width * (1 - scale[i]) / 2),
+                //                 y: _.get_y(i) + (_.birnen_height * (1 - scale[i]) / 2),
                 width: _.birnen_width * scale[i], height: _.birnen_height * scale[i],
                 class: clickable ? "zoom" : "nonzoom",
                 onclick: () => {
-                    if(!clickable) return;
-                    publish("BirneClicked",[x,y])
+                    if (!clickable) return;
+                    publish("BirneClicked", [x, y])
 
                     console.log("new Input: " + x + "/" + y);
                     publish("change/0", [x]);
@@ -247,14 +250,14 @@ function addBirnenGrid(self,
                     o[_.input1Text].setText(x.toFixed(1))
                     o[_.input2Text].setText(y.toFixed(1))
 
-                    let result = _.network.getOutputFast([x,y])[0]
+                    let result = _.network.getOutputFast([x, y])[0]
                     if (result > 0.5) {
                         o[_.resultPerceptron].changeImage(Loader.manifest.right);
                     } else {
                         o[_.resultPerceptron].changeImage(Loader.manifest.wrong);
                     }
                     _.all_scanner.forEach(sc => {
-                        if(sc.dom.id === scannerString) _show(sc);
+                        if (sc.dom.id === scannerString) _show(sc);
                         else _hide(sc);
                     });
                 },
@@ -264,21 +267,20 @@ function addBirnenGrid(self,
             all.push(o[_[birnenString]])
 
 
-
             let resultString = ("r" + i) + j;
 
             _[resultString] = resultString;
             self.add({
                 id: resultString, type: "ImageBox",
-                x: _.get_x(j), y: _.get_y(i), width: 30, height: 30,
+                x: _.get_x(j) + _.birnen_width/3, y: _.get_y(i) + _.birnen_height/3, width: 30, height: 30,
                 src: Loader.manifest.right,
-                class: x+ "/" + y
+                class: "resultInGrid"
             });
             _.all_results.push(o[_[resultString]])
             all.push(o[_[resultString]])
 
             listen(_.network, "newOutput", function (network) {
-                if(o[_[resultString]] !== undefined) {
+                if (o[_[resultString]] !== undefined) {
 
                     let nnoutput = network.getOutputFast([x, y])[0];
 
@@ -472,8 +474,6 @@ function addNetwork21small(self, shiftx = 0, shifty = 0) {
         y: 171 + shifty,
     })
     all.push(o[_.perceptronRechts]);
-
-
 
 
     publish("update/0-2", [_.network.links[0].weight]);

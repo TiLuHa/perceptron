@@ -255,7 +255,7 @@ function addScalas(self, shiftx = 0, shifty = 0) {
     return [].concat(_.topScala, _.bottomScala);
 }
 
-function addInputs(self, shiftx = 0, shifty = 0, input1Value = 0, input2Value = 0) {
+function addInputs(self, shiftx = 0, shifty = 0, input1Value = 2, input2Value = -1) {
     let o = self.objects;
     let all = []
 
@@ -337,7 +337,7 @@ function addInputs(self, shiftx = 0, shifty = 0, input1Value = 0, input2Value = 
 
 }
 
-function addSinglePerceptron(self, shiftx = 0, shifty = 0) {
+function addSinglePerceptron(self, shiftx = 0, shifty = 0, input1 = 2, input2 = -1) {
     let o = self.objects;
     let all = [];
 
@@ -349,8 +349,8 @@ function addSinglePerceptron(self, shiftx = 0, shifty = 0) {
         activationFunOutput: Activations.SIGMOID,
         activationFunInput: Activations.LINEAR,
         params: {
-            "0": -5, //Input1
-            "1": 3,  //Input2
+            "0": input1, //Input1
+            "1": input2,  //Input2
             "2": (-3), //Bias
             "0-2": 6,
             "1-2": (-5),
@@ -370,6 +370,15 @@ function addSinglePerceptron(self, shiftx = 0, shifty = 0) {
     })
     all.push(o[_.explainLinks])
 
+
+    _.biasDot = "biasDot"
+    self.add({
+        id: _.biasDot, type: "ImageBox",
+        src: "assets/birnen/blau/bias.png",
+        x: 413 + shiftx,
+        y: 235 + shifty,
+    })
+    all.push(o[_.biasDot])
 
     _.explainRechts = "explainRechts"
     self.add({
@@ -403,21 +412,13 @@ function addSinglePerceptron(self, shiftx = 0, shifty = 0) {
     all.push(o[_.sliderWeight2])
 
 
-    _.biasDot = "biasDot"
-    self.add({
-        id: _.biasDot, type: "ImageBox",
-        src: "assets/birnen/blau/bias.png",
-        x: 413 + shiftx,
-        y: 235 + shifty,
-    })
-    all.push(o[_.biasDot])
-
     _.sliderBias = "slider_bias";
     self.add({
         id: _.sliderBias, type: "Slider",
         x: 422 + shiftx, y: 264 + shifty,
         width: 100,
-        min: -10, max: 10, step: 1,
+        min: 10, max: -10, step: -1,
+        factor: -1,
         message: "update/2"
     });
     all.push(o[_.sliderBias])

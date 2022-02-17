@@ -12,7 +12,7 @@ SLIDES.push(
 
             _.inputStuff = addInputs(self, 180, 0, -5, 3)
             _.scannerStuff = addScanner(self, 180, 0)
-            _.perceptronStuff = addSinglePerceptron(self, 180, 0)
+            _.perceptronStuff = addSinglePerceptron(self, 180, 0, -5, 3)
 
             let scalas = addScalas(self, 120, 0)
             all = [].concat(all, scalas, _.inputStuff, _.scannerStuff, _.perceptronStuff);
@@ -153,8 +153,7 @@ SLIDES.push(
                 o[_.btmWords],
                 o[_.nextMiddle],
             ], _hide)
-            actionOnAllObjects(_.topScala, _hide)
-            actionOnAllObjects(_.bottomScala, _hide)
+            _.topScala.concat(_.bottomScala).forEach(obj => self.remove(obj.id))
         }
     },
     {
@@ -234,7 +233,7 @@ SLIDES.push(
                 o[_.sumExplainText].setText(network.getNodes()[2].getResultCalcStringWithBrWithoutFinalResult());
                 o[_.resultExplainText].setText(
                     "<span class=\"potenzialText\">"+potenzial
-                    + "</span> \+ <span class=\"biasText\">"+ bracketsIfNeg(bias) +"</span><br>  > 0 ?");
+                    + "</span> > <span class=\"biasText\">"+ bracketsIfNeg(-bias) +"</span><br> ?");
             });
             publish("newOutput", [_.network])
 
@@ -327,12 +326,21 @@ SLIDES.push(
             o[_.btmLeftWords].setTextID("02_text13");
             _moveY(o[_.btmLeftWords], -100);
 
+            _.sliderAufruf = "sliderAufruf";
+            self.add({
+                id: _.sliderAufruf, type: "TextBox",
+                x: 700, y: 375, width: 250, height: 50,
+                align: "center", color: "#aaa", size: 17,
+                text_id: "02_sliderAufruf0"
+            });
+            _hide(o[_.sliderAufruf]);
             _fadeOut(o[_.geeignetText])
             actionOnAllObjects([
-                o[_.potenzialLabel],
                 o[_.explainLinks],
                 o[_.sumExplainText],
                 o[_.btmLeftWords],
+                o[_.potenzialLabel],
+                o[_.sliderAufruf],
                 o[_.nextRight],
             ], _fadeIn, 1000, 500)
         },
@@ -352,6 +360,7 @@ SLIDES.push(
             o[_.nextRight].changeOnClick(() => publish("slideshow/scratch"))
             o[_.nextRight].setText("02_nextLast")
 
+            o[_.sliderAufruf].setTextID("02_sliderAufruf1")
 
             actionOnAllObjects([
                 o[_.ergebnisLabel],

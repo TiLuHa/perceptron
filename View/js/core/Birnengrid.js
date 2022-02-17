@@ -14,13 +14,6 @@ function Birnengrid(config){
 	self.get_x = (pos) => self.start_x + pos * (self.birnen_width + self.appart)
 	self.get_y = (pos) => self.start_y + pos * (self.birnen_height + self.appart)
 
-	_.b1 = "b1"
-	self.add({
-		id: _.b1, type: "ImageBox",
-		src: "assets/birnen/b1.jpg",
-		x: self.get_x(0), y: self.get_y(1),
-		width: self.birnen_width, height: self.birnen_height,
-	});
 
 	self.dom.className = "object";
 	self.dom.src = config.src;

@@ -116,7 +116,7 @@ function Slider(config) {
         let direction = (event.deltaY > 0 ? -1 : 1) * config.step;
         let newValue = self.value + direction;
 
-        if (newValue < config.min || newValue > config.max)
+        if (newValue < config.min * Math.sign(config.step)|| newValue > config.max * Math.sign(config.step))
             return;
 
         if (config.onselect) config.onselect();
