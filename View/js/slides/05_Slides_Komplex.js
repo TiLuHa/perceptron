@@ -8,13 +8,13 @@ SLIDES.push(
 
             let stage = addJochenStage(self)
 
-            _.allNetwork = addNetwork221small(self)
+            _.allNetwork = addNetwork221small(self, 300)
             _.all = [].concat(stage, _.allNetwork)
             actionOnAllObjects(_.all, _hide)
 
             publish("newOutput",_.network)
 
-            _.allNetwork.forEach(obj => _moveX(obj, 300));
+            //_.allNetwork.forEach(obj => _moveX(obj, 300));
             _show(o[_.slideCounter])
 
             o[_.slideCounter].setText("5-1")
@@ -59,6 +59,7 @@ SLIDES.push(
             _hide(o[_.itemPicture])
 
             o[_.jochen].changeImage(Loader.manifest.jochen_erschrocken)
+            o[_.nextRight].changeOnClick(() => publish("slideshow/scratch"));
 
             actionOnAllObjects([
                 o[_.btmLeftWords],
@@ -78,7 +79,9 @@ SLIDES.push(
             _moveX(o[_.jochen], 100)
             _moveX(o[_.tochter], -100)
 
-            _.allNetwork.forEach(obj => _moveX(obj, -300));
+            unlisten(_)
+            unlisten(_.network)
+            _.allNetwork.forEach(obj => self.remove(obj.id));
         }
     }, {
         onstart: function (self) {
@@ -88,8 +91,12 @@ SLIDES.push(
             o[_.btmLeftWords].setTextID("05_text3")
             o[_.nextRight].changeOnClick(() => publish("slideshow/scratch"))
 
+            _.allNetwork = addNetwork221small(self)
+            _hide(o[_.resultPerceptron])
+
+
             let birnenGrid = addBirnenGrid(self)
-            actionOnAllObjects(birnenGrid, _hide)
+            actionOnAllObjects(birnenGrid, _hide,0,0)
 
 
             actionOnAllObjects([
@@ -102,7 +109,7 @@ SLIDES.push(
                 (b) => {
                     if (_.birnenForItem1.includes(b)) _fadeIn(b)
                     else _fadeOut(b, 0, 0.2)
-                }, 500, 200)
+                }, 100, 0)
 
             _.countIterations = 0;
             o[_.nextRight].deactivate();
@@ -117,6 +124,7 @@ SLIDES.push(
                 }
             });
             publish("OutputFinished")
+            publish("newOutput",[_.network])
 
         },
         onend: function (self) {

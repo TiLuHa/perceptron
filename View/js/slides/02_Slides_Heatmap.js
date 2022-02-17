@@ -64,7 +64,7 @@ SLIDES.push(
                 o[_.resultPerceptron],
                 o[_.btmWords],
                 o[_.nextMiddle],
-            ], _fadeIn, 500, 500)
+            ], _fadeIn, 500, 700)
 
         },
         onend: function (self) {

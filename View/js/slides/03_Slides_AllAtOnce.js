@@ -72,7 +72,9 @@ SLIDES.push(
             o[_.btmWords].setTextID("03_text3")
 
             _moveX(o[_.jochen], -210)
-            actionOnAllObjects(_.allNetwork, _fadeIn, 500, 0)
+            actionOnAllObjects(_.allNetwork, _fadeIn, 0, 0)
+
+            publish("newOutput", [_.network])
 
             actionOnAllObjects([
                 o[_.btmWords],
@@ -87,27 +89,6 @@ SLIDES.push(
                 o[_.nextMiddle],
             ], _hide)
 
-        }
-    },
-    {
-        onstart: function (self) {
-            let o = self.objects;
-            o[_.slideCounter].setText("3-4");
-            o[_.btmWords].setTextID("03_text4");
-
-
-            //_fadeIn(o[_.heatmap]);
-            publish("newOutput", [_.network])
-
-            _fadeIn(o[_.btmWords], 500);
-            _fadeIn(o[_.nextMiddle], 1000);
-        },
-        onend: function (self) {
-            let o = self.objects;
-            actionOnAllObjects([
-                o[_.btmWords],
-                o[_.nextMiddle],
-            ], _hide)
         }
     },
     {
@@ -377,7 +358,7 @@ function addNetwork21small(self, shiftx = 0, shifty = 0) {
     self.add({
         id: _.itemPicture, type: "ImageBox",
         src: Loader.manifest.birnenmarmelade,
-        x: 325 + shiftx,
+        x: 145 + shiftx,
         y: 57 + shifty,
         width: 100
     })
