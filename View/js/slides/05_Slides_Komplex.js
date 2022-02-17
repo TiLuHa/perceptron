@@ -10,12 +10,32 @@ SLIDES.push(
 
             _.allNetwork = addNetwork221small(self, 300)
             _.all = [].concat(stage, _.allNetwork)
+
+            _.loesungAnzeigen = "loesungAnzeigen"
+            self.add({
+                id: _.loesungAnzeigen, type: "Button", x: 730, y: 390,
+                text_id: "05_loesungAnzeigen",
+                onclick: ()=>{
+                    publish("change/0-2", [0]);
+                    publish("change/0-3", [0]);
+                    publish("change/1-2", [-10]);
+                    publish("change/1-3", [-10]);
+                    publish("change/2-4", [10]);
+                    publish("change/3-4", [-10]);
+                    publish("change/2", [-10]);
+                    publish("change/3", [10]);
+                    publish("update/4", [5]);
+                    publish("OutputFinished")
+                }
+            });
+            _.all.push(o[_.loesungAnzeigen])
+
             actionOnAllObjects(_.all, _hide)
 
-            publish("newOutput",_.network)
+            publish("newOutput", _.network)
 
             //_.allNetwork.forEach(obj => _moveX(obj, 300));
-            if(SHOW_SLIDE_NUMBER) _show(o[_.slideCounter]);
+            if (SHOW_SLIDE_NUMBER) _show(o[_.slideCounter]);
 
             o[_.slideCounter].setText("5-1")
             o[_.btmWords].setTextID("05_text1")
@@ -94,13 +114,24 @@ SLIDES.push(
             _.allNetwork = addNetwork221small(self)
             _hide(o[_.resultPerceptron])
 
-
             let birnenGrid = addBirnenGrid(self)
-            actionOnAllObjects(birnenGrid, _hide,0,0)
+            actionOnAllObjects(birnenGrid, _hide, 0, 0)
+
+            let countDownTime = 35
+            let countDown = Array.from(Array(countDownTime).keys())
+
+            countDown.forEach(i => {
+                setTimeout(() => o[_.loesungAnzeigen].setText2("Lösung (" + (countDownTime - i) + ")"), 999 * i);
+            })
+
+            o[_.loesungAnzeigen].deactivate()
+            setTimeout(() => o[_.loesungAnzeigen].activate(), countDownTime * 1000);
+            setTimeout(() => o[_.loesungAnzeigen].setText("05_loesungAnzeigen"), countDownTime * 1000);
 
 
             actionOnAllObjects([
                 o[_.itemPicture],
+                o[_.loesungAnzeigen],
                 o[_.btmLeftWords],
                 o[_.nextRight],
             ], _fadeIn, 1000, 1000);
@@ -115,7 +146,8 @@ SLIDES.push(
             o[_.nextRight].deactivate();
             listen(_, "OutputFinished", () => {
                 _.countIterations = _.countIterations + 1;
-                if (equal2dBooleanArray(_.birnenForItem1okList, _.okList) || _.countIterations > 1000) {
+                if (equal2dBooleanArray(_.birnenForItem1okList, _.okList) //|| _.countIterations > 1000
+                ) {
                     o[_.nextRight].activate();
                     o[_.jochen].changeImage(Loader.manifest.jochen_stars)
                 } else {
@@ -124,7 +156,7 @@ SLIDES.push(
                 }
             });
             publish("OutputFinished")
-            publish("newOutput",[_.network])
+            publish("newOutput", [_.network])
 
         },
         onend: function (self) {
@@ -150,7 +182,7 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
                                 "0-3": -6,
                                 "1-3": -2,
                                 "2-4": -4,
-                                "3-4":6,
+                                "3-4": 6,
 
                             }) {
     let o = self.objects;
@@ -440,8 +472,6 @@ function addNetwork221small(self, shiftx = 0, shifty = 0,
         src: "assets/birnen/Wrong.png"
     });
     all.push(o[_.resultPerceptron])
-
-
 
 
     publish("update/0-2", [_.network.links[0].weight]);
