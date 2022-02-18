@@ -1018,7 +1018,7 @@ const addFotoSlide = function (exampleBirneSrc = Loader.manifest.b7) {
             _.flashlight = "flashlight";
             self.add({
                 id: _.flashlight, type: "ImageBox",
-                src: "assets/Jochen/blitzlicht3.png",
+                src: Loader.manifest.blitzlicht,
                 x: 350, y: 170, width: 208 / 2.5, height: 222 / 2.5,
             });
 
@@ -1059,7 +1059,7 @@ const addFehlvorstellung = function (self) {
     _.wrongImg0 = "wrong0"
     self.add({
         id: _.wrongImg0, type: "ImageBox",
-        src: Loader.manifest.wrongImg0,
+        src: Loader.manifest.wrong1,
         x: 497, y: 60, width: 520 / 3, height: 810 / 3,
     });
     all.push(o[_.wrongImg0]);
@@ -1067,14 +1067,14 @@ const addFehlvorstellung = function (self) {
 
     self.add({
         id: _.wrongImg1, type: "ImageBox",
-        src: Loader.manifest.wrongImg1,
+        src: Loader.manifest.wrong2,
         x: 493, y: 60, width: 714 / 3.4, height: 862 / 3.4,
     });
     all.push(o[_.wrongImg1]);
     _.wrongImg2 = "wrong2"
     self.add({
         id: _.wrongImg2, type: "ImageBox",
-        src: Loader.manifest.wrongImg2,
+        src: Loader.manifest.wrong3,
         x: 436, y: 102, width: 701 / 2.1, height: 459 / 2.1,
     });
     all.push(o[_.wrongImg2]);

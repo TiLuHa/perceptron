@@ -12,8 +12,25 @@ if (typeof(server_root_dir) == "undefined")
     process.exit(1)
 }
 
+function fixURL(url)
+{
+   if (url === "/")
+      return "/index.html"
+
+   if (url === "/notes")
+      return "/notes/index.html"
+
+   if (url === "/notes.css")
+      return "/notes/notes.css"
+
+   if (url === "/notes.md")
+      return "notes/notes.md"
+
+   return url;
+}
+
 const server = http.createServer((req, res) => {
-    var file = (server_root_dir + (req.url === "/" ? "/index.html" : req.url)).split("?")[0]
+    var file = (server_root_dir + fixURL(req.url)).split("?")[0]
     console.log(file)
 
     if (fs.existsSync(file)){
@@ -24,7 +41,7 @@ const server = http.createServer((req, res) => {
         res.statusCode = 404;
     }
   });
-  
+
   server.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
   });

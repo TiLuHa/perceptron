@@ -36,8 +36,9 @@ Loader.addToManifest(Loader.manifest,{
 	right: "assets/birnen/Right.png",
 	wrong: "assets/birnen/Wrong.png",
 	questionmark: "assets/birnen/Questionmark.png",
-	tablet1: "assets/birnen/tablet1.jpg",
-	tablet2: "assets/birnen/tablet2.jpg",
+	tablet1: "assets/birnen/tablet1.png",
+	tablet2: "assets/birnen/tablet2.png",
+	blitzlicht: "assets/Jochen/blitzlicht.png",
 	birnenscanner: "assets/birnen/birnenScanner.jpg",
 	arrow: "assets/Jochen/arrow.PNG",
 	jochen_aua: "assets/Jochen/Jochen_aua.jpg",
@@ -52,8 +53,8 @@ Loader.addToManifest(Loader.manifest,{
 	jochen_stars: "assets/Jochen/Jochen_stars.jpg",
 	jochen_verduzt: "assets/Jochen/Jochen_verduzt.jpg",
 	jochen_wuetend: "assets/Jochen/Jochen_wuetend.jpg",
-	jochen_zufrieden: "assets/Jochen/Jochen_zufrieden.jpg",
-	tochter: "assets/Jochen/Tochter.PNG",
+	jochen_zufrieden: "assets/Jochen/Jochen_zufrieden.png",
+	tochter: "assets/Jochen/Tochter.png",
 	wrong1: "assets/Jochen/wrong1.PNG",
 	wrong2: "assets/Jochen/wrong2.PNG",
 	wrong3: "assets/Jochen/wrong3.PNG",
@@ -82,10 +83,6 @@ Loader.addToManifest(Loader.manifest,{
 
 	// Music!
 	bg_music: "assets/sounds/bg_music.mp3",
-
-	// IMAGE BOXES
-	image2: "assets/conclusion/summary.png",
-	image3: "assets/conclusion/truce.jpg",
 
 });
 
@@ -133,7 +130,7 @@ SLIDES.push({
 			o.loading_button.activate();
 			o.loading_button.config.onclick = function(){
 				publish("start/game");
-				//Loader.sounds.bg_music.volume(0.75).loop(true).play(); // play music!
+				Loader.sounds.bg_music.volume(0.75).loop(true).play(); // play music!
 			};
 		});
 
