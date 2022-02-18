@@ -131,8 +131,8 @@ SLIDES.push(
 
             actionOnAllObjects([
                 o[_.itemPicture],
-                o[_.loesungAnzeigen],
                 o[_.btmLeftWords],
+                o[_.loesungAnzeigen],
                 o[_.nextRight],
             ], _fadeIn, 1000, 1000);
 

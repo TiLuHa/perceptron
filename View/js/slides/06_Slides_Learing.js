@@ -87,7 +87,7 @@ SLIDES.push(
                 o[_.nextMiddle],
                 //o[_.tablet],
             ], _fadeIn, 500, 500);
-            o[_.jochen].changeImage(Loader.manifest.jochen_aua)
+            o[_.jochen].changeImage(Loader.manifest.jochen_erschoepft)
 
         },
         onend: function (self) {

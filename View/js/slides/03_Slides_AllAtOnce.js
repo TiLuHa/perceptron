@@ -9,8 +9,19 @@ SLIDES.push(
             let stage = addJochenStage(self);
             _.allBirnenGrid = addBirnenGrid(self, 20, 0);
             _.allNetwork = addNetwork21small(self, 180, 0);
+            _.loesungAnzeigen = "loesungAnzeigen"
+            self.add({
+                id: _.loesungAnzeigen, type: "Button", x: 730, y: 463,
+                text_id: "05_loesungAnzeigen",
+                onclick: ()=>{
+                    publish("change/0-2", [3]);
+                    publish("change/1-2", [2]);
+                    publish("update/2", [-4]);
+                    publish("OutputFinished")
+                }
+            });
 
-            let all = [].concat(stage, _.allBirnenGrid, _.allNetwork);
+            let all = [].concat(stage, _.allBirnenGrid, _.allNetwork, [o[_.loesungAnzeigen]]);
             actionOnAllObjects(all, _hide);
 
             o[_.slideCounter].setText("3-1")
@@ -100,6 +111,19 @@ SLIDES.push(
             o[_.nextMiddle].deactivate();
             //_show(o[_.heatmap])
 
+
+            let countDownTime = 35
+            let countDown = Array.from(Array(countDownTime).keys())
+
+            countDown.forEach(i => {
+                setTimeout(() => o[_.loesungAnzeigen].setText2("Lösung (" + (countDownTime - i) + ")"), 999 * i);
+            })
+
+            o[_.loesungAnzeigen].deactivate()
+            setTimeout(() => o[_.loesungAnzeigen].activate(), countDownTime * 1000);
+            setTimeout(() => o[_.loesungAnzeigen].setText("05_loesungAnzeigen"), countDownTime * 1000);
+
+
             listen(_, "OutputFinished", () => {
                 if (equal2dBooleanArray(_.birnenForItem0okList, _.okList)) {
                     o[_.nextMiddle].activate();
@@ -114,10 +138,12 @@ SLIDES.push(
             actionOnAllObjects([
                 o[_.btmWords],
                 o[_.nextMiddle],
+                o[_.loesungAnzeigen],
             ], _fadeIn, 500, 500);
         },
         onend: function (self) {
             let o = self.objects;
+            self.remove(_.loesungAnzeigen)
             unlisten(_)
             actionOnAllObjects([
                 o[_.btmWords],
@@ -334,7 +360,7 @@ function addBirnenGrid(self,
     return all;
 }
 
-function addNetwork21small(self, shiftx = 0, shifty = 0) {
+function addNetwork21small(self, shiftx = 0, shifty = 0, slidermin = -5, slidermax = 5, sliderstep= 1) {
     let o = self.objects;
     all = []
 
@@ -380,7 +406,7 @@ function addNetwork21small(self, shiftx = 0, shifty = 0) {
         id: _.sliderWeight1, type: "Slider",
         x: 100 + shiftx, y: 93 + shifty,
         width: 100, rotation: 40,
-        min: -10, max: 10, step: 1,
+        min: slidermin, max: slidermax, step: sliderstep,
         message: "0-2"
     });
     all.push(o[_.sliderWeight1]);
@@ -390,7 +416,7 @@ function addNetwork21small(self, shiftx = 0, shifty = 0) {
         id: _.sliderWeight2, type: "Slider",
         x: 71 + shiftx, y: 265 + shifty,
         width: 100, rotation: 324,
-        min: -10, max: 10, step: 1,
+        min: slidermin, max: slidermax, step: sliderstep,
         message: "1-2"
     });
     all.push(o[_.sliderWeight2]);
@@ -400,7 +426,7 @@ function addNetwork21small(self, shiftx = 0, shifty = 0) {
         id: _.sliderBias, type: "Slider",
         x: 140 + shiftx, y: 255 + shifty,
         width: 100,
-        min: -10, max: 10, step: 1,
+        min: slidermin, max: slidermax, step: sliderstep,
         message: "2"
     });
     all.push(o[_.sliderBias]);

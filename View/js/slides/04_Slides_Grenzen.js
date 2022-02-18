@@ -27,7 +27,6 @@ SLIDES.push(
 
             _moveX(o[_.tablet], -200);
 
-
             o[_.jochen].changeImage(Loader.manifest.jochen_zufrieden);
 
             actionOnAllObjects(_.all_birnen,
@@ -43,18 +42,20 @@ SLIDES.push(
                 o[_.nextMiddle],
             ], _fadeIn, 1000, 500);
 
-            o[_.nextMiddle].deactivate();
 
-            _.countIterations = 0;
-            listen(_, "OutputFinished", () => {
-                _.countIterations = _.countIterations + 1
-                if (_.countIterations > 1000) {
-                    o[_.nextMiddle].activate();
-                    o[_.jochen].changeImage(Loader.manifest.jochen_wuetend);
-                    o[_.btmWords].setTextID("04_text1b")
-                }
-            });
-            publish("OutputFinished")
+            let countDownTime = 20
+            let countDown = Array.from(Array(countDownTime).keys())
+
+            countDown.forEach(i => {
+                setTimeout(() => o[_.nextMiddle].setText2(Words.get("01_button_next") + " (" + (countDownTime - i) + ")"), 999 * i);
+            })
+
+            o[_.nextMiddle].deactivate()
+
+            setTimeout(() => {
+                o[_.nextMiddle].activate()
+                o[_.nextMiddle].setText("01_button_next")
+            }, countDownTime * 1000);
 
         },
         onend: function (self) {
@@ -64,8 +65,32 @@ SLIDES.push(
                 o[_.btmWords],
                 o[_.nextMiddle],
             ], _hide)
+        }
+    },
+    {
+      onstart:function (self) {
+          let o = self.objects;
+
+          o[_.jochen].changeImage(Loader.manifest.jochen_wuetend);
+          o[_.btmWords].setTextID("04_text1b")
+          o[_.slideCounter].setText("4-1b")
+
+          actionOnAllObjects([
+              o[_.btmWords],
+              o[_.nextMiddle],
+          ], _fadeIn, 500,500)
+
+      }  ,
+        onend: function (self) {
+            let o = self.objects;
+
+            actionOnAllObjects([
+                o[_.topWords],
+                o[_.btmWords],
+            ], _hide)
             actionOnAllObjects(_.allBirnenGrid, _fadeOut)
             actionOnAllObjects(_.allNetwork, _fadeOut)
+
         }
     },
     {
@@ -89,7 +114,6 @@ SLIDES.push(
             let o = self.objects;
             _hide(o[_.btmWords])
             _hide(o[_.nextMiddle])
-
         }
     },
     {
