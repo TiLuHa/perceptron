@@ -32,7 +32,7 @@ Loader.addToManifest(Loader.manifest,{
 	birnensaft: "assets/birnen/birnensaft2.jpg",
 	birnencreme: "assets/birnen/birnencreme.jpg",
 	birnenschuhe: "assets/birnen/birnenschuhe.jpg",
-	birnensortierer: "assets/birnen/birnensortierer.jpg",
+	birnensortierer: "assets/birnen/birnensortierer.png",
 	right: "assets/birnen/Right.png",
 	wrong: "assets/birnen/Wrong.png",
 	questionmark: "assets/birnen/Questionmark.png",
