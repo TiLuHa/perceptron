@@ -26,4 +26,4 @@
 
 #	"LICENSE"
 
-[Creative Commons Zero](https://github.com/ncase/trust/blob/gh-pages/LICENSE): it's a public domain dedication, so basically, do whatever you want! Attribution is super appreciated, but I'm not gonna send legal goons after you or anything.
+[Creative Commons Zero](https://github.com/TiLuHa/perceptron/blob/main/LICENSE): it's a public domain dedication, so basically, do whatever you want! Attribution is super appreciated, but we are not gonna send legal goons after you or anything. We even took a good part of this project out of another CC0 project.
