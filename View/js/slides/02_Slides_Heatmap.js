@@ -10,11 +10,11 @@ SLIDES.push(
             let all = addJochenStage(self);
             //let birnenStuff = addBirnenGrid(self, 220, 50);
 
-            _.inputStuff = addInputs(self, 180, 0, -5, 3)
+            _.inputStuff = addInputs(self, 180, 0, 3, 1)
             _.scannerStuff = addScanner(self, 180, 0)
-            _.perceptronStuff = addSinglePerceptron(self, 180, 0, -5, 3)
+            _.perceptronStuff = addSinglePerceptron(self, 180, 0, 3, 1)
+            let scalas = addScalas(self, 120, 0,3 ,1)
 
-            let scalas = addScalas(self, 120, 0)
             all = [].concat(all, scalas, _.inputStuff, _.scannerStuff, _.perceptronStuff);
             actionOnAllObjects(all, _hide);
 

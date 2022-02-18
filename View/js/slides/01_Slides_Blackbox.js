@@ -121,7 +121,7 @@ const addJochenStage = function (self) {
     return all;
 };
 
-function addScalas(self, shiftx = 0, shifty = 0) {
+function addScalas(self, shiftx = 0, shifty = 0, input1, input2) {
     let o = self.objects;
     _.topScala = []
     _.bottomScala = []
@@ -138,7 +138,7 @@ function addScalas(self, shiftx = 0, shifty = 0) {
     self.add({
         id: _.pfeilTop, type: "ImageBox",
         src: Loader.manifest.network_pfeilRechts,
-        x: 371 + shiftx, y: 66 + shifty,
+        x: 469+ (21.5 * input1) + shiftx, y: 66 + shifty,
         width:40,
         rotation: 90,
     });
@@ -156,7 +156,7 @@ function addScalas(self, shiftx = 0, shifty = 0) {
     self.add({
         id: _.pfeilButtom, type: "ImageBox",
         src: Loader.manifest.network_pfeilRechts,
-        x: 512 + shiftx, y: 247 + shifty,
+        x: 469+ (21.5 * input2) + shiftx, y: 247 + shifty,
         width:40,
         rotation: 90,
     });
@@ -351,9 +351,9 @@ function addSinglePerceptron(self, shiftx = 0, shifty = 0, input1 = 2, input2 = 
         params: {
             "0": input1, //Input1
             "1": input2,  //Input2
-            "2": (-3), //Bias
-            "0-2": 6,
-            "1-2": (-5),
+            "2": (9), //Bias
+            "0-2": (-6),
+            "1-2": (5),
         }
     });
     all.push(o[_.perceptron])
@@ -583,7 +583,7 @@ function addScanner(self, shiftx = 0, shifty = 0) {
     _.birneBig = "birneBig"
     self.add({
         id: _.birneBig, type: "ImageBox",
-        src: Loader.manifest.b1,
+        src: Loader.manifest.b7,
         x: scannerX + 40,
         y: scannerY + 30,
         width: 80,
@@ -619,7 +619,7 @@ function buildTabletInterface(self) {
     _.birneBig = "birneBig"
     self.add({
         id: _.birneBig, type: "ImageBox",
-        src: Loader.manifest.b1,
+        src: Loader.manifest.b7,
         x: 40,
         y: 130,
         width: 80,
@@ -993,7 +993,7 @@ const addSortingSlide = function (self, shiftx = -100, shifty = 0, findingTime =
     return all;
 };
 
-const addFotoSlide = function (exampleBirneSrc = Loader.manifest.b1) {
+const addFotoSlide = function (exampleBirneSrc = Loader.manifest.b7) {
     return {
         onstart: function (self) {
 
