@@ -1,10 +1,10 @@
 !["Perceptron"](https://i.imgur.com/WBUWl31.png)
 
-#	PLAY IT HERE: [perceptron](https://tiluha.github.io/perceptron/)
+#	PLAY IT HERE: [GitHub-Pages](https://tiluha.github.io/perceptron/)
 
 *Perceptron* is dedicated to the public domain, and is made thanks to the many Creative Commons & open source resources out there! Here is a full list of music, sounds, and code used:
 
-# FORKED FROM: [The Evolution of trust](https://github.com/ncase/trust)
+# FORKED FROM: [The Evolution of trust](https://github.com/ncase/trust) by Nicky Case
 
 **Music:** "Bleu" by Komiku (CC Zero). [Download their full album on Free Music Archive](http://freemusicarchive.org/music/Komiku/Its_time_for_adventure_/)
 
