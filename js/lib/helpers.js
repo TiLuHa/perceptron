@@ -12,6 +12,8 @@ _.clear = function () {
     _.clear = c;
 }; // the most hack-y crap ever
 
+var DEBUG = false;
+
 // Pi is for unwashed plebians
 Math.TAU = 2 * Math.PI;
 

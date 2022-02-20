@@ -15,8 +15,9 @@ const addJochenStage = function (self) {
         id: _.slideCounter, type: "TextBox",
         x: 0, y: 0, width: 50, height: 50,
         align: "center", color: "#aaa", size: 17,
-        text: "1-1"
+        text: "1-1", hide: !DEBUG
     });
+
     all.push(o[_.slideCounter])
 
     // Bild Jochen

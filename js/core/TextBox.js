@@ -18,18 +18,22 @@ function TextBox(config){
 	}
 
 	_configText(config, self.dom);
-
+	self.hide = config.hide !== undefined && config.hide
 
 	// Set Text!
 	self.setText = function(words){
-		self.dom.innerHTML = words;
+		if (!self.hide)
+			self.dom.innerHTML = words;
 	};
 	self.setTextID = function(id){
 		self.text_id = id;
 		self.setText(Words.get(self.text_id));
 	};
-	if(config.text_id) self.setTextID(config.text_id);
-	else if(config.text) self.setText(config.text);
+
+	if(config.text_id) 
+		self.setTextID(config.text_id);
+	else if(config.text) 
+		self.setText(config.text);
 
 	// Add & Remove
 	self.add = function(){ _add(self); };
