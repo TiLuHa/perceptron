@@ -55,6 +55,7 @@ SLIDES.push(
             setTimeout(() => {
                 o[_.nextMiddle].activate()
                 o[_.nextMiddle].setText("01_button_next")
+                o[_.jochen].changeImage(Loader.manifest.jochen_fragend)
             }, countDownTime * 1000);
 
         },
@@ -141,6 +142,8 @@ SLIDES.push(
 
             _fadeIn(o[_.tablet]);
             _moveX(o[_.tablet], 200, 750);
+
+            _fadeout(o[_.tablet], 1250)
 
             _fadeIn(o[_.btmWords], 1250);
             _fadeIn(o[_.nextMiddle], 1750);
