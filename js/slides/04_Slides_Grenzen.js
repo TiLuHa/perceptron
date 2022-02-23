@@ -143,7 +143,7 @@ SLIDES.push(
             _fadeIn(o[_.tablet]);
             _moveX(o[_.tablet], 200, 750);
 
-            _fadeout(o[_.tablet], 1250)
+            _fadeOut(o[_.tablet], 1250)
 
             _fadeIn(o[_.btmWords], 1250);
             _fadeIn(o[_.nextMiddle], 1750);
