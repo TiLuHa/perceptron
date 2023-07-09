@@ -1,0 +1,599 @@
+<!--
+-->
+
+<p id="00_title">
+    Welcome to <b>Perceptron</b>!
+</p>
+
+
+<p id="00_content_0">
+    You often hear about the various problems that are solved with neural networks:
+    image recognition, chess computers, speech recognition, and much more.<br>
+    <br>
+    But how does a neural network actually work?<br>
+    Is it really structured like the human brain?<br>
+    Will we soon no longer need programmers?<br>
+    <br>
+    We want to understand the neural network together with you.
+    What is it made of, what tasks can it solve, and what tasks it cannot solve...
+</p>
+
+<p id="00_button_next">
+    Let's go!
+</p>
+
+<p id="01_button_next">
+    Continue
+</p>
+
+
+<p id="01_title">
+    <b>Howdy, Jochen!</b>
+</p>
+
+<p id="01_text1">
+    This is Jochen, the pear farmer.<br>
+    He sells pear cake, pear jam, and pear beer.<br>
+    The main thing is that there are pears in them.
+</p>
+
+<p id="01_text2">
+    Jochen always chooses exactly the right pears for each of his products.<br>
+    To show us that, Jochen has prepared something...
+</p>
+
+<p id="01_text3">
+    Jochen sorts his pears on a large surface.<br>
+    The green pears go all the way to the left,<br>
+    and the yellow ones go all the way to the right.
+</p>
+
+<p id="01_text4">
+    He puts the particularly large pears at the top.<br>
+    The smaller ones go towards the bottom.
+</p>
+
+<p id="01_text5">
+    The slightly yellowish pears are especially needed for the jam.
+</p>
+
+<p id="01_text6">
+    For the pear cake, which is actually a pear roll,<br>
+    Jochen only uses particularly large and small pears.
+</p>
+
+<p id="01_text7">
+    For the pear beer, he needs all the slightly greenish<br>
+    and medium-sized yellowish pears.
+</p>
+
+<p id="01_text8">
+    Jochen can determine which product each pear is suitable for.
+</p>
+
+<p id="01_step0">
+    Jam<br>
+    or beer!
+</p>
+
+<p id="01_step1">
+    Cake<br>
+    or beer!
+</p>
+
+<p id="01_step2">
+    Cake!
+</p>
+
+<p id="01_ehm">
+    Um...
+</p>
+
+<p id="01_text9">
+    Jochen is super exhausted from all the sorting.<br>
+    It takes him a lot of time to sort all the pears.
+</p>
+
+<p id="01_platt">
+    I'm exhausted.
+</p>
+
+<p id="01_text10">
+    Jochen's daughter Maja sees how tired her father is and wants to help him. <br>
+</p>
+
+<p id="01_text11">
+    She studies computer science and has just learned<br>
+    how neural networks work. She thinks that's exactly what Jochen needs.<br>
+    Jochen doesn't know what it is, but he agrees anyway.
+</p>
+
+<p id="01_text12">
+    Maja immediately gets to work and builds a prototype.<br>
+    Jochen is happy to have his daughter's help.
+</p>
+
+<p id="01_tschau">
+    Good luck!
+</p>
+
+<p id="01_text13">
+    While Maja is working on the neural network, Jochen wonders<br>
+    what it might look like...
+</p>
+<p id="01_text14">
+    Oh, it seems Maja has already created the first prototype!
+</p>
+<p id="02_title">
+    <b>This is the simplest neural network that exists.</b>
+</p>
+<p id="02_text1">
+    Maja hands her father the tablet.<br>
+    She has developed an app that determines whether a pear is suitable for a specific product.<br>
+    The app just needs to be properly configured.
+</p>
+<p id="02_button_foto_machen">
+    Take a photo of a pear
+</p>
+<p id="02_button_birnenmarmelade">
+    Check a pear for jam
+</p>
+<p id="02_button_birnenkuchen">
+    Check a pear for cake
+</p>
+<p id="02_button_birnenbier">
+    Check a pear for beer
+</p>
+<p id="02_button_bearbeiten">
+    Edit
+</p>
+
+<p id="02_text2">
+    First, Jochen needs to take a photo of a pear.<br>
+</p>
+<p id="02_text4">
+    The program has captured the pear and displays the pear's values.<br>.
+</p>
+<p id="02_text5">
+    The color is stored as a number from -5 to 5.<br>
+    A value of -5 means the pear is completely green, and<br>
+    a value of 5 means the pear is completely orange.
+</p>
+<p id="input1_description">
+    <span class="inputText">Color</span>
+</p>
+<p id="input2_description">
+    <span class="inputText">Size</span>
+</p>
+<p id="02_text6">
+    The size is also stored as a number between -5 and 5.<br>
+    Pears with a size of -5 are the smallest, and those with 5 are the largest.
+</p>
+<p id="02_text7">
+    This pear is very suitable for jam.<br>
+    Let's see if the neural network recognizes that as well.<br>
+</p>
+<p id="02_scannerText">
+    Please take a photo<br>
+    of a pear.
+</p>
+<p id="02_geeigentText">
+    Suitable for jam:
+</p>
+<p id="02_text8">
+    The neural network did NOT recognize<br>
+    that it is a jam pear.<br>
+    That means we still need to adjust it correctly!<br>
+</p>
+<p id="02_text9">
+    This is the neural network. It consists of a single <span class="perceptronText"><b>perceptron</b></span>.<br>
+    You can think of a perceptron as a cell in the brain.<br>
+    So, this brain has only one cell... ;)
+</p>
+<p id="02_text10">
+    The perceptron is connected to the inputs.<br>
+    These connections are called <span class="gewichteText"><b>weights</b></span>.<br>
+    It also has a <span class="biasText"><b>bias</b></span>.<br>
+</p>
+<p id="02_text11">
+    Drag the gray sliders until a checkmark appears.<br>
+    You can use your fingers or your mouse depending on your device.<br>
+    You can also move your mouse over the slider and<br>
+    <b>rotate the mouse wheel</b>.
+</p>
+<p id="02_text12">
+    Very good. You have found a setting where<br>
+    the neural network correctly evaluates the pear.<br>
+    But how does the neural network calculate the result?
+</p>
+<p id="02_text13">
+    First, the perceptron calculates its <span class="potenzialText">potential</span>.<br>
+    The inputs are multiplied by the weights:<br>
+    <span class="inputText">Color</span> &#183 <span class="gewichteText">Weight</span> + <span class="inputText">Size</span>
+    &#183 <span class="gewichteText">Weight</span> = <span class="potenzialText">Potential</span><br>
+</p>
+<p id="02_sliderAufruf0">
+    Play with the sliders to understand how the potential is calculated.
+</p>
+<p id="02_sliderAufruf1">
+    Play with the sliders to understand how the result is calculated.
+</p>
+
+<p id="02_text14">
+    First, the perceptron calculates its <span class="potenzialText">potential</span>.<br>
+    The inputs are multiplied by the weights:<br>
+    <span class="inputText">Color</span> &#183 <span class="gewichteText">Weight</span> + <span class="inputText">Size</span>
+    &#183 <span class="gewichteText">Weight</span> = <span class="potenzialText">Potential</span><br>
+    <span id="rechnungTeil1"></span>
+    <br>
+    Finally, it checks whether the potential is greater than the threshold:<br>
+    <span class="potenzialText">Potential</span> > <span class="biasText">Threshold</span> ?<br>
+    <br>
+    <span id="rechnungTeil2"></span>
+</p>
+
+<p id="02_nextLast">
+    Alright
+</p>
+
+
+<p id="02_biaslabel">
+    <span class="biasText">Threshold</span>
+</p>
+
+<p id="02_perceptronlabel">
+    <span class="perceptronText">Perceptron</span>
+</p>
+
+<p id="02_potenziallabel">
+    <span class="potenzialText">Potential</span>
+</p>
+
+<p id="02_gewichtelabel">
+    <span class="gewichteText">Weight</span>
+</p>
+
+<p id="02_Ergebnislabel">
+    <span class="ergebnisText">Result</span>
+</p>
+
+<p id="03_title">
+    <b>All at Once</b>
+</p>
+
+<p id="03_text1">
+    The network is now only properly adjusted for a single pear.<br>
+    However, Jochen wants ALL the pears to be sorted correctly.<br>
+    The adjustment must work for all pears.
+</p>
+<p id="03_text2">
+    Jochen lays out all the pears in front of him again.<br>
+    The highlighted pears are the jam pears.<br>
+</p>
+<p id="03_text3">
+    Jochen opens the neural network and wants to check all the pears.<br>
+    All pears with a checkmark are recognized as jam pears.
+    However, some are still sorted incorrectly.<br>
+</p>
+<p id="03_text4">
+</p>
+<p id="03_text5">
+    Adjust the setting of the neural network so that only the highlighted pears have a checkmark.<br>
+    The transparent pears should not have a checkmark.
+</p>
+
+<p id="03_text6">
+    Jochen is thrilled!<br>
+    The neural network is now adjusted to correctly recognize all the jam pears.
+</p>
+
+<p id="04_title">
+    <b>The Limits of a Perceptron</b>
+</p>
+<p id="04_text1">
+    Jochen wonders if he can adjust the neural network correctly for the cake pears as well.<br>
+    Is it possible to adjust the neural network correctly for the cake pears?
+</p>
+<p id="04_text1b">
+    It seems that the neural network cannot be properly adjusted.<br>
+</p>
+<p id="04_text2">
+    Jochen tells his daughter that the neural network can sort the jam pears correctly, but not the cake pears.
+</p>
+<p id="04_text3">
+    Maja immediately understands what the problem is:<br>
+    A single perceptron is not enough. The neural network is too small to sort the cake pears.
+</p>
+<p id="04_text4">
+    Maja takes the tablet back.
+    She programs a neural network that consists of more than one perceptron. <br>
+    This way, it can be used for more complex selection processes.
+</p>
+<p id="04_text5">
+    While Maja is programming, she explains:<br>
+    A perceptron divides an area into two parts. Like with a ruler. <br>
+    When we use multiple perceptrons, we can draw multiple lines. This allows us to more precisely determine which pears
+    are selected.
+</p>
+
+<p id="05_title">
+    <b>A Complex Network</b>
+</p>
+
+<p id="05_loesungAnzeigen">
+    Show Solution
+</p>
+
+<p id="05_text1">
+    Maja has finished the new version and hands the tablet back to Jochen.<br>
+    She shows him the new neural network.
+</p>
+
+<p id="05_text2">
+    Jochen nearly falls off his pear boots when he sees this monster.<br>
+    There are so many sliders. Can it even be adjusted?
+</p>
+
+<p id="05_text3">
+    Jochen stops listening and tries his luck.<br>
+    Trying is known to be better than studying.<br>
+    Help him find the right setting.
+</p>
+
+<p id="06_title">
+    <b>Self-Learning</b>
+</p>
+
+<p id="06_text1">
+    Adjusting the neural network is almost impossible!<br>
+    So, for the pear beer, Jochen definitely won't adjust the neural network by hand again. Isn't there another solution?<br>
+</p>
+
+<p id="06_text2">
+    His daughter Maja reassures him. The weights and thresholds are actually never set manually, as you can't predict their
+    impact.
+</p>
+
+<p id="06_text3">
+    The neural network can teach itself the appropriate weights, almost entirely without human help.<br>
+    You just have to tell it which pears are incorrectly assigned.
+</p>
+
+<p id="06_text4">
+    Jochen lays out the beer pears and lets the neural network examine them.<br>
+    Once again, many are sorted incorrectly.
+</p>
+
+<p id="06_text5">
+    Click on a pear that is sorted incorrectly<br>
+    and click on <i>Pear sorted incorrectly</i>.<br>
+    Do you see how the neural network changes?
+</p>
+<p id="06_text6">
+    The neural network adjusts the weights and thresholds itself.<br>
+    You can also let this process run automatically. A random pear is selected and checked whether it is already sorted
+    correctly.
+    You just need a little patience...
+</p>
+
+<p id="06_autoLearnON">
+    Stop Learning
+</p>
+
+<p id="06_autoLearnOFF">
+    Automatically Learn
+</p>
+
+<p id="06_wrongButton">
+    Pear is sorted incorrectly
+</p>
+
+<p id="jochen_hello">Howdy!</p>
+
+<p id="07_title">
+    <b>Summary</b>
+</p>
+
+<p id="07_text1">
+    Jochen is incredibly excited.<br>
+    From now on, he doesn't have to sort the pears himself anymore.<br>
+</p>
+
+<p id="07_text2">
+    Jochen has many more ideas for pear products.<br>
+    As far as he understands, he can simply show the neural network which pears are suitable for a new product. The rest, it
+    will learn on its own.
+</p>
+<p id="07_text3">
+    Maja confirms this. You just have to experiment to determine how large the network needs to be.<br>
+    As a rule of thumb:
+    The more complex the selection process, the larger the neural network needs to be.
+</p>
+
+<p id="07_text4">
+    Together with his daughter, he now plans to build a conveyor belt so that the pears can be automatically photographed and sorted.
+    But that's another story.
+</p>
+
+<!-- - - - - - - - - - - - - - - - - -->
+<!-- - - - - - META STUFF - - - - - - -->
+<!-- - - - - - - - - - - - - - - - - -->
+
+<p id="meta_title">
+    The Perceptron
+</p>
+<p id="meta_desc">
+    An interactive introduction to the basic building blocks of neural networks.
+</p>
+<p id="meta_loading">
+    loading...
+</p>
+<p id="meta_on">
+    ON
+</p>
+<p id="meta_off">
+    OFF
+</p>
+
+
+<!-- - - - - - - - - - - - - - - - - -->
+<!-- - - - - - TITLE! - - - - - - - - -->
+<!-- - - - - - - - - - - - - - - - - -->
+
+<p id="title">
+    <span style="font-size:0.75em">THE</span><br>
+    PERCEPTRON<br>
+    <span style="font-size:0.65em">in Neural Networks</span>
+</p>
+<p id="subtitle">
+    <b>Playtime: 30 min</b><br>by Viktor Reichert & Tim Harken<br>July 2021
+</p>
+
+<p id="loading">
+    loading...
+</p>
+<p id="loading_done">
+    Start &rarr;
+</p>
+
+<!-- - - - - - - - - - - - - - - - - -->
+<!-- - - - - - INTRO! - - - - - - - - -->
+<!-- - - - - - - - - - - - - - - - - -->
+
+<p id="intro">
+    Welcome to <b>Perceptron</b>!<br>
+    <br>
+    We often hear about the various problems that can be solved with neural networks: image recognition, chess computers,
+    speech recognition, and much more.<br>
+    <br>
+    But how does a neural network actually work? Is it really structured like the human brain? Will we no longer need programmers
+    in the future?<br>
+    <br>
+    We will show you the basic building block of every neural network: the <b>perceptron</b> - the smallest cell of a neural network.<br>
+    <br>
+    You will see that neural networks are not as complicated as they may seem and get an idea of what tasks can be solved with
+    a neural network and which ones cannot.<br>
+</p>
+<p id="intro_button">
+    Let's get started! &rarr;
+</p>
+
+<!-- - - - - - - - - - - - - - - - - -->
+<!-- - - - - CONCLUSION! - - - - - - -->
+<!-- - - - - - - - - - - - - - - - - -->
+
+<p id="conclusion_0">
+    What have we learned from Jochen's pear sorting problem?
+</p>
+<p id="conclusion_1_a">
+    1. Simple Building Blocks
+</p>
+<p id="conclusion_1_a2">
+    The basic building blocks of every neural network are perceptrons, which perform simple mathematical calculations.
+    The weights and thresholds determine the results.
+</p>
+<p id="conclusion_2_a">
+    2. Unintelligible Inner Workings
+</p>
+<p id="conclusion_2_a2">
+    Knowing the weights and thresholds of a neural network is of no use to a human.
+    With this information alone, we cannot predict how a neural network will behave.
+</p>
+<p id="conclusion_3_a">
+    3. Self-learning Networks
+</p>
+<p id="conclusion_3_a2">
+    If we provide a neural network with enough example data, it can learn on its own to correctly recognize and classify these
+    datasets.
+</p>
+<p id="conclusion_4">
+    So, neural networks are not <i>real</i> brains that can completely replace the work of programmers.
+    However, they can learn to make decisions like humans do, and sometimes even better.
+</p>
+<p id="conclusion_btn">
+    Continue
+</p>
+
+<p id="outro_1">
+    There is still much more to tell,<br>
+    <br>
+    for example about neural networks that are even<br> superior to humans, like Google's chess AI AlphaZero.<br>
+    It is not possible to create such a successful chess AI<br>
+    using conventional methods!
+    <br><br>
+    Or we could talk about the many technical details<br>
+    that make it not so easy to teach a neural network something.
+    <br>
+    But there are also many other great websites with exciting<br>
+    visual material. For example, the <i>TensorFlow Playground</i>.<br>
+    Feel free to visit the <i>TensorFlow Playground</i>, create your own<br>
+    neural network, and apply what you have learned here.
+
+</p>
+
+<p id="outro_1_btn">
+    Goodbye
+</p>
+
+
+
+<!-- - - - - - - - - - - - - - - - - -->
+<!-- - - - - - CREDITS! - - - - - - -->
+<!-- - - - - - - - - - - - - - - - - -->
+
+<p id="credits">
+<span class="credits">
+
+Created by:<br>
+<span class="big">Tim Harken &amp; Viktor Reichert</span><br>
+<a href="https://github.com/TiLuHa/perceptron" target="_blank">Download the music &amp; source code</a>
+
+<span class="divider"></span>
+
+Special thanks to<br>
+<span class="big">NICKY CASE</span><br>
+and their game<br>
+<span class="big">"The Evolution of Trust"</span><br>
+
+<a href="https://ncase.me/trust/" target="_blank">Check out their website and games</a>
+
+<span class="divider"></span>
+
+Many thanks to<br>
+<span class="big">Prof. Dr. Andreas M&uuml;hling</span><br>
+for the didactic support and supervision of this project.
+
+</p>
+
+<!-- - - - - - - - - - - - - - - - - -->
+<!-- - - - NAVIGATING CHAPTERS - - - -->
+<!-- - - - - - - - - - - - - - - - - -->
+
+
+<p id="chapter_welcome">
+    0. Welcome
+</p>
+<p id="chapter_sortieren">
+    1. Sorting Problem
+</p>
+<p id="chapter_blackbox">
+    2. The Smallest Network
+</p>
+<p id="chapter_all_at_once">
+    3. All at Once
+</p>
+<p id="chapter_grenzen">
+    4. Limits of the Perceptron
+</p>
+<p id="chapter_komplex">
+    5. A Complex Network
+</p>
+<p id="chapter_learning">
+    6. Set It Up
+</p>
+<p id="chapter_conclusion">
+    7. Conclusion
+</p>
+<p id="chapter_credits">
+    8. Credits
+</p>

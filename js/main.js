@@ -1,10 +1,17 @@
 var slideshow, slideSelect;
 window.onload = function(){
+	// Determine Language
+	const queryParams = new URLSearchParams(window.location.search);
+	lang = "de"
+
+	if (queryParams.has('lang')){
+		lang = queryParams.get('lang')
+	}
 
 	// PRELOADER
 	Q.all([
 		Loader.loadAssets(Loader.manifestPreload),
-		Words.convert("words.html")
+		Words.convert("lang/" + lang + ".html")
 	]).then(function(){
 
 		// CHANGE DOM
